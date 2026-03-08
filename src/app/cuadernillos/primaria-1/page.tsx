@@ -1,7 +1,6 @@
 import CuadernilloPDF from "@/components/CuadernilloPDF";
 import type { CuadernilloData, Ejercicio, ContenidoPedagogico } from "@/components/CuadernilloPDF";
 import { GRADOS, MATERIAS } from "@/data/curriculum";
-import { PRIMARIA_1 } from "@/data/content-primaria";
 import Link from "next/link";
 
 export const dynamic = "force-static";
@@ -13,7 +12,8 @@ async function cargarBloques(grado: string): Promise<CuadernilloData[]> {
     const cuadernillos: CuadernilloData[] = [];
     const gradoNombre = gradoInfo?.nombre ?? grado;
 
-    // Contenido pedagógico real de content-primaria.ts
+    // Lazy-load heavy content data to avoid bloating the Edge worker bundle (3 MiB limit)
+    const { PRIMARIA_1 } = await import("@/data/content-primaria");
     const contenidoGrado = PRIMARIA_1;
 
     await Promise.all(gradoInfo.materias.map(async (materia) => {

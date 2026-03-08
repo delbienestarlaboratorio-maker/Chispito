@@ -1,22 +1,32 @@
 import CuadernilloPDF from "@/components/CuadernilloPDF";
 import type { CuadernilloData, Ejercicio, ContenidoPedagogico } from "@/components/CuadernilloPDF";
 import { GRADOS, MATERIAS } from "@/data/curriculum";
-import { PRIMARIA_1 } from "@/data/content-primaria";
-import { PRIMARIA_3 } from "@/data/content-primaria3";
-import { KINDER } from "@/data/content-kinder";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-// Map de contenido pedagógico disponible por grado
-const CONTENIDO_GRADO: Record<string, any> = {
-    "primaria-1": PRIMARIA_1,
-    "primaria-3": PRIMARIA_3,
-    "kinder": KINDER,
-    "preescolar-2": KINDER, // reutilizar kinder como aproximación
-};
+// Lazy-load heavy content data to avoid bloating the Edge worker bundle (3 MiB limit)
+async function getContenidoGrado(gradoId: string): Promise<any | null> {
+    switch (gradoId) {
+        case "primaria-1": {
+            const { PRIMARIA_1 } = await import("@/data/content-primaria");
+            return PRIMARIA_1;
+        }
+        case "primaria-3": {
+            const { PRIMARIA_3 } = await import("@/data/content-primaria3");
+            return PRIMARIA_3;
+        }
+        case "kinder":
+        case "preescolar-2": {
+            const { KINDER } = await import("@/data/content-kinder");
+            return KINDER;
+        }
+        default:
+            return null;
+    }
+}
 
-function getBloqueContent(gradoId: string, materia: string, bloqueNum: number): ContenidoPedagogico | undefined {
-    const gradoData = CONTENIDO_GRADO[gradoId];
+async function getBloqueContent(gradoId: string, materia: string, bloqueNum: number): Promise<ContenidoPedagogico | undefined> {
+    const gradoData = await getContenidoGrado(gradoId);
     if (!gradoData) return undefined;
     const materiaData = gradoData.materias?.[materia];
     if (!materiaData) return undefined;
@@ -93,7 +103,7 @@ async function cargarCuadernillos(gradoId: string): Promise<CuadernilloData[]> {
                     temas: raw.temas || [],
                     ejerciciosV1: (raw.ejercicios?.v1 || []) as Ejercicio[],
                     ejerciciosV2: (raw.ejercicios?.v2 || []) as Ejercicio[],
-                    contenidoPedagogico: getBloqueContent(gradoId, materia, bloqueNum),
+                    contenidoPedagogico: await getBloqueContent(gradoId, materia, bloqueNum),
                 });
             } catch {
                 // Ignore missing files

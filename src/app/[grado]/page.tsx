@@ -1,5 +1,4 @@
 import { GRADOS, MATERIAS, BLOQUES } from "@/data/curriculum";
-import { GRADOS_CONTENIDO } from "@/data/content-primaria-slim";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -45,6 +44,9 @@ export default async function GradoPage({ params }: Props) {
         const { BLOQUES_TELESECUNDARIA } = await import("@/data/content-telesecundaria");
         bloquesGrado = BLOQUES_TELESECUNDARIA[grado.slug] || {};
     }
+
+    // Lazy load content data to avoid bloating the Edge worker bundle (3 MiB limit)
+    const { GRADOS_CONTENIDO } = await import("@/data/content-primaria-slim");
 
     if (grado.slug === "kinder") {
         return (

@@ -1,0 +1,8 @@
+artes | 6 bloques | NaN ejercicios
+conocimiento | 6 bloques | NaN ejercicios
+educacion_fisica | 6 bloques | NaN ejercicios
+espanol | 6 bloques | NaN ejercicios
+lenguaje | 5 bloques | NaN ejercicios
+matematicas | 6 bloques | NaN ejercicios
+
+TOTAL: NaN ejercicios

@@ -1,0 +1,9 @@
+Materias: 6
+Bloques totales: 35
+Ejercicios totales: 794
+
+Paginas web generadas:
+  /preescolar-1 = 1 pagina (landing de grado)
+  /preescolar-1/[materia] = 6 paginas (landing por materia)
+  /preescolar-1/[materia]/[bloque] = 35 paginas (jugar ejercicios)
+  SUBTOTAL paginas ejercicios = 42

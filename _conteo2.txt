@@ -1,0 +1,8 @@
+artes: 6 bloques | v1=60 v2=60 preview=18 | total=138
+conocimiento: 6 bloques | v1=60 v2=60 preview=18 | total=138
+educacion_fisica: 6 bloques | v1=60 v2=50 preview=17 | total=127
+espanol: 6 bloques | v1=60 v2=60 preview=18 | total=138
+lenguaje: 5 bloques | v1=50 v2=50 preview=15 | total=115
+matematicas: 6 bloques | v1=60 v2=60 preview=18 | total=138
+
+GRAN TOTAL: v1=350 v2=340 preview=104 | TOTAL=794

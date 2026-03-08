@@ -1,0 +1,53 @@
+OK   | K1MLA | 163 pgs | Múltiples Lenguajes | preescolar-1
+FALTA| K1SDA | 0 pgs | Nuestros Saberes | preescolar-1
+OK   | K2MLA | 163 pgs | Múltiples Lenguajes | preescolar-2
+FALTA| K2SDA | 0 pgs | Nuestros Saberes | preescolar-2
+OK   | K3MLA | 163 pgs | Múltiples Lenguajes | preescolar-3
+FALTA| K3PCA | 0 pgs | Proyectos Comunitarios | preescolar-3
+FALTA| K3SDA | 0 pgs | Nuestros Saberes | preescolar-3
+OK   | P1MLA | 259 pgs | Múltiples Lenguajes | primaria-1
+OK   | P1PAA | 243 pgs | Proyectos de Aula | primaria-1
+OK   | P1PCA | 275 pgs | Proyectos Comunitarios | primaria-1
+OK   | P1PEA | 275 pgs | Proyectos Escolares | primaria-1
+OK   | P1SDA | 251 pgs | Nuestros Saberes | primaria-1
+OK   | P2MLA | 259 pgs | Múltiples Lenguajes | primaria-2
+OK   | P2PAA | 267 pgs | Proyectos de Aula | primaria-2
+OK   | P2PCA | 281 pgs | Proyectos Comunitarios | primaria-2
+OK   | P2PEA | 275 pgs | Proyectos Escolares | primaria-2
+OK   | P2SDA | 259 pgs | Nuestros Saberes | primaria-2
+OK   | P3MLA | 259 pgs | Múltiples Lenguajes | primaria-3
+OK   | P3PAA | 281 pgs | Proyectos de Aula | primaria-3
+OK   | P3PCA | 281 pgs | Proyectos Comunitarios | primaria-3
+OK   | P3PEA | 281 pgs | Proyectos Escolares | primaria-3
+OK   | P3SDA | 259 pgs | Nuestros Saberes | primaria-3
+OK   | P4MLA | 259 pgs | Múltiples Lenguajes | primaria-4
+OK   | P4PAA | 281 pgs | Proyectos de Aula | primaria-4
+OK   | P4PCA | 281 pgs | Proyectos Comunitarios | primaria-4
+OK   | P4PEA | 281 pgs | Proyectos Escolares | primaria-4
+OK   | P4SDA | 259 pgs | Nuestros Saberes | primaria-4
+OK   | P5MLA | 259 pgs | Múltiples Lenguajes | primaria-5
+OK   | P5PAA | 281 pgs | Proyectos de Aula | primaria-5
+OK   | P5PCA | 281 pgs | Proyectos Comunitarios | primaria-5
+OK   | P5PEA | 281 pgs | Proyectos Escolares | primaria-5
+OK   | P5SDA | 259 pgs | Nuestros Saberes | primaria-5
+OK   | P6MLA | 259 pgs | Múltiples Lenguajes | primaria-6
+OK   | P6PAA | 281 pgs | Proyectos de Aula | primaria-6
+OK   | P6PCA | 281 pgs | Proyectos Comunitarios | primaria-6
+OK   | P6PEA | 281 pgs | Proyectos Escolares | primaria-6
+OK   | P6SDA | 259 pgs | Nuestros Saberes | primaria-6
+FALTA| S1CNA | 0 pgs | Ciencias Naturales | secundaria-1
+FALTA| S1ESA | 0 pgs | Español | secundaria-1
+FALTA| S1GEA | 0 pgs | Geografía | secundaria-1
+FALTA| S1HSA | 0 pgs | Historia | secundaria-1
+FALTA| S1MAA | 0 pgs | Matemáticas | secundaria-1
+FALTA| S2ESA | 0 pgs | Español | secundaria-2
+FALTA| S2FQA | 0 pgs | Física y Química | secundaria-2
+FALTA| S2HSA | 0 pgs | Historia Universal | secundaria-2
+FALTA| S2MAA | 0 pgs | Matemáticas | secundaria-2
+FALTA| S3ESA | 0 pgs | Español | secundaria-3
+FALTA| S3HSA | 0 pgs | Historia México | secundaria-3
+FALTA| S3MAA | 0 pgs | Matemáticas | secundaria-3
+
+TOTAL: 49
+DESCARGADOS: 33
+SIN PAGINAS: 16
