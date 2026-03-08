@@ -44,6 +44,25 @@ jobs:
           cp -r public/* .open-next/assets/ || true
           echo -e "cloudflare\nmiddleware\nserver-functions\n.build" > .open-next/assets/.cfignore
 
+      - name: Minify Worker Bundle
+        run: |
+          echo "==== PRE-MINIFY SIZES ===="
+          du -h .open-next/assets/server-functions/default/handler.mjs
+          du -h .open-next/assets/middleware/handler.mjs
+          # Minify the server handler (~2.8 MiB → ~1.5 MiB)
+          npx esbuild .open-next/assets/server-functions/default/handler.mjs \
+            --outfile=.open-next/assets/server-functions/default/handler.mjs \
+            --allow-overwrite --minify --format=esm --platform=neutral \
+            --target=es2022
+          # Minify the middleware handler
+          npx esbuild .open-next/assets/middleware/handler.mjs \
+            --outfile=.open-next/assets/middleware/handler.mjs \
+            --allow-overwrite --minify --format=esm --platform=neutral \
+            --target=es2022
+          echo "==== POST-MINIFY SIZES ===="
+          du -h .open-next/assets/server-functions/default/handler.mjs
+          du -h .open-next/assets/middleware/handler.mjs
+
       - name: Diagnostic - Inspect Assets Directory
         run: |
           echo "==== ASSETS DIRECTORY TREE ===="
