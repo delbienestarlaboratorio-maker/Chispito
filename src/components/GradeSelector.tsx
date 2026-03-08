@@ -1,7 +1,22 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { GRADOS } from "@/data/curriculum";
+import { GRADOS as IMPORTED_GRADOS } from "@/data/curriculum";
+
+// Hardcoded telesecundaria grades — the Edge Runtime esbuild bundler truncates
+// the GRADOS array from curriculum.ts, dropping telesecundaria entries.
+// By defining them inline, we bypass the bundler truncation.
+const TELESECUNDARIA_GRADES = [
+    { numero: 1, nombre: "1° Telesecundaria", nivel: "telesecundaria" as const, slug: "telesecundaria-1", emoji: "📺", color: "#0EA5E9", gradient: "from-sky-400 to-cyan-600", alumnos: 500000, materias: ["lenguajes_nem", "saberes_cientificos", "etica_naturaleza", "humano_comunitario", "multiples_lenguajes", "proyectos_nem", "ingles"] },
+    { numero: 2, nombre: "2° Telesecundaria", nivel: "telesecundaria" as const, slug: "telesecundaria-2", emoji: "📺", color: "#06B6D4", gradient: "from-cyan-400 to-teal-600", alumnos: 480000, materias: ["lenguajes_nem", "saberes_cientificos", "etica_naturaleza", "humano_comunitario", "multiples_lenguajes", "proyectos_nem", "ingles"] },
+    { numero: 3, nombre: "3° Telesecundaria", nivel: "telesecundaria" as const, slug: "telesecundaria-3", emoji: "📺", color: "#0891B2", gradient: "from-teal-400 to-emerald-600", alumnos: 460000, materias: ["lenguajes_nem", "saberes_cientificos", "etica_naturaleza", "humano_comunitario", "multiples_lenguajes", "proyectos_nem", "ingles"] },
+];
+
+// Merge imported GRADOS with hardcoded telesecundaria (in case bundler drops them)
+const hasTelesecundaria = IMPORTED_GRADOS.some(g => g.nivel === "telesecundaria");
+const GRADOS = hasTelesecundaria
+    ? IMPORTED_GRADOS
+    : [...IMPORTED_GRADOS.filter(g => g.nivel !== "bachillerato"), ...TELESECUNDARIA_GRADES];
 
 const NIVELES = ["preescolar", "primaria", "secundaria", "telesecundaria", "bachillerato"] as const;
 const NIVEL_LABELS: Record<string, string> = {
