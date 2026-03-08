@@ -1,14 +1,11 @@
 import { GRADOS, MATERIAS, BLOQUES } from "@/data/curriculum";
 import type { Metadata } from "next";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import { AdBannerHorizontal, AdSidebar } from "@/components/AdBanner";
 import { notFound } from "next/navigation";
+import BuscadorPagina from "@/components/BuscadorPaginaLazy";
 import KinderUniverse from "@/components/KinderUniverse";
-
-// Dynamic import with ssr:false — excludes ~120KB of page mapping data from the server bundle
-const BuscadorPagina = dynamic(() => import("@/components/BuscadorPagina"), { ssr: false });
 
 interface Props {
     params: Promise<{ grado: string }>;
