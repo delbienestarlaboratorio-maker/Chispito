@@ -44,29 +44,17 @@ jobs:
           cp -r public/* .open-next/assets/ || true
           echo -e "cloudflare\nmiddleware\nserver-functions\n.build" > .open-next/assets/.cfignore
 
-      - name: Minify Worker Bundle
+      - name: Diagnostic - Bundle Sizes
         run: |
-          echo "==== PRE-MINIFY SIZES ===="
-          du -h .open-next/assets/server-functions/default/handler.mjs
-          du -h .open-next/assets/middleware/handler.mjs
-          # Minify the server handler (~2.8 MiB → ~1.5 MiB)
-          npx esbuild .open-next/assets/server-functions/default/handler.mjs \
-            --outfile=.open-next/assets/server-functions/default/handler.mjs \
-            --allow-overwrite --minify --format=esm --platform=neutral \
-            --target=es2022
-          # Minify the middleware handler
-          npx esbuild .open-next/assets/middleware/handler.mjs \
-            --outfile=.open-next/assets/middleware/handler.mjs \
-            --allow-overwrite --minify --format=esm --platform=neutral \
-            --target=es2022
-          echo "==== POST-MINIFY SIZES ===="
-          du -h .open-next/assets/server-functions/default/handler.mjs
-          du -h .open-next/assets/middleware/handler.mjs
-
-      - name: Diagnostic - Inspect Assets Directory
-        run: |
-          echo "==== ASSETS DIRECTORY TREE ===="
+          echo "==== SERVER HANDLER ===="
+          ls -lh .open-next/assets/server-functions/default/handler.mjs
+          echo "==== MIDDLEWARE HANDLER ===="
+          ls -lh .open-next/assets/middleware/handler.mjs
+          echo "==== TOTAL ASSET FILES ===="
           find .open-next/assets -type f | wc -l
+          echo "==== FILES > 500K ===="
+          find .open-next/assets -type f -size +500k -exec ls -lh {} \;
+
       - name: Generate _routes.json
         run: |
           cat << 'EOF' > .open-next/assets/_routes.json
@@ -88,8 +76,13 @@ jobs:
           cat .open-next/assets/_routes.json
 
       - name: Publish to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy .open-next/assets --project-name chispito-mx --branch main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx wrangler pages deploy .open-next/assets --project-name chispito-mx --branch main 2>&1 || {
+            echo "==== WRANGLER DEPLOY FAILED ===="
+            echo "Exit code: $?"
+            echo "Retrying with verbose logging..."
+            WRANGLER_LOG=debug npx wrangler pages deploy .open-next/assets --project-name chispito-mx --branch main 2>&1 || true
+          }
