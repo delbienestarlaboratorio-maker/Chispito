@@ -37,7 +37,14 @@ export default async function GradoPage({ params }: Props) {
     if (!grado) notFound();
 
     const materiasGrado = grado.materias.map((id) => MATERIAS[id]).filter(Boolean);
-    const bloquesGrado = BLOQUES[grado.slug] || {};
+
+    let bloquesGrado = BLOQUES[grado.slug] || {};
+
+    // Lazy load telesecundaria blocks to prevent bloating the global worker bundle
+    if (grado.nivel === "telesecundaria") {
+        const { BLOQUES_TELESECUNDARIA } = await import("@/data/content-telesecundaria");
+        bloquesGrado = BLOQUES_TELESECUNDARIA[grado.slug] || {};
+    }
 
     if (grado.slug === "kinder") {
         return (
