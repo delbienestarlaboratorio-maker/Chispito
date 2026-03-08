@@ -49,13 +49,14 @@ export default function GradeSelector() {
 
                 {/* Grupos por nivel */}
                 {NIVELES.map((nivel) => {
+                    if (nivel === "telesecundaria") return null; // Rendered separately below
                     const gradosNivel = GRADOS.filter((g) => g.nivel === nivel);
                     return (
                         <div key={nivel} className="mb-12">
                             <h3 className="font-fredoka text-2xl text-white/70 mb-5 px-2">
                                 {NIVEL_LABELS[nivel]}
                             </h3>
-                            <div className={`grid gap-4 ${nivel === "secundaria" || nivel === "telesecundaria" ? "grid-cols-3 md:grid-cols-3" : "grid-cols-3 md:grid-cols-6"}`}>
+                            <div className={`grid gap-4 ${nivel === "secundaria" ? "grid-cols-3 md:grid-cols-3" : "grid-cols-3 md:grid-cols-6"}`}>
                                 {gradosNivel.map((grado, i) => (
                                     <motion.div
                                         key={grado.slug}
@@ -92,6 +93,52 @@ export default function GradeSelector() {
                         </div>
                     );
                 })}
+
+                {/* Telesecundaria — rendered explicitly to bypass Edge Runtime data truncation */}
+                <div className="mb-12">
+                    <h3 className="font-fredoka text-2xl text-white/70 mb-5 px-2">
+                        📺 Telesecundaria
+                    </h3>
+                    <div className="grid gap-4 grid-cols-3 md:grid-cols-3">
+                        {[
+                            { slug: "telesecundaria-1", numero: 1, emoji: "📺", color: "#0EA5E9", alumnos: 500000 },
+                            { slug: "telesecundaria-2", numero: 2, emoji: "📺", color: "#06B6D4", alumnos: 480000 },
+                            { slug: "telesecundaria-3", numero: 3, emoji: "📺", color: "#0891B2", alumnos: 460000 },
+                        ].map((grado, i) => (
+                            <motion.div
+                                key={grado.slug}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.07 }}
+                            >
+                                <Link href={`/${grado.slug}`}>
+                                    <div
+                                        className="grade-card p-5 text-center select-none"
+                                        style={{
+                                            background: `linear-gradient(135deg, ${grado.color}22, ${grado.color}11)`,
+                                        }}
+                                    >
+                                        <div className="text-4xl mb-2">{grado.emoji}</div>
+                                        <div
+                                            className="font-fredoka text-lg leading-tight"
+                                            style={{ color: grado.color }}
+                                        >
+                                            {grado.numero}°
+                                        </div>
+                                        <div className="text-xs text-white/50 mt-1 capitalize">
+                                            telesecundaria
+                                        </div>
+                                        <div className="text-xs text-white/30 mt-1">
+                                            {(grado.alumnos / 1000000).toFixed(1)}M alumnos
+                                        </div>
+                                    </div>
+                                </Link>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+
             </div>
         </section>
     );
