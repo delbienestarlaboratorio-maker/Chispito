@@ -1,19 +1,19 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { GRADOS } from "@/data/curriculum";
-import { PREESCOLAR_1_COMPLETE } from "@/data/content-preescolar1";
 import type { GradoContenido } from "@/data/content-types";
-
-const CONTENIDO_MAP: Record<string, GradoContenido> = {
-    "preescolar-1": PREESCOLAR_1_COMPLETE,
-};
 
 export const metadata = {
     title: "Sección Maestros — Guías Pedagógicas SEP | Chispito.mx",
     description: "Fichas pedagógicas, secuencias didácticas y material descargable para maestros de preescolar y primaria, alineados al programa SEP.",
 };
 
-export default function MaestrosPage() {
+export default async function MaestrosPage() {
+    // Lazy-load heavy content data to reduce Edge worker bundle (3 MiB limit)
+    const { PREESCOLAR_1_COMPLETE } = await import("@/data/content-preescolar1");
+    const CONTENIDO_MAP: Record<string, GradoContenido> = {
+        "preescolar-1": PREESCOLAR_1_COMPLETE,
+    };
     return (
         <>
             <Navbar />
