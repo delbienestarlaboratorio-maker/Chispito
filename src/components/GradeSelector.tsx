@@ -3,11 +3,12 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { GRADOS } from "@/data/curriculum";
 
-const NIVELES = ["preescolar", "primaria", "secundaria", "bachillerato"] as const;
+const NIVELES = ["preescolar", "primaria", "secundaria", "telesecundaria", "bachillerato"] as const;
 const NIVEL_LABELS: Record<string, string> = {
     preescolar: "🌱 Preescolar",
     primaria: "📚 Primaria",
     secundaria: "🎓 Secundaria",
+    telesecundaria: "📺 Telesecundaria",
     bachillerato: "🏛️ Bachillerato (Media Superior)",
 };
 
@@ -39,7 +40,7 @@ export default function GradeSelector() {
                             <h3 className="font-fredoka text-2xl text-white/70 mb-5 px-2">
                                 {NIVEL_LABELS[nivel]}
                             </h3>
-                            <div className={`grid gap-4 ${nivel === "secundaria" ? "grid-cols-3 md:grid-cols-3" : "grid-cols-3 md:grid-cols-6"}`}>
+                            <div className={`grid gap-4 ${nivel === "secundaria" || nivel === "telesecundaria" ? "grid-cols-3 md:grid-cols-3" : "grid-cols-3 md:grid-cols-6"}`}>
                                 {gradosNivel.map((grado, i) => (
                                     <motion.div
                                         key={grado.slug}

@@ -108,6 +108,43 @@ const LIBROS = [
     { codigo: "S3ESA", nombre: "Español", grado: "secundaria-3", nivel: "secundaria", materia: "espanol" },
     { codigo: "S3MAA", nombre: "Matemáticas", grado: "secundaria-3", nivel: "secundaria", materia: "matematicas" },
     { codigo: "S3HSA", nombre: "Historia México", grado: "secundaria-3", nivel: "secundaria", materia: "historia" },
+
+    // ════ TELESECUNDARIA — Apoyo ════
+    { codigo: "T0LPM", nombre: "Un libro sin recetas (Maestros Fase 6)", grado: "telesecundaria-apoyo", nivel: "telesecundaria", materia: "maestros" },
+
+    // ════ TELESECUNDARIA 1° (Colección Ximhai) ════
+    { codigo: "T1ETA", nombre: "Ética, naturaleza y sociedades", grado: "telesecundaria-1", nivel: "telesecundaria", materia: "etica" },
+    { codigo: "T1HPA", nombre: "Historia del pueblo mexicano (Multigrado)", grado: "telesecundaria-1", nivel: "telesecundaria", materia: "historia" },
+    { codigo: "T1HUA", nombre: "De lo humano y lo comunitario", grado: "telesecundaria-1", nivel: "telesecundaria", materia: "humano-comunitario" },
+    { codigo: "T1INA", nombre: "Projects and Readings (Inglés)", grado: "telesecundaria-1", nivel: "telesecundaria", materia: "ingles" },
+    { codigo: "T1LEA", nombre: "Lenguajes", grado: "telesecundaria-1", nivel: "telesecundaria", materia: "lenguajes" },
+    { codigo: "T1LP1", nombre: "Nuestro libro de Proyectos Tomo I", grado: "telesecundaria-1", nivel: "telesecundaria", materia: "proyectos-1" },
+    { codigo: "T1LP2", nombre: "Nuestro libro de Proyectos Tomo II", grado: "telesecundaria-1", nivel: "telesecundaria", materia: "proyectos-2" },
+    { codigo: "T1LP3", nombre: "Nuestro libro de Proyectos Tomo III", grado: "telesecundaria-1", nivel: "telesecundaria", materia: "proyectos-3" },
+    { codigo: "T1MLA", nombre: "Múltiples lenguajes", grado: "telesecundaria-1", nivel: "telesecundaria", materia: "multiples-lenguajes" },
+    { codigo: "T1SAA", nombre: "Saberes y pensamiento científico", grado: "telesecundaria-1", nivel: "telesecundaria", materia: "saberes" },
+
+    // ════ TELESECUNDARIA 2° (Colección Sk'asolil) ════
+    { codigo: "T2ETA", nombre: "Ética, naturaleza y sociedades", grado: "telesecundaria-2", nivel: "telesecundaria", materia: "etica" },
+    { codigo: "T2HUA", nombre: "De lo humano y lo comunitario", grado: "telesecundaria-2", nivel: "telesecundaria", materia: "humano-comunitario" },
+    { codigo: "T2INA", nombre: "Projects and Readings (Inglés)", grado: "telesecundaria-2", nivel: "telesecundaria", materia: "ingles" },
+    { codigo: "T2LEA", nombre: "Lenguajes", grado: "telesecundaria-2", nivel: "telesecundaria", materia: "lenguajes" },
+    { codigo: "T2LP1", nombre: "Nuestro libro de Proyectos Tomo I", grado: "telesecundaria-2", nivel: "telesecundaria", materia: "proyectos-1" },
+    { codigo: "T2LP2", nombre: "Nuestro libro de Proyectos Tomo II", grado: "telesecundaria-2", nivel: "telesecundaria", materia: "proyectos-2" },
+    { codigo: "T2LP3", nombre: "Nuestro libro de Proyectos Tomo III", grado: "telesecundaria-2", nivel: "telesecundaria", materia: "proyectos-3" },
+    { codigo: "T2MLA", nombre: "Múltiples lenguajes", grado: "telesecundaria-2", nivel: "telesecundaria", materia: "multiples-lenguajes" },
+    { codigo: "T2SAA", nombre: "Saberes y pensamiento científico", grado: "telesecundaria-2", nivel: "telesecundaria", materia: "saberes" },
+
+    // ════ TELESECUNDARIA 3° (Colección Nanahuatzin) ════
+    { codigo: "T3ETA", nombre: "Ética, naturaleza y sociedades", grado: "telesecundaria-3", nivel: "telesecundaria", materia: "etica" },
+    { codigo: "T3HUA", nombre: "De lo humano y lo comunitario", grado: "telesecundaria-3", nivel: "telesecundaria", materia: "humano-comunitario" },
+    { codigo: "T3INA", nombre: "Projects and Readings (Inglés)", grado: "telesecundaria-3", nivel: "telesecundaria", materia: "ingles" },
+    { codigo: "T3LEA", nombre: "Lenguajes", grado: "telesecundaria-3", nivel: "telesecundaria", materia: "lenguajes" },
+    { codigo: "T3LP1", nombre: "Nuestro libro de Proyectos Tomo I", grado: "telesecundaria-3", nivel: "telesecundaria", materia: "proyectos-1" },
+    { codigo: "T3LP2", nombre: "Nuestro libro de Proyectos Tomo II", grado: "telesecundaria-3", nivel: "telesecundaria", materia: "proyectos-2" },
+    { codigo: "T3LP3", nombre: "Nuestro libro de Proyectos Tomo III", grado: "telesecundaria-3", nivel: "telesecundaria", materia: "proyectos-3" },
+    { codigo: "T3MLA", nombre: "Múltiples lenguajes", grado: "telesecundaria-3", nivel: "telesecundaria", materia: "multiples-lenguajes" },
+    { codigo: "T3SAA", nombre: "Saberes y pensamiento científico", grado: "telesecundaria-3", nivel: "telesecundaria", materia: "saberes" },
 ];
 
 // ── Utilidades ─────────────────────────────────────────────────
