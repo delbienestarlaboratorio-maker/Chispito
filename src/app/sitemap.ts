@@ -1,13 +1,12 @@
 import { MetadataRoute } from 'next';
 import { GRADOS, MATERIAS } from '@/data/curriculum';
+import { GRADOS_CONTENIDO as PRIMARIA } from '@/data/content-primaria-slim';
+import { GRADOS_SUPERIORES as SECUNDARIA } from '@/data/content-grados-superiores-slim';
+import { KINDER } from '@/data/content-kinder-slim';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://chispito.mx';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    // Lazy-load heavy content data to reduce Edge worker bundle (3 MiB limit)
-    const { GRADOS_CONTENIDO: PRIMARIA } = await import('@/data/content-primaria-slim');
-    const { GRADOS_SUPERIORES: SECUNDARIA } = await import('@/data/content-grados-superiores-slim');
-    const { KINDER } = await import('@/data/content-kinder-slim');
+export default function sitemap(): MetadataRoute.Sitemap {
     // 1. Rutas estáticas principales
     const staticRoutes = [
         '',

@@ -67,8 +67,7 @@ jobs:
               "/_next/*",
               "/favicon.ico",
               "/icon.svg",
-              "/robots.txt",
-              "/sitemap.xml"
+              "/robots.txt"
             ]
           }
           EOF
