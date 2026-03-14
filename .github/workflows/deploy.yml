@@ -57,6 +57,14 @@ jobs:
           find .open-next/assets -type f | wc -l
           echo "==== FILES > 500K ===="
           find .open-next/assets -type f -size +500k -exec ls -lh {} \;
+          echo "==== STATIC FILES (sitemap, robots, ads) ===="
+          ls -lh .open-next/assets/sitemap.xml 2>/dev/null || echo "⚠ sitemap.xml NOT FOUND in assets!"
+          ls -lh .open-next/assets/robots.txt 2>/dev/null || echo "⚠ robots.txt NOT FOUND in assets!"
+          ls -lh .open-next/assets/ads.txt 2>/dev/null || echo "⚠ ads.txt NOT FOUND in assets!"
+          echo "==== HEAD OF SITEMAP ===="
+          head -5 .open-next/assets/sitemap.xml 2>/dev/null || echo "No sitemap found"
+          echo "==== SITEMAP URL COUNT ===="
+          grep -c '<url>' .open-next/assets/sitemap.xml 2>/dev/null || echo "0"
 
       - name: Generate _routes.json
         run: |
