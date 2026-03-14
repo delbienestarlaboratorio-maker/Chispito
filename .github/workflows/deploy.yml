@@ -70,7 +70,9 @@ jobs:
               "/_next/*",
               "/favicon.ico",
               "/icon.svg",
-              "/robots.txt"
+              "/robots.txt",
+              "/sitemap.xml",
+              "/ads.txt"
             ]
           }
           EOF
