@@ -1,5 +1,13 @@
+// Worker que sirve archivos estáticos que OpenNext/Cloudflare Pages no puede:
+// - /sitemap.xml
+// - /ads.txt
+// - /robots.txt
+
 const SITE_URL = 'https://chispito.mx';
 
+// ══════════════════════════════════════════════
+//  SITEMAP DATA
+// ══════════════════════════════════════════════
 const GRADOS_SLUGS = [
     'preescolar-1', 'preescolar-2', 'kinder', 'preescolar-3',
     'primaria-1', 'primaria-2', 'primaria-3', 'primaria-4', 'primaria-5', 'primaria-6',
@@ -26,32 +34,32 @@ const MATERIAS = {
     'telesecundaria-3': ['lenguajes_nem', 'saberes_cientificos', 'etica_naturaleza', 'humano_comunitario', 'multiples_lenguajes', 'proyectos_nem', 'ingles'],
 };
 
-export default {
-    async fetch(request) {
-        const today = new Date().toISOString().split('T')[0];
-        const urls = [];
+// ══════════════════════════════════════════════
+//  ROUTE HANDLERS
+// ══════════════════════════════════════════════
 
-        // Páginas estáticas
-        ['', '/planes', '/cuadernillos', '/universo', '/blog', '/maestros', '/privacidad', '/terminos'].forEach(p => {
-            urls.push({ loc: `${SITE_URL}${p}`, priority: p === '' ? '1.0' : '0.8', freq: 'weekly' });
-        });
+function handleSitemap() {
+    const today = new Date().toISOString().split('T')[0];
+    const urls = [];
 
-        // Grados
-        GRADOS_SLUGS.forEach(s => {
-            urls.push({ loc: `${SITE_URL}/${s}`, priority: '0.9', freq: 'weekly' });
-        });
+    ['', '/planes', '/cuadernillos', '/universo', '/blog', '/maestros', '/privacidad', '/terminos'].forEach(p => {
+        urls.push({ loc: `${SITE_URL}${p}`, priority: p === '' ? '1.0' : '0.8', freq: 'weekly' });
+    });
 
-        // Materias y bloques
-        for (const [grado, materias] of Object.entries(MATERIAS)) {
-            for (const mat of materias) {
-                urls.push({ loc: `${SITE_URL}/${grado}/${mat}`, priority: '0.8', freq: 'weekly' });
-                for (let b = 1; b <= 5; b++) {
-                    urls.push({ loc: `${SITE_URL}/${grado}/${mat}/bloque-${b}`, priority: '0.7', freq: 'monthly' });
-                }
+    GRADOS_SLUGS.forEach(s => {
+        urls.push({ loc: `${SITE_URL}/${s}`, priority: '0.9', freq: 'weekly' });
+    });
+
+    for (const [grado, materias] of Object.entries(MATERIAS)) {
+        for (const mat of materias) {
+            urls.push({ loc: `${SITE_URL}/${grado}/${mat}`, priority: '0.8', freq: 'weekly' });
+            for (let b = 1; b <= 5; b++) {
+                urls.push({ loc: `${SITE_URL}/${grado}/${mat}/bloque-${b}`, priority: '0.7', freq: 'monthly' });
             }
         }
+    }
 
-        const xml = `<?xml version="1.0" encoding="UTF-8"?>
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map(u => `  <url>
     <loc>${u.loc}</loc>
@@ -61,11 +69,49 @@ ${urls.map(u => `  <url>
   </url>`).join('\n')}
 </urlset>`;
 
-        return new Response(xml, {
-            headers: {
-                'Content-Type': 'application/xml',
-                'Cache-Control': 'public, max-age=3600, s-maxage=86400',
-            },
-        });
+    return new Response(xml, {
+        headers: {
+            'Content-Type': 'application/xml',
+            'Cache-Control': 'public, max-age=3600, s-maxage=86400',
+        },
+    });
+}
+
+function handleAdsTxt() {
+    return new Response('google.com, pub-6867283748828267, DIRECT, f08c47fec0942fa0\n', {
+        headers: {
+            'Content-Type': 'text/plain',
+            'Cache-Control': 'public, max-age=86400',
+        },
+    });
+}
+
+function handleRobotsTxt() {
+    const robots = `User-agent: *
+Allow: /
+
+Sitemap: https://chispito.mx/sitemap.xml
+`;
+    return new Response(robots, {
+        headers: {
+            'Content-Type': 'text/plain',
+            'Cache-Control': 'public, max-age=86400',
+        },
+    });
+}
+
+// ══════════════════════════════════════════════
+//  MAIN HANDLER
+// ══════════════════════════════════════════════
+export default {
+    async fetch(request) {
+        const url = new URL(request.url);
+
+        if (url.pathname === '/sitemap.xml') return handleSitemap();
+        if (url.pathname === '/ads.txt') return handleAdsTxt();
+        if (url.pathname === '/robots.txt') return handleRobotsTxt();
+
+        // Fallback: pass to origin (Pages)
+        return fetch(request);
     },
 };
