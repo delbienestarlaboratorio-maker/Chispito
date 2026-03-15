@@ -24,8 +24,6 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Generate Static Sitemap
-        run: node scripts/generate-sitemap.mjs
 
       - name: Build Next.js with OpenNext
         run: npm run pages:build
@@ -45,11 +43,14 @@ jobs:
           cp -r .open-next/server-functions .open-next/assets/server-functions
           cp -r .open-next/.build .open-next/assets/.build
           cp -r public/* .open-next/assets/ || true
-          # Explicit copy of static files that OpenNext may skip
-          cp public/sitemap.xml .open-next/assets/sitemap.xml 2>/dev/null && echo "✅ sitemap.xml copied" || echo "⚠ sitemap.xml not in public/"
-          cp public/ads.txt .open-next/assets/ads.txt 2>/dev/null || true
-          cp public/robots.txt .open-next/assets/robots.txt 2>/dev/null || true
           echo -e "cloudflare\nmiddleware\nserver-functions\n.build" > .open-next/assets/.cfignore
+
+      - name: Generate Static Sitemap
+        run: |
+          SITEMAP_OUTPUT=.open-next/assets node scripts/generate-sitemap.mjs
+          ls -lh .open-next/assets/sitemap.xml
+          head -3 .open-next/assets/sitemap.xml
+          echo "URL count: $(grep -c '<url>' .open-next/assets/sitemap.xml)"
 
       - name: Diagnostic - Bundle Sizes
         run: |

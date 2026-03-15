@@ -80,6 +80,7 @@ ${urls.map(u => `  <url>
   </url>`).join('\n')}
 </urlset>`;
 
-const outputPath = join(__dirname, '..', 'public', 'sitemap.xml');
+const outputDir = process.env.SITEMAP_OUTPUT || join(__dirname, '..', 'public');
+const outputPath = join(outputDir, 'sitemap.xml');
 writeFileSync(outputPath, xml, 'utf-8');
 console.log(`✅ Sitemap generado: ${urls.length} URLs → ${outputPath}`);
