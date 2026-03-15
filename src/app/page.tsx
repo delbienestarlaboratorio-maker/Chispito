@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import GradeSelector from "@/components/GradeSelector";
 import { AdBannerHorizontal } from "@/components/AdBanner";
+import Testimonios from "@/components/Testimonios";
 import { MATERIAS } from "@/data/curriculum";
 
 
@@ -222,6 +223,11 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* TESTIMONIOS */}
+      <Testimonios />
+
+      <AdBannerHorizontal />
 
       {/* CTA FINAL */}
       <section id="papa" className="py-24 px-4 text-center">
