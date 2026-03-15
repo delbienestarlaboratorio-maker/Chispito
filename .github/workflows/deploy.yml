@@ -84,7 +84,6 @@ jobs:
               "/favicon.ico",
               "/icon.svg",
               "/robots.txt",
-              "/sitemap.xml",
               "/ads.txt"
             ]
           }
