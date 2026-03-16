@@ -5,6 +5,7 @@ import { PRIMARIA_3 } from "./content-primaria3-slim";
 import { KINDER } from "./content-kinder-slim";
 import { PREESCOLAR_1_COMPLETE } from "./content-preescolar1-slim";
 import { PREESCOLAR_1, PREESCOLAR_2, PRIMARIA_4, PRIMARIA_5, PRIMARIA_6, SECUNDARIA_1, SECUNDARIA_2, SECUNDARIA_3 } from "./content-grados-superiores-slim";
+import { TELESECUNDARIA_1, TELESECUNDARIA_2, TELESECUNDARIA_3 } from "./content-telesecundaria-slim";
 
 export const LENGUAS_P1: MateriaContenido = {
     materia: "lenguas",
@@ -682,6 +683,9 @@ export const GRADOS_CONTENIDO: Record<string, GradoContenido> = {
     "primaria-6": PRIMARIA_6,
     "secundaria-1": SECUNDARIA_1,
     "secundaria-2": SECUNDARIA_2,
-    "secundaria-3": SECUNDARIA_3
+    "secundaria-3": SECUNDARIA_3,
+    "telesecundaria-1": TELESECUNDARIA_1,
+    "telesecundaria-2": TELESECUNDARIA_2,
+    "telesecundaria-3": TELESECUNDARIA_3
 };
 
