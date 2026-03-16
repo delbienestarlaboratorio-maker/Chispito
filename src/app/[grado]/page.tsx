@@ -37,16 +37,28 @@ export default async function GradoPage({ params }: Props) {
 
     const materiasGrado = grado.materias.map((id) => MATERIAS[id]).filter(Boolean);
 
-    let bloquesGrado = BLOQUES[grado.slug] || {};
-
-    // Lazy load telesecundaria blocks to prevent bloating the global worker bundle
-    if (grado.nivel === "telesecundaria") {
-        const { BLOQUES_TELESECUNDARIA } = await import("@/data/content-telesecundaria");
-        bloquesGrado = BLOQUES_TELESECUNDARIA[grado.slug] || {};
-    }
-
     // Lazy load content data to avoid bloating the Edge worker bundle (3 MiB limit)
+    // Note: GRADOS_CONTENIDO already includes telesecundaria via content-telesecundaria-slim
     const { GRADOS_CONTENIDO } = await import("@/data/content-primaria-slim");
+
+    // Derive bloquesGrado from BLOQUES (curriculum.ts) or GRADOS_CONTENIDO
+    // This avoids importing the heavy content-telesecundaria.ts (30KB) which exceeds Edge limits
+    let bloquesGrado: Record<string, { numero: number; nombre: string; meses: string; temas: string[] }[]> = BLOQUES[grado.slug] || {};
+    if (Object.keys(bloquesGrado).length === 0) {
+        const gradoContenido = GRADOS_CONTENIDO[grado.slug];
+        if (gradoContenido) {
+            const derived: typeof bloquesGrado = {};
+            for (const [materiaId, materiaData] of Object.entries(gradoContenido.materias)) {
+                derived[materiaId] = materiaData.bloques.map((b) => ({
+                    numero: b.bloque,
+                    nombre: b.nombre,
+                    meses: b.meses,
+                    temas: [],
+                }));
+            }
+            bloquesGrado = derived;
+        }
+    }
 
     if (grado.slug === "kinder") {
         return (
