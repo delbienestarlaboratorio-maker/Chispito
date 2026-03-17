@@ -25,6 +25,7 @@ interface Props {
 type BloqueData = {
     grado: string; materia: string; bloque: number;
     nombre: string; meses: string; temas: string[]; totalEjercicios: number;
+    historiaChispito?: string;
     ejercicios: { v1: unknown[]; v2: unknown[]; preview: unknown[] };
 };
 
@@ -223,6 +224,7 @@ export default async function BloquePage({ params }: Props) {
                             bloque={datos!.bloque}
                             nombreBloque={datos!.nombre}
                             meses={datos!.meses}
+                            historia={datos!.historiaChispito}
                         />
                     )}
                 </div>

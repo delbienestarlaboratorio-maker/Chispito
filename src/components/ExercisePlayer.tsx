@@ -25,6 +25,7 @@ interface Props {
     bloque: number;
     nombreBloque: string;
     meses: string;
+    historia?: string;
 }
 
 // getMensaje ahora usa el sistema de personajes por grado
@@ -188,7 +189,7 @@ function VisualCountGrid({ pregunta }: { pregunta: string }) {
 }
 
 // ── MAIN COMPONENT ─────────────────────────────────────────────────────────────
-export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nombreBloque, meses }: Props) {
+export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nombreBloque, meses, historia }: Props) {
     const [indice, setIndice] = useState(0);
     const [respuestaSeleccionada, setRespuestaSeleccionada] = useState<string>("");
     const [estado, setEstado] = useState<EstadoRespuesta>("sin_responder");
@@ -378,6 +379,22 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
         <div className="max-w-2xl mx-auto">
             {/* Confetti al acertar */}
             {showConfetti && <Confetti />}
+
+            {/* Historia del Universo Chispito */}
+            {historia && (
+                <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-6 rounded-2xl p-4 flex items-start gap-4"
+                    style={{ background: "linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(6, 182, 212, 0.15))", border: "1px solid rgba(20, 184, 166, 0.3)" }}
+                >
+                    <div className="text-4xl shrink-0" style={{ filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.3))" }}>✨</div>
+                    <div>
+                        <h3 className="font-fredoka text-lg text-white mb-1">Misión en el Universo Chispito</h3>
+                        <p className="text-white/80 text-sm leading-relaxed">{historia}</p>
+                    </div>
+                </motion.div>
+            )}
 
             {/* Header de progreso */}
             <div className="flex items-center justify-between mb-6 gap-4">
