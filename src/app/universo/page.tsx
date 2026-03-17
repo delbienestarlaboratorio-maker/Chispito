@@ -975,23 +975,24 @@ export default function UniversoPage() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, type: "spring" }}
-                    className="relative mx-auto mb-8"
-                    style={{ maxWidth: 600 }}
+                    className="relative w-full mx-auto mb-16 px-4"
+                    style={{ maxWidth: 1200 }}
                 >
                     <div
-                        className="rounded-3xl overflow-hidden mx-auto"
+                        className="rounded-[2rem] md:rounded-[3rem] overflow-hidden mx-auto w-full"
                         style={{
-                            border: "3px solid rgba(167,139,250,0.4)",
-                            boxShadow: "0 0 60px rgba(167,139,250,0.3), 0 0 120px rgba(99,60,180,0.2)",
-                            maxWidth: 560,
+                            border: "4px solid rgba(167,139,250,0.5)",
+                            boxShadow: "0 0 80px rgba(167,139,250,0.4), 0 0 160px rgba(99,60,180,0.3)",
+                            maxWidth: 1100,
                         }}
                     >
                         <Image
                             src="/personajes/universo.png"
                             alt="El universo completo de Chispito — Nico y todos sus amigos"
-                            width={560}
-                            height={320}
-                            className="w-full object-cover"
+                            width={1100}
+                            height={620}
+                            priority
+                            className="w-full h-auto object-cover"
                         />
                     </div>
 
@@ -999,17 +1000,17 @@ export default function UniversoPage() {
                     {["🚀", "🌸", "⭐", "🌙", "☁️", "🦕"].map((emoji, i) => (
                         <motion.div
                             key={i}
-                            className="absolute text-3xl"
+                            className="absolute text-4xl md:text-6xl hidden sm:block z-10"
                             style={{
-                                top: `${[10, 20, -10, 80, 90, 50][i]}%`,
-                                left: `${[-8, 95, 50, -8, 90, 100][i]}%`,
+                                top: `${[5, 20, -10, 80, 95, 50][i]}%`,
+                                left: `${[-5, 95, 50, -5, 90, 98][i]}%`,
                                 filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.5))",
                             }}
                             animate={{
-                                y: [0, -10, 0],
-                                rotate: [0, i % 2 === 0 ? 10 : -10, 0],
+                                y: [0, -15, 0],
+                                rotate: [0, i % 2 === 0 ? 15 : -15, 0],
                             }}
-                            transition={{ duration: 2 + i * 0.4, repeat: Infinity, ease: "easeInOut" }}
+                            transition={{ duration: 2.5 + i * 0.5, repeat: Infinity, ease: "easeInOut" }}
                         >
                             {emoji}
                         </motion.div>
