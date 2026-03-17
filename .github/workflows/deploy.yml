@@ -85,7 +85,11 @@ jobs:
               "/favicon.ico",
               "/icon.svg",
               "/robots.txt",
-              "/ads.txt"
+              "/ads.txt",
+              "/personajes/*",
+              "/img/*",
+              "/materias/*",
+              "/*.png"
             ]
           }
           EOF
