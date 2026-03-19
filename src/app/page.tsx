@@ -1,11 +1,40 @@
 "use client";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import GradeSelector from "@/components/GradeSelector";
 import { AdBannerHorizontal } from "@/components/AdBanner";
 import Testimonios from "@/components/Testimonios";
 import { MATERIAS } from "@/data/curriculum";
+
+const FAQ_ITEMS = [
+  {
+    q: "¿Chispito.mx es gratis?",
+    a: "Sí, puedes empezar completamente gratis sin necesidad de tarjeta de crédito. Tenemos ejercicios gratuitos todos los días. Si quieres acceso ilimitado, puedes ver nuestros planes premium."
+  },
+  {
+    q: "¿Los ejercicios están alineados a la SEP?",
+    a: "100%. Todo nuestro contenido sigue el programa oficial de la SEP (Nueva Escuela Mexicana 2022) y se organiza mes a mes según los libros de la CONALITEG."
+  },
+  {
+    q: "¿Qué grados cubre Chispito.mx?",
+    a: "Cubrimos desde Preescolar (Kinder) hasta 3° de Telesecundaria, incluyendo todas las materias del programa oficial: Matemáticas, Español, Ciencias, Historia, Geografía y más."
+  },
+  {
+    q: "¿Necesito instalar alguna aplicación?",
+    a: "No. Chispito.mx funciona directamente desde el navegador de cualquier dispositivo: celular, tablet o computadora. No necesitas descargar nada."
+  },
+  {
+    q: "¿Puedo imprimir los ejercicios?",
+    a: "¡Claro! Todos los ejercicios se pueden imprimir como PDF con un solo clic. También puedes resolverlos directamente en pantalla si prefieres no imprimir."
+  },
+  {
+    q: "¿Quiénes son los personajes del Universo Chispito?",
+    a: "Nico (el cohete), Luna, Pipo, Bruma, Eli, Rex, Nano, Cali, Volt, Pages y Cosmos son los 11 personajes que acompañan a los estudiantes desde Kinder hasta Secundaria en una historia épica de aprendizaje."
+  }
+];
 
 
 
@@ -107,7 +136,15 @@ export default function HomePage() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <div className="nico-mascot text-[160px] md:text-[200px] select-none">⚡</div>
+            <div className="relative w-[200px] h-[200px] md:w-[280px] md:h-[280px] mx-auto" style={{ filter: "drop-shadow(0 0 40px rgba(255,214,10,0.4))" }}>
+              <Image
+                src="/personajes/chispito_mascot.png"
+                alt="Chispito — Tu profe virtual favorito"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
             <div
               className="mt-2 font-fredoka text-3xl"
               style={{ color: "var(--yellow)" }}
@@ -229,6 +266,41 @@ export default function HomePage() {
 
       <AdBannerHorizontal />
 
+      {/* FAQ — Preguntas Frecuentes */}
+      <section id="faq" className="py-20 px-4">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-fredoka text-4xl md:text-5xl text-white mb-3 text-center">
+            Preguntas Frecuentes
+          </h2>
+          <p className="text-white/60 text-center mb-10">
+            Todo lo que necesitas saber sobre Chispito.mx
+          </p>
+          <div className="space-y-3">
+            {FAQ_ITEMS.map((faq, i) => (
+              <FAQItem key={i} q={faq.q} a={faq.a} />
+            ))}
+          </div>
+        </div>
+        {/* Schema.org FAQPage */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: FAQ_ITEMS.map((faq) => ({
+                "@type": "Question",
+                name: faq.q,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: faq.a,
+                },
+              })),
+            }),
+          }}
+        />
+      </section>
+
       {/* CTA FINAL */}
       <section id="papa" className="py-24 px-4 text-center">
         <div
@@ -272,5 +344,49 @@ export default function HomePage() {
         <p className="mt-2">🇲🇽 Hecho con ❤️ en México</p>
       </footer>
     </main>
+  );
+}
+
+function FAQItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <motion.div
+      className="rounded-2xl overflow-hidden"
+      style={{
+        background: "rgba(255,255,255,0.04)",
+        border: open ? "1px solid rgba(255,214,10,0.3)" : "1px solid rgba(255,255,255,0.08)",
+      }}
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between p-5 text-left"
+      >
+        <span className="text-white font-semibold text-base md:text-lg pr-4">
+          {q}
+        </span>
+        <motion.span
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="text-white/50 text-xl shrink-0"
+        >
+          ▼
+        </motion.span>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <p className="px-5 pb-5 text-white/60 text-sm md:text-base leading-relaxed">
+              {a}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }

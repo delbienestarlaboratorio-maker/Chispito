@@ -90,7 +90,7 @@ export default function RootLayout({
         {/* Footer legal mini */}
         <div style={{ background: "#060E18", borderTop: "1px solid rgba(255,255,255,0.06)" }} className="text-center py-4 px-4">
           <p style={{ color: "rgba(255,255,255,0.25)", fontSize: "11px" }}>
-            © 2025 Chispito.mx · Contenido alineado al programa SEP México ·{" "}
+            © 2026 Chispito.mx · Contenido alineado al programa SEP México ·{" "}
             <a href="/terminos" style={{ color: "rgba(255,255,255,0.4)", textDecoration: "underline" }}>Términos</a>{" ·"}{" "}
             <a href="/privacidad" style={{ color: "rgba(255,255,255,0.4)", textDecoration: "underline" }}>Privacidad</a>
           </p>
