@@ -2,35 +2,12 @@ import Navbar from "@/components/Navbar";
 import { AdBannerHorizontal } from "@/components/AdBanner";
 import Link from "next/link";
 import { Metadata } from "next";
+import { BLOG_POSTS } from "@/data/blog-posts";
 
 export const metadata: Metadata = {
     title: "Blog Chispito.mx — Novedades y recursos para padres y maestros",
     description: "Encuentra artículos, consejos y novedades sobre educación primaria en México alineado a la SEP.",
 };
-
-const POSTS_PLACEHOLDER = [
-    {
-        id: 1,
-        title: "Cómo ayudar a tu hijo a estudiar para los exámenes de la SEP",
-        excerpt: "Descubre las mejores técnicas de estudio en casa para mejorar el rendimiento escolar de tus hijos de acuerdo a la Nueva Escuela Mexicana.",
-        date: "28 de Febrero, 2026",
-        category: "Para Papás",
-    },
-    {
-        id: 2,
-        title: "Actualización de planes de estudio 2026: Lo que necesitas saber",
-        excerpt: "Resumen de los cambios más recientes en el programa de la SEP y cómo Chispito.mx se ha actualizado para cubrirlos al 100%.",
-        date: "15 de Febrero, 2026",
-        category: "Novedades",
-    },
-    {
-        id: 3,
-        title: "La importancia de aprender jugando en preescolar y primaria",
-        excerpt: "Por qué la gamificación ayuda a los niños a retener mejor la información y cómo aplicar estos principios en casa.",
-        date: "02 de Febrero, 2026",
-        category: "Educación",
-    },
-];
 
 export default function BlogPage() {
     return (
@@ -62,30 +39,33 @@ export default function BlogPage() {
             <section className="py-16 px-4">
                 <div className="max-w-4xl mx-auto">
                     <div className="grid gap-8">
-                        {POSTS_PLACEHOLDER.map((post) => (
-                            <article
-                                key={post.id}
-                                className="glass p-6 md:p-8 rounded-2xl hover:border-white/20 transition-all group"
-                            >
-                                <div className="flex items-center gap-3 mb-3">
-                                    <span
-                                        className="text-xs font-bold px-3 py-1 rounded-full text-blue-300"
-                                        style={{ background: "rgba(59,130,246,0.2)" }}
-                                    >
-                                        {post.category}
+                        {BLOG_POSTS.map((post) => (
+                            <Link href={`/blog/${post.slug}`} key={post.slug} className="block no-underline">
+                                <article
+                                    className="glass p-6 md:p-8 rounded-2xl hover:border-white/20 transition-all group cursor-pointer"
+                                >
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <span className="text-2xl">{post.emoji}</span>
+                                        <span
+                                            className="text-xs font-bold px-3 py-1 rounded-full text-blue-300"
+                                            style={{ background: "rgba(59,130,246,0.2)" }}
+                                        >
+                                            {post.category}
+                                        </span>
+                                        <span className="text-white/40 text-sm">{post.date}</span>
+                                        <span className="text-white/30 text-xs ml-auto">⏱️ {post.readTime}</span>
+                                    </div>
+                                    <h2 className="font-fredoka text-2xl md:text-3xl text-white mb-3 group-hover:text-blue-400 transition-colors">
+                                        {post.title}
+                                    </h2>
+                                    <p className="text-white/60 text-base md:text-lg mb-4 line-clamp-3">
+                                        {post.excerpt}
+                                    </p>
+                                    <span className="text-yellow-400 font-semibold text-sm group-hover:underline">
+                                        Leer artículo completo →
                                     </span>
-                                    <span className="text-white/40 text-sm">{post.date}</span>
-                                </div>
-                                <h2 className="font-fredoka text-2xl md:text-3xl text-white mb-3 group-hover:text-blue-400 transition-colors">
-                                    {post.title}
-                                </h2>
-                                <p className="text-white/60 text-base md:text-lg mb-4 line-clamp-3">
-                                    {post.excerpt}
-                                </p>
-                                <span className="text-yellow-400 font-semibold text-sm group-hover:underline cursor-pointer">
-                                    Leer artículo completo →
-                                </span>
-                            </article>
+                                </article>
+                            </Link>
                         ))}
                     </div>
                 </div>

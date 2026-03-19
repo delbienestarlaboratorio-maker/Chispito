@@ -34,8 +34,18 @@ export async function GET() {
 
     // 1. Rutas estáticas
     const staticPages = ['', '/planes', '/cuadernillos', '/universo', '/blog', '/maestros', '/privacidad', '/terminos'];
+    const blogSlugs = [
+        'como-ayudar-hijo-examenes-sep',
+        'nueva-escuela-mexicana-2026-cambios',
+        'importancia-aprender-jugando-primaria',
+        '5-errores-comunes-tareas-primaria',
+        'como-usar-libros-conaliteg-en-casa',
+    ];
     for (const page of staticPages) {
         urls.push({ loc: `${SITE_URL}${page}`, priority: page === '' ? '1.0' : '0.8', changefreq: 'weekly' });
+    }
+    for (const slug of blogSlugs) {
+        urls.push({ loc: `${SITE_URL}/blog/${slug}`, priority: '0.7', changefreq: 'monthly' });
     }
 
     // 2. Rutas de grados

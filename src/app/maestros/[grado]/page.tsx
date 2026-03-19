@@ -129,6 +129,7 @@ export default function MaestrosGradoPage() {
                                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(320px,1fr))", gap: "0.75rem" }}>
                                     {bloquesDelMes.map(({ slug, materia, bloque }) => {
                                         const gm = bloque.guiaMaestro;
+                                        const enClase = bloque.enClase || [];
                                         return (
                                             <div key={`${slug}-${bloque.bloque}`} style={{
                                                 background: "linear-gradient(135deg,#1E293B,#0F172A)",
@@ -154,79 +155,89 @@ export default function MaestrosGradoPage() {
                                                     </Link>
                                                 </div>
 
-                                                {/* Objetivo */}
-                                                <div style={{ background: "#FBBF2410", borderLeft: `3px solid #FBBF24`, padding: "0.4rem 0.6rem", borderRadius: "0 0.4rem 0.4rem 0" }}>
-                                                    <div style={{ fontSize: "0.55rem", color: "#FBBF24", textTransform: "uppercase", fontWeight: 700 }}>🎯 Objetivo</div>
-                                                    <p style={{ fontSize: "0.78rem", color: "#E2E8F0", margin: "0.1rem 0 0", lineHeight: 1.4 }}>{gm.objetivo}</p>
-                                                </div>
+                                                {gm ? (
+                                                    <>
+                                                        {/* Objetivo */}
+                                                        <div style={{ background: "#FBBF2410", borderLeft: `3px solid #FBBF24`, padding: "0.4rem 0.6rem", borderRadius: "0 0.4rem 0.4rem 0" }}>
+                                                            <div style={{ fontSize: "0.55rem", color: "#FBBF24", textTransform: "uppercase", fontWeight: 700 }}>🎯 Objetivo</div>
+                                                            <p style={{ fontSize: "0.78rem", color: "#E2E8F0", margin: "0.1rem 0 0", lineHeight: 1.4 }}>{gm.objetivo}</p>
+                                                        </div>
 
-                                                {/* Competencia */}
-                                                <div style={{ background: `${materia.color}10`, borderLeft: `3px solid ${materia.color}`, padding: "0.4rem 0.6rem", borderRadius: "0 0.4rem 0.4rem 0" }}>
-                                                    <div style={{ fontSize: "0.55rem", color: materia.color, textTransform: "uppercase", fontWeight: 700 }}>📋 Competencia SEP</div>
-                                                    <p style={{ fontSize: "0.78rem", color: "#E2E8F0", margin: "0.1rem 0 0", lineHeight: 1.4 }}>{gm.competencia}</p>
-                                                </div>
+                                                        {/* Competencia */}
+                                                        <div style={{ background: `${materia.color}10`, borderLeft: `3px solid ${materia.color}`, padding: "0.4rem 0.6rem", borderRadius: "0 0.4rem 0.4rem 0" }}>
+                                                            <div style={{ fontSize: "0.55rem", color: materia.color, textTransform: "uppercase", fontWeight: 700 }}>📋 Competencia SEP</div>
+                                                            <p style={{ fontSize: "0.78rem", color: "#E2E8F0", margin: "0.1rem 0 0", lineHeight: 1.4 }}>{gm.competencia}</p>
+                                                        </div>
 
-                                                {/* Aprendizajes */}
-                                                {gm.aprendizajesEsperados && (
-                                                    <div>
-                                                        <div style={{ fontSize: "0.55rem", color: "#22C55E", textTransform: "uppercase", fontWeight: 700, marginBottom: "0.2rem" }}>✅ Aprendizajes Esperados</div>
-                                                        <ul style={{ margin: 0, paddingLeft: "1rem" }}>
-                                                            {gm.aprendizajesEsperados.map((a, i) => (
-                                                                <li key={i} style={{ fontSize: "0.75rem", color: "#CBD5E1", lineHeight: 1.5 }}>{a}</li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                )}
+                                                        {/* Aprendizajes */}
+                                                        {gm.aprendizajesEsperados && (
+                                                            <div>
+                                                                <div style={{ fontSize: "0.55rem", color: "#22C55E", textTransform: "uppercase", fontWeight: 700, marginBottom: "0.2rem" }}>✅ Aprendizajes Esperados</div>
+                                                                <ul style={{ margin: 0, paddingLeft: "1rem" }}>
+                                                                    {gm.aprendizajesEsperados.map((a: string, i: number) => (
+                                                                        <li key={i} style={{ fontSize: "0.75rem", color: "#CBD5E1", lineHeight: 1.5 }}>{a}</li>
+                                                                    ))}
+                                                                </ul>
+                                                            </div>
+                                                        )}
 
-                                                {/* Secuencia */}
-                                                {gm.secuenciaDidactica && (
-                                                    <div>
-                                                        <div style={{ fontSize: "0.55rem", color: "#818CF8", textTransform: "uppercase", fontWeight: 700, marginBottom: "0.2rem" }}>📝 Secuencia Didáctica</div>
-                                                        {gm.secuenciaDidactica.map((s, i) => (
-                                                            <div key={i} style={{ fontSize: "0.75rem", color: "#CBD5E1", lineHeight: 1.5, paddingLeft: "0.4rem", borderLeft: "2px solid #818CF830", marginBottom: "0.15rem" }}>{s}</div>
-                                                        ))}
-                                                    </div>
-                                                )}
-
-                                                {/* Preguntas */}
-                                                {gm.preguntasDetonadoras && (
-                                                    <div>
-                                                        <div style={{ fontSize: "0.55rem", color: "#F59E0B", textTransform: "uppercase", fontWeight: 700, marginBottom: "0.2rem" }}>💡 Preguntas Detonadoras</div>
-                                                        {gm.preguntasDetonadoras.map((p, i) => (
-                                                            <div key={i} style={{ fontSize: "0.75rem", color: "#FDE68A", fontStyle: "italic", lineHeight: 1.5 }}>&ldquo;{p}&rdquo;</div>
-                                                        ))}
-                                                    </div>
-                                                )}
-
-                                                {/* Materiales + Evaluación */}
-                                                <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
-                                                    {gm.materialesSugeridos && (
-                                                        <div style={{ flex: 1, minWidth: "120px" }}>
-                                                            <div style={{ fontSize: "0.55rem", color: "#F97316", textTransform: "uppercase", fontWeight: 700, marginBottom: "0.2rem" }}>📦 Materiales</div>
-                                                            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.2rem" }}>
-                                                                {gm.materialesSugeridos.map((m, i) => (
-                                                                    <span key={i} style={{ fontSize: "0.65rem", background: "#F9731615", color: "#FDBA74", padding: "0.1rem 0.35rem", borderRadius: "0.3rem" }}>{m}</span>
+                                                        {/* Secuencia */}
+                                                        {gm.secuenciaDidactica && (
+                                                            <div>
+                                                                <div style={{ fontSize: "0.55rem", color: "#818CF8", textTransform: "uppercase", fontWeight: 700, marginBottom: "0.2rem" }}>📝 Secuencia Didáctica</div>
+                                                                {gm.secuenciaDidactica.map((s: string, i: number) => (
+                                                                    <div key={i} style={{ fontSize: "0.75rem", color: "#CBD5E1", lineHeight: 1.5, paddingLeft: "0.4rem", borderLeft: "2px solid #818CF830", marginBottom: "0.15rem" }}>{s}</div>
                                                                 ))}
                                                             </div>
+                                                        )}
+
+                                                        {/* Preguntas */}
+                                                        {gm.preguntasDetonadoras && (
+                                                            <div>
+                                                                <div style={{ fontSize: "0.55rem", color: "#F59E0B", textTransform: "uppercase", fontWeight: 700, marginBottom: "0.2rem" }}>💡 Preguntas Detonadoras</div>
+                                                                {gm.preguntasDetonadoras.map((p: string, i: number) => (
+                                                                    <div key={i} style={{ fontSize: "0.75rem", color: "#FDE68A", fontStyle: "italic", lineHeight: 1.5 }}>&ldquo;{p}&rdquo;</div>
+                                                                ))}
+                                                            </div>
+                                                        )}
+
+                                                        {/* Materiales + Evaluación */}
+                                                        <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
+                                                            {gm.materialesSugeridos && (
+                                                                <div style={{ flex: 1, minWidth: "120px" }}>
+                                                                    <div style={{ fontSize: "0.55rem", color: "#F97316", textTransform: "uppercase", fontWeight: 700, marginBottom: "0.2rem" }}>📦 Materiales</div>
+                                                                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.2rem" }}>
+                                                                        {gm.materialesSugeridos.map((m: string, i: number) => (
+                                                                            <span key={i} style={{ fontSize: "0.65rem", background: "#F9731615", color: "#FDBA74", padding: "0.1rem 0.35rem", borderRadius: "0.3rem" }}>{m}</span>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                            {gm.evaluacion && (
+                                                                <div style={{ flex: 1, minWidth: "120px" }}>
+                                                                    <div style={{ fontSize: "0.55rem", color: "#EC4899", textTransform: "uppercase", fontWeight: 700, marginBottom: "0.2rem" }}>📊 Evaluación</div>
+                                                                    <p style={{ fontSize: "0.72rem", color: "#F9A8D4", margin: 0 }}>{gm.evaluacion}</p>
+                                                                </div>
+                                                            )}
                                                         </div>
-                                                    )}
-                                                    {gm.evaluacion && (
-                                                        <div style={{ flex: 1, minWidth: "120px" }}>
-                                                            <div style={{ fontSize: "0.55rem", color: "#EC4899", textTransform: "uppercase", fontWeight: 700, marginBottom: "0.2rem" }}>📊 Evaluación</div>
-                                                            <p style={{ fontSize: "0.72rem", color: "#F9A8D4", margin: 0 }}>{gm.evaluacion}</p>
-                                                        </div>
-                                                    )}
-                                                </div>
+                                                    </>
+                                                ) : (
+                                                    <div style={{ fontSize: "0.78rem", color: "#94A3B8", fontStyle: "italic", padding: "0.5rem" }}>
+                                                        Guía pedagógica en preparación para este bloque.
+                                                    </div>
+                                                )}
 
                                                 {/* Actividades */}
-                                                <div>
-                                                    <div style={{ fontSize: "0.55rem", color: "#22C55E", textTransform: "uppercase", fontWeight: 700, marginBottom: "0.2rem" }}>📌 Actividades en Clase</div>
-                                                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.2rem" }}>
-                                                        {bloque.enClase.map((act, i) => (
-                                                            <span key={i} style={{ fontSize: "0.65rem", background: "#22C55E15", color: "#86EFAC", padding: "0.1rem 0.35rem", borderRadius: "0.3rem" }}>{act}</span>
-                                                        ))}
+                                                {enClase.length > 0 && (
+                                                    <div>
+                                                        <div style={{ fontSize: "0.55rem", color: "#22C55E", textTransform: "uppercase", fontWeight: 700, marginBottom: "0.2rem" }}>📌 Actividades en Clase</div>
+                                                        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.2rem" }}>
+                                                            {enClase.map((act: string, i: number) => (
+                                                                <span key={i} style={{ fontSize: "0.65rem", background: "#22C55E15", color: "#86EFAC", padding: "0.1rem 0.35rem", borderRadius: "0.3rem" }}>{act}</span>
+                                                            ))}
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                )}
 
                                                 {/* PDF button */}
                                                 <button onClick={() => {
@@ -244,14 +255,14 @@ export default function MaestrosGradoPage() {
                                                     @media print{body{margin:1rem}}</style></head><body>
                                                     <div class="meta">${MATERIA_ICONS[slug] || materia.emoji} ${materia.nombre} · Bloque ${bloque.bloque} · ${bloque.meses} · ${gradoData.nombre}</div>
                                                     <h1>${bloque.nombre}</h1>
-                                                    <div class="box"><strong>🎯 Objetivo:</strong> ${gm.objetivo}</div>
+                                                    ${gm ? `<div class="box"><strong>🎯 Objetivo:</strong> ${gm.objetivo}</div>
                                                     <div class="box"><strong>📋 Competencia SEP:</strong> ${gm.competencia}</div>
-                                                    ${gm.aprendizajesEsperados ? `<h2>✅ Aprendizajes Esperados</h2><ul>${gm.aprendizajesEsperados.map(a => `<li>${a}</li>`).join('')}</ul>` : ''}
-                                                    ${gm.secuenciaDidactica ? `<h2>📝 Secuencia Didáctica</h2><ul>${gm.secuenciaDidactica.map(s => `<li>${s}</li>`).join('')}</ul>` : ''}
-                                                    ${gm.preguntasDetonadoras ? `<h2>💡 Preguntas Detonadoras</h2><ul>${gm.preguntasDetonadoras.map(p => `<li><em>"${p}"</em></li>`).join('')}</ul>` : ''}
-                                                    ${gm.materialesSugeridos ? `<h2>📦 Materiales</h2><div>${gm.materialesSugeridos.map(m => `<span class="badge">${m}</span>`).join(' ')}</div>` : ''}
-                                                    ${gm.evaluacion ? `<h2>📊 Evaluación</h2><p>${gm.evaluacion}</p>` : ''}
-                                                    <h2>📌 Actividades en Clase</h2><div>${bloque.enClase.map(a => `<span class="badge">${a}</span>`).join(' ')}</div>
+                                                    ${gm.aprendizajesEsperados ? `<h2>✅ Aprendizajes Esperados</h2><ul>${gm.aprendizajesEsperados.map((a: string) => `<li>${a}</li>`).join('')}</ul>` : ''}
+                                                    ${gm.secuenciaDidactica ? `<h2>📝 Secuencia Didáctica</h2><ul>${gm.secuenciaDidactica.map((s: string) => `<li>${s}</li>`).join('')}</ul>` : ''}
+                                                    ${gm.preguntasDetonadoras ? `<h2>💡 Preguntas Detonadoras</h2><ul>${gm.preguntasDetonadoras.map((p: string) => `<li><em>"${p}"</em></li>`).join('')}</ul>` : ''}
+                                                    ${gm.materialesSugeridos ? `<h2>📦 Materiales</h2><div>${gm.materialesSugeridos.map((m: string) => `<span class="badge">${m}</span>`).join(' ')}</div>` : ''}
+                                                    ${gm.evaluacion ? `<h2>📊 Evaluación</h2><p>${gm.evaluacion}</p>` : ''}` : ''}
+                                                    ${enClase.length > 0 ? `<h2>📌 Actividades en Clase</h2><div>${enClase.map((a: string) => `<span class="badge">${a}</span>`).join(' ')}</div>` : ''}
                                                     <div class="footer">Chispito.mx — Ficha pedagógica · ${gradoData.nombre}</div>
                                                     <script>setTimeout(()=>window.print(),400)<\/script>
                                                     </body></html>`);
