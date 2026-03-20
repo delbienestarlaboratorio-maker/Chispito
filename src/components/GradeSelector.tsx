@@ -50,7 +50,7 @@ export default function GradeSelector() {
                 {/* Grupos por nivel */}
                 {NIVELES.map((nivel) => {
                     if (nivel === "telesecundaria") return null; // Rendered separately below
-                    const gradosNivel = GRADOS.filter((g) => g.nivel === nivel);
+                    const gradosNivel = GRADOS.filter((g) => g.nivel === nivel && g.slug !== "kinder");
                     return (
                         <div key={nivel} className="mb-12">
                             <h3 className="font-fredoka text-2xl text-white/70 mb-5 px-2">
