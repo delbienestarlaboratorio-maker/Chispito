@@ -24,31 +24,6 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-
-      - name: Pre-build Next.js (to capture telesecundaria HTML)
-        run: npx next build
-        env:
-          NEXT_TELEMETRY_DISABLED: 1
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          NEXT_PUBLIC_PLAN_V2_PRECIO: 9900
-          NEXT_PUBLIC_PLAN_V3_PRECIO: 24900
-          NEXT_PUBLIC_SITE_URL: "https://chispito.mx"
-
-      - name: Save Telesecundaria HTML
-        run: |
-          mkdir -p /tmp/telesecundaria-html
-          for grade in telesecundaria-1 telesecundaria-2 telesecundaria-3; do
-            HTML_FILE=".next/server/app/${grade}.html"
-            if [ -f "$HTML_FILE" ]; then
-              cp "$HTML_FILE" "/tmp/telesecundaria-html/${grade}.html"
-              echo "  ✓ Saved ${grade}.html ($(wc -c < $HTML_FILE) bytes)"
-            else
-              echo "  ⚠ ${grade}.html NOT FOUND"
-            fi
-          done
-          ls -lh /tmp/telesecundaria-html/
-
       - name: Build Next.js with OpenNext
         run: npm run pages:build
         env:
@@ -58,6 +33,20 @@ jobs:
           NEXT_PUBLIC_PLAN_V2_PRECIO: 9900
           NEXT_PUBLIC_PLAN_V3_PRECIO: 24900
           NEXT_PUBLIC_SITE_URL: "https://chispito.mx"
+
+      - name: Diagnostic - Locate Telesecundaria Files
+        run: |
+          echo "==== Searching .next for telesecundaria HTML ===="
+          find .next -name "telesecundaria-1*" -type f 2>/dev/null || echo "  (no .next files found)"
+          echo ""
+          echo "==== Searching .open-next for telesecundaria ===="
+          find .open-next -name "*telesecundaria-1*" -type f 2>/dev/null | head -10 || echo "  (no .open-next files found)"
+          echo ""
+          echo "==== .next/server/app dir listing (if exists) ===="
+          ls -la .next/server/app/telesecundaria-1* 2>/dev/null || echo "  (.next/server/app has no telesecundaria files)"
+          echo ""
+          echo "==== .next/server/app/ HTML files ===="
+          find .next/server/app -name "*.html" -type f 2>/dev/null | head -20 || echo "  (no HTML files)"
 
       - name: Assemble Edge Worker
         run: |
@@ -73,18 +62,24 @@ jobs:
       - name: Inject Static Telesecundaria Pages
         run: |
           echo "=== Injecting pre-rendered telesecundaria HTML as static assets ==="
+          INJECTED=0
           for grade in telesecundaria-1 telesecundaria-2 telesecundaria-3; do
-            HTML_FILE="/tmp/telesecundaria-html/${grade}.html"
-            if [ -f "$HTML_FILE" ]; then
+            # Try .next/server/app/ first (standard Next.js output)
+            HTML_FILE=".next/server/app/${grade}.html"
+            if [ ! -f "$HTML_FILE" ]; then
+              # Fallback: search anywhere in .next for the HTML
+              HTML_FILE=$(find .next -name "${grade}.html" -type f 2>/dev/null | head -1)
+            fi
+            if [ -n "$HTML_FILE" ] && [ -f "$HTML_FILE" ]; then
               mkdir -p ".open-next/assets/${grade}"
               cp "$HTML_FILE" ".open-next/assets/${grade}/index.html"
-              echo "  ✓ ${grade}/index.html injected ($(wc -c < $HTML_FILE) bytes)"
+              echo "  ✓ ${grade}/index.html injected from ${HTML_FILE} ($(wc -c < $HTML_FILE) bytes)"
+              INJECTED=$((INJECTED+1))
             else
-              echo "  ⚠ ${grade}.html NOT FOUND in saved HTML"
+              echo "  ⚠ ${grade}.html NOT FOUND anywhere in .next"
             fi
           done
-          echo "=== Static telesecundaria injection complete ==="
-
+          echo "=== Injected ${INJECTED}/3 telesecundaria pages ==="
 
       - name: Generate Static Sitemap
         run: |
@@ -111,6 +106,8 @@ jobs:
           head -5 .open-next/assets/sitemap.xml 2>/dev/null || echo "No sitemap found"
           echo "==== SITEMAP URL COUNT ===="
           grep -c '<url>' .open-next/assets/sitemap.xml 2>/dev/null || echo "0"
+          echo "==== TELESECUNDARIA STATIC FILES ===="
+          find .open-next/assets -path "*telesecundaria*" -type f 2>/dev/null || echo "  (none)"
 
       - name: Generate _routes.json
         run: |
