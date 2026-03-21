@@ -7,3 +7,9 @@ minify = true
 
 [vars]
 NEXT_PUBLIC_SITE_URL = "https://chispito.mx"
+
+# KV namespace for OpenNext incremental cache (prerendered pages)
+# Without this binding, the worker can't serve prerendered pages like telesecundaria
+[[kv_namespaces]]
+binding = "NEXT_CACHE_WORKERS_KV"
+id = "74f56981c4ca4513bb1d6eef54c2d5f6"

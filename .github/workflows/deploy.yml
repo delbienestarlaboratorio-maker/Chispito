@@ -34,20 +34,6 @@ jobs:
           NEXT_PUBLIC_PLAN_V3_PRECIO: 24900
           NEXT_PUBLIC_SITE_URL: "https://chispito.mx"
 
-      - name: Diagnostic - Locate Telesecundaria Files
-        run: |
-          echo "==== Searching .next for telesecundaria HTML ===="
-          find .next -name "telesecundaria-1*" -type f 2>/dev/null || echo "  (no .next files found)"
-          echo ""
-          echo "==== Searching .open-next for telesecundaria ===="
-          find .open-next -name "*telesecundaria-1*" -type f 2>/dev/null | head -10 || echo "  (no .open-next files found)"
-          echo ""
-          echo "==== .next/server/app dir listing (if exists) ===="
-          ls -la .next/server/app/telesecundaria-1* 2>/dev/null || echo "  (.next/server/app has no telesecundaria files)"
-          echo ""
-          echo "==== .next/server/app/ HTML files ===="
-          find .next/server/app -name "*.html" -type f 2>/dev/null | head -20 || echo "  (no HTML files)"
-
       - name: Assemble Edge Worker
         run: |
           cp .open-next/worker.js .open-next/assets/_worker.js
@@ -58,28 +44,6 @@ jobs:
           cp -r .open-next/cache .open-next/assets/cache || true
           cp -r public/* .open-next/assets/ || true
           echo -e "cloudflare\nmiddleware\nserver-functions\n.build\ncache" > .open-next/assets/.cfignore
-
-      - name: Inject Static Telesecundaria Pages
-        run: |
-          echo "=== Injecting pre-rendered telesecundaria HTML as static assets ==="
-          INJECTED=0
-          for grade in telesecundaria-1 telesecundaria-2 telesecundaria-3; do
-            # Try .next/server/app/ first (standard Next.js output)
-            HTML_FILE=".next/server/app/${grade}.html"
-            if [ ! -f "$HTML_FILE" ]; then
-              # Fallback: search anywhere in .next for the HTML
-              HTML_FILE=$(find .next -name "${grade}.html" -type f 2>/dev/null | head -1)
-            fi
-            if [ -n "$HTML_FILE" ] && [ -f "$HTML_FILE" ]; then
-              mkdir -p ".open-next/assets/${grade}"
-              cp "$HTML_FILE" ".open-next/assets/${grade}/index.html"
-              echo "  ✓ ${grade}/index.html injected from ${HTML_FILE} ($(wc -c < $HTML_FILE) bytes)"
-              INJECTED=$((INJECTED+1))
-            else
-              echo "  ⚠ ${grade}.html NOT FOUND anywhere in .next"
-            fi
-          done
-          echo "=== Injected ${INJECTED}/3 telesecundaria pages ==="
 
       - name: Generate Static Sitemap
         run: |
@@ -106,8 +70,6 @@ jobs:
           head -5 .open-next/assets/sitemap.xml 2>/dev/null || echo "No sitemap found"
           echo "==== SITEMAP URL COUNT ===="
           grep -c '<url>' .open-next/assets/sitemap.xml 2>/dev/null || echo "0"
-          echo "==== TELESECUNDARIA STATIC FILES ===="
-          find .open-next/assets -path "*telesecundaria*" -type f 2>/dev/null || echo "  (none)"
 
       - name: Generate _routes.json
         run: |
@@ -126,10 +88,7 @@ jobs:
               "/personajes/*",
               "/img/*",
               "/materias/*",
-              "/*.png",
-              "/telesecundaria-1",
-              "/telesecundaria-2",
-              "/telesecundaria-3"
+              "/*.png"
             ]
           }
           EOF
