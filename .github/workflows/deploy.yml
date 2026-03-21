@@ -25,6 +25,30 @@ jobs:
         run: npm ci
 
 
+      - name: Pre-build Next.js (to capture telesecundaria HTML)
+        run: npx next build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_PLAN_V2_PRECIO: 9900
+          NEXT_PUBLIC_PLAN_V3_PRECIO: 24900
+          NEXT_PUBLIC_SITE_URL: "https://chispito.mx"
+
+      - name: Save Telesecundaria HTML
+        run: |
+          mkdir -p /tmp/telesecundaria-html
+          for grade in telesecundaria-1 telesecundaria-2 telesecundaria-3; do
+            HTML_FILE=".next/server/app/${grade}.html"
+            if [ -f "$HTML_FILE" ]; then
+              cp "$HTML_FILE" "/tmp/telesecundaria-html/${grade}.html"
+              echo "  ✓ Saved ${grade}.html ($(wc -c < $HTML_FILE) bytes)"
+            else
+              echo "  ⚠ ${grade}.html NOT FOUND"
+            fi
+          done
+          ls -lh /tmp/telesecundaria-html/
+
       - name: Build Next.js with OpenNext
         run: npm run pages:build
         env:
@@ -49,19 +73,18 @@ jobs:
       - name: Inject Static Telesecundaria Pages
         run: |
           echo "=== Injecting pre-rendered telesecundaria HTML as static assets ==="
-          # The OpenNext edge worker fails to serve telesecundaria routes (2.8MB handler near 3MB limit).
-          # Workaround: copy the pre-rendered HTML from .next build output directly as static files.
           for grade in telesecundaria-1 telesecundaria-2 telesecundaria-3; do
-            HTML_FILE=".next/server/app/${grade}.html"
+            HTML_FILE="/tmp/telesecundaria-html/${grade}.html"
             if [ -f "$HTML_FILE" ]; then
               mkdir -p ".open-next/assets/${grade}"
               cp "$HTML_FILE" ".open-next/assets/${grade}/index.html"
               echo "  ✓ ${grade}/index.html injected ($(wc -c < $HTML_FILE) bytes)"
             else
-              echo "  ⚠ ${grade}.html NOT FOUND in .next build output"
+              echo "  ⚠ ${grade}.html NOT FOUND in saved HTML"
             fi
           done
           echo "=== Static telesecundaria injection complete ==="
+
 
       - name: Generate Static Sitemap
         run: |
