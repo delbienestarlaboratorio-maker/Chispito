@@ -6,13 +6,8 @@ import { AdBannerHorizontal, AdSidebar } from "@/components/AdBanner";
 import { notFound } from "next/navigation";
 import BuscadorPagina from "@/components/BuscadorPaginaLazy";
 import KinderUniverse from "@/components/KinderUniverse";
-
-// Force all grade pages to be pre-rendered as static HTML at build time.
-// This is critical because the Cloudflare Edge worker (2.8 MB) is near
-// the 3 MB limit and fails to SSR some pages (e.g. telesecundaria).
-export const dynamic = "force-static";
-export const dynamicParams = false;
-
+// Note: telesecundaria pages are served as static HTML files injected by CI (deploy.yml).
+// The OpenNext edge worker (2.8 MB, near 3 MB limit) cannot SSR them reliably.
 interface Props {
     params: Promise<{ grado: string }>;
 }

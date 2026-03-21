@@ -46,6 +46,23 @@ jobs:
           cp -r public/* .open-next/assets/ || true
           echo -e "cloudflare\nmiddleware\nserver-functions\n.build\ncache" > .open-next/assets/.cfignore
 
+      - name: Inject Static Telesecundaria Pages
+        run: |
+          echo "=== Injecting pre-rendered telesecundaria HTML as static assets ==="
+          # The OpenNext edge worker fails to serve telesecundaria routes (2.8MB handler near 3MB limit).
+          # Workaround: copy the pre-rendered HTML from .next build output directly as static files.
+          for grade in telesecundaria-1 telesecundaria-2 telesecundaria-3; do
+            HTML_FILE=".next/server/app/${grade}.html"
+            if [ -f "$HTML_FILE" ]; then
+              mkdir -p ".open-next/assets/${grade}"
+              cp "$HTML_FILE" ".open-next/assets/${grade}/index.html"
+              echo "  ✓ ${grade}/index.html injected ($(wc -c < $HTML_FILE) bytes)"
+            else
+              echo "  ⚠ ${grade}.html NOT FOUND in .next build output"
+            fi
+          done
+          echo "=== Static telesecundaria injection complete ==="
+
       - name: Generate Static Sitemap
         run: |
           SITEMAP_OUTPUT=.open-next/assets node scripts/generate-sitemap.mjs
@@ -89,7 +106,10 @@ jobs:
               "/personajes/*",
               "/img/*",
               "/materias/*",
-              "/*.png"
+              "/*.png",
+              "/telesecundaria-1",
+              "/telesecundaria-2",
+              "/telesecundaria-3"
             ]
           }
           EOF
