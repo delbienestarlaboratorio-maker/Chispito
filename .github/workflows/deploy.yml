@@ -24,30 +24,6 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Pre-build Next.js to extract static HTML
-        run: |
-          npm run build
-          echo "==== FINDING ALL TELESECUNDARIA FILES ===="
-          find .next -name "*telesecundaria*"
-          mkdir -p temp-telesecundaria
-          for grade in telesecundaria-1 telesecundaria-2 telesecundaria-3; do
-            if [ -f ".next/server/app/${grade}.html" ]; then
-              cp ".next/server/app/${grade}.html" "temp-telesecundaria/"
-            fi
-            if [ -d ".next/server/app/${grade}" ]; then
-              cp -r ".next/server/app/${grade}" "temp-telesecundaria/"
-            fi
-          done
-          echo "==== EXTRACTED TELESECUNDARIA STATIC FILES ===="
-          ls -R temp-telesecundaria
-        env:
-          NEXT_TELEMETRY_DISABLED: 1
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          NEXT_PUBLIC_PLAN_V2_PRECIO: 9900
-          NEXT_PUBLIC_PLAN_V3_PRECIO: 24900
-          NEXT_PUBLIC_SITE_URL: "https://chispito.mx"
-
       - name: Build Next.js with OpenNext
         run: npm run pages:build
         env:
@@ -74,31 +50,6 @@ jobs:
           .build
           cache
           EOF
-
-      - name: Inject Static Telesecundaria Pages
-        run: |
-          echo "=== Injecting pre-rendered telesecundaria HTML as static assets ==="
-          mkdir -p .open-next/assets
-          if [ -d "temp-telesecundaria" ]; then
-            # Fix Cloudflare Pages conflict: When a file like "foo.html" and a folder "foo/" exist,
-            # CF Pages looks for "foo/index.html" and ignores "foo.html".
-            # We must move "foo.html" to "foo/index.html".
-            find temp-telesecundaria -name "*.html" -type f | while read html_file; do
-              basename_no_ext="${html_file%.html}"
-              if [ -d "$basename_no_ext" ]; then
-                echo "Restructuring $html_file -> $basename_no_ext/index.html"
-                mv "$html_file" "$basename_no_ext/index.html"
-              fi
-            done
-            cp -r temp-telesecundaria/* .open-next/assets/ 2>/dev/null || true
-            echo "<h1>HELLO FROM STATIC</h1>" > .open-next/assets/test-ts.html
-            cp temp-telesecundaria/telesecundaria-1/index.html .open-next/assets/ts-1.html 2>/dev/null || true
-            echo "==== INJECTED INTO ASSETS ===="
-            ls -la .open-next/assets/ || true
-            ls -la .open-next/assets/telesecundaria-1* || true
-          else
-            echo "⚠ temp-telesecundaria NOT FOUND"
-          fi
 
       - name: Generate Static Sitemap
         run: |
@@ -142,15 +93,7 @@ jobs:
               "/ads.txt",
               "/personajes/*",
               "/img/*",
-              "/materias/*",
-              "/test-ts.html",
-              "/ts-1.html",
-              "/telesecundaria-1",
-              "/telesecundaria-1/*",
-              "/telesecundaria-2",
-              "/telesecundaria-2/*",
-              "/telesecundaria-3",
-              "/telesecundaria-3/*"
+              "/materias/*"
             ]
           }
           EOF
@@ -162,14 +105,11 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          mkdir -p final-assets
-          cp -r .open-next/assets/* final-assets/
-          cp .open-next/assets/.cfignore final-assets/ || true
-          npx wrangler pages deploy final-assets --project-name chispito-mx --branch main 2>&1 || {
+          npx wrangler pages deploy .open-next/assets --project-name chispito-mx --branch main 2>&1 || {
             echo "==== WRANGLER DEPLOY FAILED ===="
             echo "Exit code: $?"
             echo "Retrying with verbose logging..."
-            WRANGLER_LOG=debug npx wrangler pages deploy final-assets --project-name chispito-mx --branch main 2>&1 || true
+            WRANGLER_LOG=debug npx wrangler pages deploy .open-next/assets --project-name chispito-mx --branch main 2>&1 || true
           }
 
       - name: Deploy Sitemap Worker
