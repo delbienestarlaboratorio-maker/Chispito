@@ -24,6 +24,28 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Pre-build Next.js to extract static HTML
+        run: |
+          npm run build
+          mkdir -p temp-telesecundaria
+          for grade in telesecundaria-1 telesecundaria-2 telesecundaria-3; do
+            if [ -f ".next/server/app/${grade}.html" ]; then
+              cp ".next/server/app/${grade}.html" "temp-telesecundaria/"
+            fi
+            if [ -d ".next/server/app/${grade}" ]; then
+              cp -r ".next/server/app/${grade}" "temp-telesecundaria/"
+            fi
+          done
+          echo "==== EXTRACTED TELESECUNDARIA STATIC FILES ===="
+          ls -R temp-telesecundaria
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_PLAN_V2_PRECIO: 9900
+          NEXT_PUBLIC_PLAN_V3_PRECIO: 24900
+          NEXT_PUBLIC_SITE_URL: "https://chispito.mx"
+
       - name: Build Next.js with OpenNext
         run: npm run pages:build
         env:
@@ -48,22 +70,14 @@ jobs:
       - name: Inject Static Telesecundaria Pages
         run: |
           echo "=== Injecting pre-rendered telesecundaria HTML as static assets ==="
-          INJECTED=0
-          for grade in telesecundaria-1 telesecundaria-2 telesecundaria-3; do
-            HTML_FILE=$(find .next/server/app -name "${grade}.html" -type f 2>/dev/null | head -1)
-            if [ -z "$HTML_FILE" ]; then
-              HTML_FILE=$(find .next -name "${grade}.html" -type f 2>/dev/null | head -1)
-            fi
-            
-            if [ -n "$HTML_FILE" ] && [ -f "$HTML_FILE" ]; then
-              cp "$HTML_FILE" ".open-next/assets/${grade}.html"
-              echo "  ✓ ${grade}.html injected directly from ${HTML_FILE} ($(wc -c < $HTML_FILE) bytes)"
-              INJECTED=$((INJECTED+1))
-            else
-              echo "  ⚠ ${grade}.html NOT FOUND anywhere in .next"
-            fi
-          done
-          echo "=== Injected ${INJECTED}/3 telesecundaria pages ==="
+          mkdir -p .open-next/assets
+          if [ -d "temp-telesecundaria" ]; then
+            cp -r temp-telesecundaria/* .open-next/assets/ 2>/dev/null || true
+            echo "==== INJECTED INTO ASSETS ===="
+            ls -la .open-next/assets/telesecundaria-1* || true
+          else
+            echo "⚠ temp-telesecundaria NOT FOUND"
+          fi
 
       - name: Generate Static Sitemap
         run: |
