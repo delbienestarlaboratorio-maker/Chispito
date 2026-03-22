@@ -65,7 +65,13 @@ jobs:
           cp -r .open-next/.build .open-next/assets/.build
           cp -r .open-next/cache .open-next/assets/cache || true
           cp -r public/* .open-next/assets/ || true
-          echo -e "cloudflare\nmiddleware\nserver-functions\n.build\ncache" > .open-next/assets/.cfignore
+          cat << 'EOF' > .open-next/assets/.cfignore
+          cloudflare
+          middleware
+          server-functions
+          .build
+          cache
+          EOF
 
       - name: Inject Static Telesecundaria Pages
         run: |
@@ -154,11 +160,14 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          npx wrangler pages deploy .open-next/assets --project-name chispito-mx --branch main 2>&1 || {
+          mkdir -p final-assets
+          cp -r .open-next/assets/* final-assets/
+          cp .open-next/assets/.cfignore final-assets/ || true
+          npx wrangler pages deploy final-assets --project-name chispito-mx --branch main 2>&1 || {
             echo "==== WRANGLER DEPLOY FAILED ===="
             echo "Exit code: $?"
             echo "Retrying with verbose logging..."
-            WRANGLER_LOG=debug npx wrangler pages deploy .open-next/assets --project-name chispito-mx --branch main 2>&1 || true
+            WRANGLER_LOG=debug npx wrangler pages deploy final-assets --project-name chispito-mx --branch main 2>&1 || true
           }
 
       - name: Deploy Sitemap Worker
