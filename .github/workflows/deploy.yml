@@ -72,6 +72,16 @@ jobs:
           echo "=== Injecting pre-rendered telesecundaria HTML as static assets ==="
           mkdir -p .open-next/assets
           if [ -d "temp-telesecundaria" ]; then
+            # Fix Cloudflare Pages conflict: When a file like "foo.html" and a folder "foo/" exist,
+            # CF Pages looks for "foo/index.html" and ignores "foo.html".
+            # We must move "foo.html" to "foo/index.html".
+            find temp-telesecundaria -name "*.html" -type f | while read html_file; do
+              basename_no_ext="${html_file%.html}"
+              if [ -d "$basename_no_ext" ]; then
+                echo "Restructuring $html_file -> $basename_no_ext/index.html"
+                mv "$html_file" "$basename_no_ext/index.html"
+              fi
+            done
             cp -r temp-telesecundaria/* .open-next/assets/ 2>/dev/null || true
             echo "==== INJECTED INTO ASSETS ===="
             ls -la .open-next/assets/telesecundaria-1* || true
