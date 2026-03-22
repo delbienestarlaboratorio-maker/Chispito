@@ -83,7 +83,10 @@ jobs:
               fi
             done
             cp -r temp-telesecundaria/* .open-next/assets/ 2>/dev/null || true
+            echo "<h1>HELLO FROM STATIC</h1>" > .open-next/assets/test-ts.html
+            cp temp-telesecundaria/telesecundaria-1/index.html .open-next/assets/ts-1.html 2>/dev/null || true
             echo "==== INJECTED INTO ASSETS ===="
+            ls -la .open-next/assets/ || true
             ls -la .open-next/assets/telesecundaria-1* || true
           else
             echo "⚠ temp-telesecundaria NOT FOUND"
@@ -133,6 +136,8 @@ jobs:
               "/img/*",
               "/materias/*",
               "/*.png",
+              "/test-ts.html",
+              "/ts-1.html",
               "/telesecundaria-1",
               "/telesecundaria-1/*",
               "/telesecundaria-2",
