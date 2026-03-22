@@ -27,6 +27,8 @@ jobs:
       - name: Pre-build Next.js to extract static HTML
         run: |
           npm run build
+          echo "==== FINDING ALL TELESECUNDARIA FILES ===="
+          find .next -name "*telesecundaria*"
           mkdir -p temp-telesecundaria
           for grade in telesecundaria-1 telesecundaria-2 telesecundaria-3; do
             if [ -f ".next/server/app/${grade}.html" ]; then
