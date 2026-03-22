@@ -55,21 +55,7 @@ export default async function MateriaPage({ params }: Props) {
     const materiaData = gradoData?.materias[materia];
 
     if (!materiaData || !gradoInfo) {
-        return (
-            <div className="min-h-screen bg-red-900 text-white p-10 font-mono">
-                <h1 className="text-4xl font-bold mb-4">ERROR DE DATOS EN MATERIA (EDGE WORKER)</h1>
-                <p className="text-xl mb-4">Materia solicitada: {materia}</p>
-                <div className="bg-black/50 p-4 rounded-xl">
-                    <h2 className="text-2xl font-bold mb-2">Estado de variables:</h2>
-                    <ul className="list-disc pl-5">
-                        <li>Grado Info: {gradoInfo ? "✅" : "❌"}</li>
-                        <li>Materia Info: {materiaInfo ? "✅" : "❌"}</li>
-                        <li>Grado Data (GRADOS_CONTENIDO): {gradoData ? "✅" : "❌"}</li>
-                        <li>Materia Data: {materiaData ? "✅" : "❌"}</li>
-                    </ul>
-                </div>
-            </div>
-        );
+        notFound();
     }
 
     return (

@@ -82,16 +82,13 @@ jobs:
       - name: Rescue static telesecundaria pages
         run: |
           echo "==== RESCUING TELESECUNDARIA ===="
-          mkdir -p .open-next/assets/telesecundaria-1
-          mkdir -p .open-next/assets/telesecundaria-2
-          mkdir -p .open-next/assets/telesecundaria-3
-          # Mover archivos generados .html tal cual
-          cp -r .next/server/app/telesecundaria*.html .open-next/assets/ 2>/dev/null || true
-          cp -r .next/server/app/telesecundaria-1/* .open-next/assets/telesecundaria-1/ 2>/dev/null || true
-          cp -r .next/server/app/telesecundaria-2/* .open-next/assets/telesecundaria-2/ 2>/dev/null || true
-          cp -r .next/server/app/telesecundaria-3/* .open-next/assets/telesecundaria-3/ 2>/dev/null || true
-          # Limpiar extensiones .html de las carpetas internas para coincidir con la URL
-          find .open-next/assets/telesecundaria* -type f -name "*.html" -exec bash -c 'mv "$1" "${1%.html}"' _ {} \;
+          # Sincronizar estructura de app hacia assets
+          # Buscamos todos los archivos .html, .meta y .rsc de telesecundaria*
+          cd .next/server/app
+          find . -name "telesecundaria*" -print0 | xargs -0 -I {} cp --parents -p {} ../../../.open-next/assets/
+          cd ../../../
+          echo "==== RESCUE COMPLETE ===="
+          ls -R .open-next/assets/telesecundaria-1 | head -20 || echo "Rescue check failed"
 
       - name: Generate _routes.json
         run: |
