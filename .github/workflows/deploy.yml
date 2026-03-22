@@ -135,7 +135,6 @@ jobs:
               "/personajes/*",
               "/img/*",
               "/materias/*",
-              "/*.png",
               "/test-ts.html",
               "/ts-1.html",
               "/telesecundaria-1",
