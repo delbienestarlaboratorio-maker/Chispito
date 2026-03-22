@@ -25,7 +25,9 @@ jobs:
         run: npm ci
 
       - name: Build Next.js with OpenNext
-        run: npm run pages:build
+        run: |
+          npm run build
+          npm run pages:build
         env:
           NEXT_TELEMETRY_DISABLED: 1
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
@@ -77,6 +79,20 @@ jobs:
           echo "==== SITEMAP URL COUNT ===="
           grep -c '<url>' .open-next/assets/sitemap.xml 2>/dev/null || echo "0"
 
+      - name: Rescue static telesecundaria pages
+        run: |
+          echo "==== RESCUING TELESECUNDARIA ===="
+          mkdir -p .open-next/assets/telesecundaria-1
+          mkdir -p .open-next/assets/telesecundaria-2
+          mkdir -p .open-next/assets/telesecundaria-3
+          # Mover archivos generados .html tal cual
+          cp -r .next/server/app/telesecundaria*.html .open-next/assets/ 2>/dev/null || true
+          cp -r .next/server/app/telesecundaria-1/* .open-next/assets/telesecundaria-1/ 2>/dev/null || true
+          cp -r .next/server/app/telesecundaria-2/* .open-next/assets/telesecundaria-2/ 2>/dev/null || true
+          cp -r .next/server/app/telesecundaria-3/* .open-next/assets/telesecundaria-3/ 2>/dev/null || true
+          # Limpiar extensiones .html de las carpetas internas para coincidir con la URL
+          find .open-next/assets/telesecundaria* -type f -name "*.html" -exec bash -c 'mv "$1" "${1%.html}"' _ {} \;
+
       - name: Generate _routes.json
         run: |
           cat << 'EOF' > .open-next/assets/_routes.json
@@ -93,7 +109,13 @@ jobs:
               "/ads.txt",
               "/personajes/*",
               "/img/*",
-              "/materias/*"
+              "/materias/*",
+              "/telesecundaria-1",
+              "/telesecundaria-1/*",
+              "/telesecundaria-2",
+              "/telesecundaria-2/*",
+              "/telesecundaria-3",
+              "/telesecundaria-3/*"
             ]
           }
           EOF
