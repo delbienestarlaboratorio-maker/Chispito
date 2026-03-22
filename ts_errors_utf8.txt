@@ -1,0 +1,38 @@
+next.config.ts(9,3): error TS2353: Object literal may only specify known properties, and 'eslint' does not exist in type 'NextConfig'.
+src/app/api/clip/webhook/route.ts(27,35): error TS2339: Property 'metadata' does not exist on type 'ClipCheckoutResponse'.
+src/app/api/clip/webhook/route.ts(28,37): error TS2339: Property 'metadata' does not exist on type 'ClipCheckoutResponse'.
+src/app/api/clip/webhook/route.ts(29,36): error TS2339: Property 'metadata' does not exist on type 'ClipCheckoutResponse'.
+src/app/maestros/[grado]/page.tsx(160,146): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(166,146): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(170,50): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(174,62): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(182,50): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(185,58): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(192,50): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(195,58): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(203,54): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(207,66): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(213,54): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(216,126): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(225,58): error TS18048: 'bloque.enClase' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(247,102): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(248,109): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(249,55): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(249,122): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(250,55): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(250,117): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(251,55): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(251,121): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(252,55): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(252,110): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(253,55): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(253,99): error TS18048: 'gm' is possibly 'undefined'.
+src/app/maestros/[grado]/page.tsx(254,92): error TS18048: 'bloque.enClase' is possibly 'undefined'.
+src/app/universo/page.tsx(100,18): error TS2552: Cannot find name 'CAPÍTULOS'. Did you mean 'CAPITULOS'?
+src/app/universo/page.tsx(203,47): error TS7006: Parameter 'viñeta' implicitly has an 'any' type.
+src/app/universo/page.tsx(203,55): error TS7006: Parameter 'vi' implicitly has an 'any' type.
+src/app/universo/page.tsx(214,61): error TS7006: Parameter 'panel' implicitly has an 'any' type.
+src/app/universo/page.tsx(214,68): error TS7006: Parameter 'pi' implicitly has an 'any' type.
+src/app/universo/page.tsx(509,26): error TS2552: Cannot find name 'CAPÍTULOS'. Did you mean 'CAPITULOS'?
+src/app/universo/page.tsx(509,41): error TS7006: Parameter 'cap' implicitly has an 'any' type.
+src/app/universo/page.tsx(509,46): error TS7006: Parameter 'i' implicitly has an 'any' type.

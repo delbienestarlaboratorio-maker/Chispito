@@ -34,7 +34,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function GradoPage({ params }: Props) {
     const { grado: gradoSlug } = await params;
     const grado = GRADOS.find((g) => g.slug === gradoSlug);
-    if (!grado) notFound();
+    if (!grado) {
+        return (
+            <div className="min-h-screen bg-red-900 text-white p-10 font-mono">
+                <h1 className="text-4xl font-bold mb-4">ERROR CRITICO DE EDGE WORKER</h1>
+                <p className="text-xl mb-4">La ruta solicitada fue: {gradoSlug}</p>
+                <div className="bg-black/50 p-4 rounded-xl">
+                    <h2 className="text-2xl font-bold mb-2">Contenido del Array GRADOS (Curriculum) en Runtime:</h2>
+                    <ul className="list-disc pl-5">
+                        {GRADOS.map(g => <li key={g.slug}>{g.slug} (nivel: {g.nivel})</li>)}
+                    </ul>
+                </div>
+            </div>
+        );
+    }
 
     const materiasGrado = grado.materias.map((id) => MATERIAS[id]).filter(Boolean);
 
