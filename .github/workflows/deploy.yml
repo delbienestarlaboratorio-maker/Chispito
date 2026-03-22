@@ -45,6 +45,26 @@ jobs:
           cp -r public/* .open-next/assets/ || true
           echo -e "cloudflare\nmiddleware\nserver-functions\n.build\ncache" > .open-next/assets/.cfignore
 
+      - name: Inject Static Telesecundaria Pages
+        run: |
+          echo "=== Injecting pre-rendered telesecundaria HTML as static assets ==="
+          INJECTED=0
+          for grade in telesecundaria-1 telesecundaria-2 telesecundaria-3; do
+            HTML_FILE=$(find .next/server/app -name "${grade}.html" -type f 2>/dev/null | head -1)
+            if [ -z "$HTML_FILE" ]; then
+              HTML_FILE=$(find .next -name "${grade}.html" -type f 2>/dev/null | head -1)
+            fi
+            
+            if [ -n "$HTML_FILE" ] && [ -f "$HTML_FILE" ]; then
+              cp "$HTML_FILE" ".open-next/assets/${grade}.html"
+              echo "  ✓ ${grade}.html injected directly from ${HTML_FILE} ($(wc -c < $HTML_FILE) bytes)"
+              INJECTED=$((INJECTED+1))
+            else
+              echo "  ⚠ ${grade}.html NOT FOUND anywhere in .next"
+            fi
+          done
+          echo "=== Injected ${INJECTED}/3 telesecundaria pages ==="
+
       - name: Generate Static Sitemap
         run: |
           SITEMAP_OUTPUT=.open-next/assets node scripts/generate-sitemap.mjs
@@ -88,7 +108,13 @@ jobs:
               "/personajes/*",
               "/img/*",
               "/materias/*",
-              "/*.png"
+              "/*.png",
+              "/telesecundaria-1",
+              "/telesecundaria-1/*",
+              "/telesecundaria-2",
+              "/telesecundaria-2/*",
+              "/telesecundaria-3",
+              "/telesecundaria-3/*"
             ]
           }
           EOF
