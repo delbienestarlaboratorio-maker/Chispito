@@ -48,16 +48,8 @@ const GRADOS_PRE_RENDER = [
 ];
 
 export async function generateStaticParams() {
-    const params: { grado: string; materia: string; bloque: string }[] = [];
-    for (const [grado, gradoData] of Object.entries(GRADOS_CONTENIDO)) {
-        if (!GRADOS_PRE_RENDER.includes(grado)) continue;
-        for (const [materia, materiaData] of Object.entries(gradoData.materias)) {
-            for (let b = 1; b <= materiaData.bloques.length; b++) {
-                params.push({ grado, materia, bloque: `bloque-${b}` });
-            }
-        }
-    }
-    return params;
+    // We disable static generation for blocks to stay under the 7GB RAM limit of GitHub runners (reducing from 800+ to ~150 routes)
+    return [];
 }
 
 export const dynamicParams = true;
