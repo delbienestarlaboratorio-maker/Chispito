@@ -111,9 +111,9 @@ export default function HomePage() {
               libro de la SEP!
             </h1>
             <p className="text-white/70 text-xl mb-8 max-w-2xl">
-              Ejercicios interactivos para <strong className="text-white">preescolar, primaria y secundaria</strong>,
-              organizados <strong className="text-white">mes a mes</strong> según el programa oficial. Tu hijo practica
-              exactamente lo que ve en clase.
+              Ejercicios interactivos para <strong className="text-white">kínder, básica, telesecundaria y preparatoria</strong>,
+              organizados <strong className="text-white">mes a mes</strong> según el programa oficial. Practica
+              exactamente lo que viene en el examen.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
