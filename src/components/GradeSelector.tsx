@@ -112,7 +112,7 @@ export default function GradeSelector() {
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.07 }}
                             >
-                                <Link href={`/${grado.slug}`}>
+                                <a href={`https://telesecundaria.chispito.mx/${grado.slug}`}>
                                     <div
                                         className="grade-card p-5 text-center select-none"
                                         style={{
@@ -133,7 +133,7 @@ export default function GradeSelector() {
                                             {(grado.alumnos / 1000000).toFixed(1)}M alumnos
                                         </div>
                                     </div>
-                                </Link>
+                                </a>
                             </motion.div>
                         ))}
                     </div>

@@ -43,8 +43,7 @@ async function cargarBloque(grado: string, materia: string, bloque: string): Pro
 const GRADOS_PRE_RENDER = [
     "kinder", "preescolar-1", "preescolar-2", "preescolar-3",
     "primaria-1", "primaria-2", "primaria-3", "primaria-4", "primaria-5", "primaria-6",
-    "secundaria-1", "secundaria-2", "secundaria-3",
-    "telesecundaria-1", "telesecundaria-2", "telesecundaria-3"
+    "secundaria-1", "secundaria-2", "secundaria-3"
 ];
 
 export async function generateStaticParams() {

@@ -79,16 +79,6 @@ jobs:
           echo "==== SITEMAP URL COUNT ===="
           grep -c '<url>' .open-next/assets/sitemap.xml 2>/dev/null || echo "0"
 
-      - name: Rescue static telesecundaria pages
-        run: |
-          echo "==== RESCUING TELESECUNDARIA ===="
-          # Sincronizar estructura de app hacia assets
-          # Buscamos todos los archivos .html, .meta y .rsc de telesecundaria*
-          cd .next/server/app
-          find . -name "telesecundaria*" -print0 | xargs -0 -I {} cp --parents -p {} ../../../.open-next/assets/
-          cd ../../../
-          echo "==== RESCUE COMPLETE ===="
-          ls -R .open-next/assets/telesecundaria-1 | head -20 || echo "Rescue check failed"
 
       - name: Generate _routes.json
         run: |
@@ -106,13 +96,7 @@ jobs:
               "/ads.txt",
               "/personajes/*",
               "/img/*",
-              "/materias/*",
-              "/telesecundaria-1",
-              "/telesecundaria-1/*",
-              "/telesecundaria-2",
-              "/telesecundaria-2/*",
-              "/telesecundaria-3",
-              "/telesecundaria-3/*"
+              "/materias/*"
             ]
           }
           EOF

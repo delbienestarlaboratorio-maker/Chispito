@@ -6,7 +6,6 @@ const GRADOS_SLUGS = [
     'preescolar-1', 'preescolar-2', 'kinder', 'preescolar-3',
     'primaria-1', 'primaria-2', 'primaria-3', 'primaria-4', 'primaria-5', 'primaria-6',
     'secundaria-1', 'secundaria-2', 'secundaria-3',
-    'telesecundaria-1', 'telesecundaria-2', 'telesecundaria-3',
 ];
 
 const MATERIAS_POR_GRADO: Record<string, string[]> = {
@@ -23,9 +22,6 @@ const MATERIAS_POR_GRADO: Record<string, string[]> = {
     'secundaria-1': ['matematicas', 'espanol', 'historia', 'ciencias', 'geografia', 'formacion', 'ingles', 'tecnologia', 'artes', 'educacion_fisica'],
     'secundaria-2': ['matematicas', 'espanol', 'historia', 'ciencias', 'geografia', 'formacion', 'ingles', 'tecnologia', 'artes', 'educacion_fisica'],
     'secundaria-3': ['matematicas', 'espanol', 'historia', 'ciencias', 'geografia', 'formacion', 'ingles', 'tecnologia', 'artes', 'educacion_fisica'],
-    'telesecundaria-1': ['lenguajes_nem', 'saberes_cientificos', 'etica_naturaleza', 'humano_comunitario', 'multiples_lenguajes', 'proyectos_nem', 'ingles'],
-    'telesecundaria-2': ['lenguajes_nem', 'saberes_cientificos', 'etica_naturaleza', 'humano_comunitario', 'multiples_lenguajes', 'proyectos_nem', 'ingles'],
-    'telesecundaria-3': ['lenguajes_nem', 'saberes_cientificos', 'etica_naturaleza', 'humano_comunitario', 'multiples_lenguajes', 'proyectos_nem', 'ingles'],
 };
 
 export async function GET() {
