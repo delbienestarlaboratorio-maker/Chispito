@@ -222,9 +222,15 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
 
     function verificarRespuesta() {
         if (!ejercicioActual) return;
-        const esCorrecta =
-            respuestaSeleccionada.trim().toLowerCase() ===
-            String(ejercicioActual.respuestaCorrecta).trim().toLowerCase();
+        let target = String(ejercicioActual.respuestaCorrecta).trim().toLowerCase();
+        let selected = respuestaSeleccionada.trim().toLowerCase();
+
+        if (ejercicioActual.tipo === "true_false") {
+            if (target === "verdadero" || target === "v") target = "true";
+            if (target === "falso" || target === "f") target = "false";
+        }
+
+        const esCorrecta = selected === target;
 
         setEstado(esCorrecta ? "correcto" : "incorrecto");
         if (esCorrecta) {
@@ -576,9 +582,13 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
                                 { val: "true", label: "✅", texto: "Verdadero" },
                                 { val: "false", label: "❌", texto: "Falso" },
                             ].map(({ val, label, texto }) => {
+                                const targetVal = String(ejercicioActual.respuestaCorrecta).trim().toLowerCase();
+                                const isTargetTrue = targetVal === "true" || targetVal === "verdadero" || targetVal === "v";
+                                const isTargetFalse = targetVal === "false" || targetVal === "falso" || targetVal === "f";
+
                                 const esEsta = respuestaSeleccionada === val;
-                                const esCorrecta = respondido && val === String(ejercicioActual.respuestaCorrecta);
-                                const esIncorrecta = respondido && esEsta && val !== String(ejercicioActual.respuestaCorrecta);
+                                const esCorrecta = respondido && (val === "true" ? isTargetTrue : isTargetFalse);
+                                const esIncorrecta = respondido && esEsta && !esCorrecta;
 
                                 return (
                                     <motion.button
