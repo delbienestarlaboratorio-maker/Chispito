@@ -9,7 +9,10 @@
     "lint": "eslint",
     "pages:build": "npx @opennextjs/cloudflare build",
     "preview": "npx wrangler pages dev",
-    "deploy": "npx wrangler pages deploy .open-next/assets --project-name chispito-mx"
+    "deploy": "npx wrangler pages deploy .open-next/assets --project-name chispito-mx",
+    "audit": "node scripts/audit-exercises.mjs",
+    "audit:html": "node scripts/audit-exercises.mjs --html",
+    "audit:ci": "node scripts/audit-exercises.mjs --fix-check"
   },
   "dependencies": {
     "@supabase/ssr": "^0.8.0",
