@@ -7,6 +7,7 @@ import { Lock, ChevronRight, Volume2, VolumeX, Music, MusicIcon } from "lucide-r
 import ChispitoCompanion, { type CompanionState } from "./ChispitoCompanion";
 import { useGameSounds } from "@/hooks/useGameSounds";
 import { useBlockMusic } from "@/hooks/useBlockMusic";
+import { normalizeAnswer, normalizeTrueFalse } from "@/lib/pedagogy";
 
 type KinderEjercicio = {
     id: string;
@@ -281,7 +282,17 @@ export default function KinderExercisePlayer({ ejercicios, grado, materia, bloqu
     const responder = useCallback((respuesta: string) => {
         triggerMusicOnce();
         if (respondido || !ejercicio) return;
-        const esCorrecta = respuesta.trim().toLowerCase() === String(ejercicio.respuestaCorrecta).trim().toLowerCase();
+        
+        let target = normalizeAnswer(ejercicio.respuestaCorrecta);
+        let selected = normalizeAnswer(respuesta);
+
+        if (ejercicio.tipo === "true_false") {
+            target = normalizeTrueFalse(ejercicio.respuestaCorrecta);
+            selected = normalizeTrueFalse(respuesta);
+        }
+
+        const esCorrecta = selected === target;
+        
         setRespondido(true);
         setCorrecto(esCorrecta);
         setFeedbackIdx(Math.floor(Math.random() * (esCorrecta ? CELEBRACIONES.length : ERRORES.length)));
@@ -289,14 +300,15 @@ export default function KinderExercisePlayer({ ejercicios, grado, materia, bloqu
         const nuevoEstado = { ...estadoOps };
         if (ejercicio.opciones) {
             ejercicio.opciones.forEach(o => {
-                if (String(o).toLowerCase() === String(ejercicio.respuestaCorrecta).toLowerCase()) nuevoEstado[o] = "correcto";
-                else if (String(o).toLowerCase() === respuesta.toLowerCase() && !esCorrecta) nuevoEstado[o] = "incorrecto";
+                const normO = normalizeAnswer(o);
+                if (normO === target) nuevoEstado[o] = "correcto";
+                else if (normO === selected && !esCorrecta) nuevoEstado[o] = "incorrecto";
             });
         } else if (ejercicio.tipo === "true_false") {
-            const correctaStr = String(ejercicio.respuestaCorrecta).trim().toLowerCase();
+            const correctaStr = target;
             nuevoEstado[correctaStr] = "correcto";
             if (!esCorrecta) {
-                nuevoEstado[respuesta.trim().toLowerCase()] = "incorrecto";
+                nuevoEstado[selected] = "incorrecto";
             }
         }
         setEstadoOps(nuevoEstado);
@@ -535,7 +547,7 @@ export default function KinderExercisePlayer({ ejercicios, grado, materia, bloqu
                                 <div className="grid grid-cols-2 gap-3">
                                     {ejercicio.opciones.map((op, idx) => (
                                         <OpcionBtn
-                                            key={op} texto={op}
+                                            key={op + idx} texto={op}
                                             onClick={() => { play("pop"); responder(op); }}
                                             estado={estadoOps[op] || "idle"}
                                             color={color}

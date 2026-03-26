@@ -24,9 +24,10 @@ export async function POST(req: NextRequest) {
         if (checkout.status === "PAID") {
             // ✅ Pago confirmado — aquí activar el acceso del usuario
             // Por ahora: log + preparado para D1/base de datos
-            const plan = checkout.metadata?.plan || "desconocido";
-            const userId = checkout.metadata?.me_reference || "anonimo";
-            const grado = checkout.metadata?.grado || "todos";
+            const md = (checkout as any).metadata || {};
+            const plan = md.plan || "desconocido";
+            const userId = md.me_reference || "anonimo";
+            const grado = md.grado || "todos";
 
             console.log(`✅ Pago confirmado: user=${userId} plan=${plan} grado=${grado} monto=$${checkout.amount} MXN`);
 
@@ -35,8 +36,8 @@ export async function POST(req: NextRequest) {
         }
 
         // Clip requiere respuesta 200 para confirmar recepción
-        return NextResponse.json({ ok: true, status: checkout.status });
-    } catch (error: unknown) {
+        return NextResponse.json({ ok: true, status: (checkout as any).status });
+    } catch (error: any) {
         const msg = error instanceof Error ? error.message : "Error";
         console.error("[Clip Webhook Error]", msg);
         // Devolvemos 200 igual para que Clip no reintente

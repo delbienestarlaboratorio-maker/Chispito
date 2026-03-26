@@ -2,7 +2,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Lock, ChevronRight } from "lucide-react";
+import { Lock, ChevronRight, Star } from "lucide-react";
+import { normalizeAnswer, normalizeTrueFalse } from "@/lib/pedagogy";
 
 // ─── Tipos ───────────────────────────────────────────
 type Ejercicio = {
@@ -250,16 +251,32 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
 
     const responder = useCallback((resp: string) => {
         if (respondido || !ejercicio) return;
-        const ok = resp.trim().toLowerCase() === ejercicio.respuestaCorrecta.trim().toLowerCase();
+        
+        let target = normalizeAnswer(ejercicio.respuestaCorrecta);
+        let selected = normalizeAnswer(resp);
+        
+        if (ejercicio.tipo === "true_false") {
+            target = normalizeTrueFalse(ejercicio.respuestaCorrecta);
+            selected = normalizeTrueFalse(resp);
+        }
+
+        const ok = selected === target;
+
         setRespondido(true);
         setCorrecto(ok);
         setFeedIdx(Math.floor(Math.random() * theme.celebraciones.length));
 
         const nuevoEstado = { ...estadoOps };
         const claves = ejercicio.opciones ?? (ejercicio.tipo === "true_false" ? ["true", "false"] : []);
+        
         claves.forEach(o => {
-            if (o === ejercicio.respuestaCorrecta) nuevoEstado[o] = "correcto";
-            else if (o === resp && !ok) nuevoEstado[o] = "incorrecto";
+            if (ejercicio.tipo === "true_false") {
+                if (o === target) nuevoEstado[o] = "correcto";
+                else if (o === selected && !ok) nuevoEstado[o] = "incorrecto";
+            } else {
+                if (normalizeAnswer(o) === target) nuevoEstado[o] = "correcto";
+                else if (normalizeAnswer(o) === selected && !ok) nuevoEstado[o] = "incorrecto";
+            }
         });
         setEstadoOps(nuevoEstado);
 
@@ -358,9 +375,20 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
                     <span className="text-gray-400 text-xs font-bold">{indice + 1} / {lista.length}</span>
                     <div className="flex items-center gap-3">
                         <RachaDisplay racha={racha} color={accentColor} />
-                        <span className="font-bold text-xs" style={{ color: accentColor }}>
-                            ⭐ {puntaje} pts
-                        </span>
+                        <div className="flex items-center gap-1">
+                            {Array.from({ length: Math.max(3, puntaje) }).map((_, i) => (
+                                <Star
+                                    key={i}
+                                    size={18}
+                                    fill={i < puntaje ? accentColor : "none"}
+                                    stroke={i < puntaje ? accentColor : "#CBD5E1"}
+                                    style={{
+                                        filter: i < puntaje ? `drop-shadow(0 0 4px ${accentColor}80)` : "none",
+                                        transition: "all 0.3s"
+                                    }}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
                 <div className="flex gap-1">
@@ -413,9 +441,9 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
                     {/* Opciones */}
                     {ejercicio.opciones && (
                         <div className={tier === 1 ? "grid grid-cols-2 gap-3" : "flex flex-col gap-2"}>
-                            {ejercicio.opciones.map(op => (
+                            {ejercicio.opciones.map((op, opIdx) => (
                                 <OpcionBtn
-                                    key={op} texto={op}
+                                    key={op + opIdx} texto={op}
                                     onClick={() => responder(op)}
                                     estado={estadoOps[op] || "idle"}
                                     color={accentColor}
@@ -445,7 +473,6 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
                                         texto={label}
                                         onClick={() => {
                                             if (!respondido) {
-                                                // marca el estado para feedback visual
                                                 const next = { ...estadoOps };
                                                 next["true"] = "idle";
                                                 next["false"] = "idle";
@@ -499,7 +526,7 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
                         <div className="flex items-center gap-2 mb-1">
                             <span style={{ fontSize: tier === 1 ? "1.8rem" : "1.3rem" }}>{correcto ? cel.emoji : "💡"}</span>
                             <span className="font-bold text-sm" style={{ color: correcto ? cel.color : "#92400E" }}>
-                                {correcto ? cel.texto : "La respuesta correcta es: " + ejercicio.respuestaCorrecta}
+                                {correcto ? cel.texto : "La respuesta correcta es: " + (ejercicio.tipo === "true_false" ? (normalizeTrueFalse(ejercicio.respuestaCorrecta) === "true" ? "Verdadero" : "Falso") : ejercicio.respuestaCorrecta)}
                             </span>
                         </div>
                         <p className="text-xs text-gray-500 ml-1">{ejercicio.explicacion}</p>

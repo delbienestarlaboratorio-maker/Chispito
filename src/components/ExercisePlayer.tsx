@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, XCircle, Lock, Star, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { getMensajesGrado, getCompañero } from "@/data/personajes";
+import { normalizeAnswer, normalizeTrueFalse } from "@/lib/pedagogy";
 
 type Ejercicio = {
     id: string;
@@ -222,12 +223,12 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
 
     function verificarRespuesta() {
         if (!ejercicioActual) return;
-        let target = String(ejercicioActual.respuestaCorrecta).trim().toLowerCase();
-        let selected = respuestaSeleccionada.trim().toLowerCase();
+        let target = normalizeAnswer(ejercicioActual.respuestaCorrecta);
+        let selected = normalizeAnswer(respuestaSeleccionada);
 
         if (ejercicioActual.tipo === "true_false") {
-            if (target === "verdadero" || target === "v") target = "true";
-            if (target === "falso" || target === "f") target = "false";
+            target = normalizeTrueFalse(ejercicioActual.respuestaCorrecta);
+            selected = normalizeTrueFalse(respuestaSeleccionada);
         }
 
         const esCorrecta = selected === target;
@@ -421,8 +422,11 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
                     ))}
                 </div>
                 <div className="flex items-center gap-1 text-white/60 text-sm shrink-0">
-                    <Star size={16} fill={puntaje > 0 ? "#FFD60A" : "none"} stroke="#FFD60A" />
-                    <span>{puntaje}/{V1_LIMIT}</span>
+                    <div className="flex gap-0.5 mr-1">
+                        {Array.from({ length: Math.max(3, puntaje) }).map((_, i) => (
+                            <Star key={i} size={16} fill={i < puntaje ? "#FFD60A" : "none"} stroke={i < puntaje ? "#FFD60A" : "rgba(255,255,255,0.4)"} />
+                        ))}
+                    </div>
                 </div>
             </div>
 
@@ -512,12 +516,12 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
                         <div className="grid grid-cols-2 gap-3">
                             {ejercicioActual.opciones?.map((op, opIdx) => {
                                 const esEsta = respuestaSeleccionada === op;
-                                const esCorrecta = respondido && op === ejercicioActual.respuestaCorrecta;
-                                const esIncorrecta = respondido && esEsta && op !== ejercicioActual.respuestaCorrecta;
+                                const esCorrecta = respondido && normalizeAnswer(op) === normalizeAnswer(ejercicioActual.respuestaCorrecta);
+                                const esIncorrecta = respondido && esEsta && !esCorrecta;
 
                                 return (
                                     <motion.button
-                                        key={op}
+                                        key={op + opIdx}
                                         whileHover={!respondido ? { scale: 1.04, y: -2 } : {}}
                                         whileTap={!respondido ? { scale: 0.96 } : {}}
                                         animate={
@@ -582,9 +586,9 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
                                 { val: "true", label: "✅", texto: "Verdadero" },
                                 { val: "false", label: "❌", texto: "Falso" },
                             ].map(({ val, label, texto }) => {
-                                const targetVal = String(ejercicioActual.respuestaCorrecta).trim().toLowerCase();
-                                const isTargetTrue = targetVal === "true" || targetVal === "verdadero" || targetVal === "v";
-                                const isTargetFalse = targetVal === "false" || targetVal === "falso" || targetVal === "f";
+                                const targetVal = normalizeTrueFalse(ejercicioActual.respuestaCorrecta);
+                                const isTargetTrue = targetVal === "true";
+                                const isTargetFalse = targetVal === "false";
 
                                 const esEsta = respuestaSeleccionada === val;
                                 const esCorrecta = respondido && (val === "true" ? isTargetTrue : isTargetFalse);

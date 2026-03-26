@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   // Imágenes: usar unoptimized en CF Pages (no tiene Image Optimization en free tier)
   images: {
     unoptimized: true,

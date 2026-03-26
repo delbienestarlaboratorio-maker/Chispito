@@ -219,7 +219,7 @@ function CapituloCard({ cap, isOpen, onClick, index }: {
                             ))}
 
                             {/* Segunda imagen de escena si existe */}
-                            {cap.imagenEscena2 && (
+                            {(cap as any).imagenEscena2 && (
                                 <motion.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -228,7 +228,7 @@ function CapituloCard({ cap, isOpen, onClick, index }: {
                                     style={{ border: `2px solid ${cap.colorAcento}30` }}
                                 >
                                     <Image
-                                        src={cap.imagenEscena2}
+                                        src={(cap as any).imagenEscena2}
                                         alt={`Escena 2: ${cap.titulo}`}
                                         width={800}
                                         height={450}
