@@ -166,6 +166,75 @@ const BANCO = {
     ],
   },
 
+// ══════════════════════════════════════════════════════════════════════════
+  //  ESPAÑOL
+  // ══════════════════════════════════════════════════════════════════════════
+  espanol: {
+    _default: [
+      { tipo:'multiple_choice', nivel:'v1', pregunta:'¿Cuál de estas palabras es un verbo?', opciones:['Correr','Mesa','Bonito','Ayer'], respuestaCorrecta:'Correr', explicacion:'Los verbos expresan acciones, estados o procesos.' },
+      { tipo:'true_false', nivel:'v1', pregunta:'Las palabras que sirven para nombrar personas, animales o cosas se llaman sustantivos', respuestaCorrecta:'true', explicacion:'El sustantivo es la clase de palabra que designa entidades fijas.' },
+      { tipo:'fill_blank', nivel:'v1', pregunta:'La sílaba que se pronuncia con mayor intensidad en una palabra se llama sílaba ___', respuestaCorrecta:'tónica', explicacion:'La sílaba tónica lleva el acento prosódico.' },
+      { tipo:'multiple_choice', nivel:'v2', pregunta:'¿Qué es un texto argumentativo?', opciones:['El que cuenta una historia','El que describe un paisaje','El que defiende una opinión o idea con razones','El que da instrucciones paso a paso'], respuestaCorrecta:'El que defiende una opinión o idea con razones', explicacion:'La argumentación busca persuadir o convencer al lector.' },
+      { tipo:'fill_blank', nivel:'v2', pregunta:'Las palabras que suenan igual pero se escriben distinto y tienen diferente significado se llaman palabras ___', respuestaCorrecta:'homófonas', explicacion:'Ejemplo: "hola" (saludo) y "ola" (onda en el mar).' },
+      { tipo:'multiple_choice', nivel:'v2', pregunta:'En la oración "El gato duerme", ¿cuál es el predicado?', opciones:['El gato','duerme','El','gato duerme'], respuestaCorrecta:'duerme', explicacion:'El predicado es la acción que realiza el sujeto.' }
+    ]
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  //  MATEMÁTICAS
+  // ══════════════════════════════════════════════════════════════════════════
+  matematicas: {
+    _default: [
+      { tipo:'multiple_choice', nivel:'v1', pregunta:'¿Cuánto es 8 x 7?', opciones:['48','54','56','64'], respuestaCorrecta:'56', explicacion:'8 multiplicado por 7 es igual a 56.' },
+      { tipo:'true_false', nivel:'v1', pregunta:'Un triángulo equilátero tiene sus tres lados iguales', respuestaCorrecta:'true', explicacion:'El prefijo "equi" significa igual, y "látero" lado.' },
+      { tipo:'fill_blank', nivel:'v1', pregunta:'El resultado de una suma se llama ___', respuestaCorrecta:'total', explicacion:'También se le conoce como suma o adición.' },
+      { tipo:'multiple_choice', nivel:'v2', pregunta:'¿Cuál es el área de un cuadrado de lado 5 cm?', opciones:['10 cm²','20 cm²','25 cm²','30 cm²'], respuestaCorrecta:'25 cm²', explicacion:'El área de un cuadrado se calcula multiplicando lado por lado (5 x 5).' },
+      { tipo:'true_false', nivel:'v2', pregunta:'El número Pi (π) equivale a la relación entre la longitud de una circunferencia y su diámetro', respuestaCorrecta:'true', explicacion:'Esta constante matemática es aproximadamente 3.14159...' },
+      { tipo:'fill_blank', nivel:'v2', pregunta:'El ángulo que mide exactamente 90 grados se llama ángulo ___', respuestaCorrecta:'recto', explicacion:'Un ángulo recto forma una L perfecta.' }
+    ]
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  //  CIENCIAS
+  // ══════════════════════════════════════════════════════════════════════════
+  ciencias: {
+    _default: [
+      { tipo:'multiple_choice', nivel:'v1', pregunta:'¿Qué gas necesitamos los seres humanos para respirar?', opciones:['Dióxido de carbono','Oxígeno','Nitrógeno','Helio'], respuestaCorrecta:'Oxígeno', explicacion:'Las células humanas utilizan el oxígeno para producir energía.' },
+      { tipo:'true_false', nivel:'v1', pregunta:'El agua cambia de estado líquido a sólido al calentarse', respuestaCorrecta:'false', explicacion:'El agua se vuelve sólida (hielo) al enfriarse por debajo de los 0°C.' },
+      { tipo:'fill_blank', nivel:'v1', pregunta:'El proceso por el cual las plantas fabrican su propio alimento se llama ___', respuestaCorrecta:'fotosíntesis', explicacion:'Las plantas utilizan luz solar, agua y dióxido de carbono en este proceso.' },
+      { tipo:'multiple_choice', nivel:'v2', pregunta:'¿Cuál es la unidad básica de la vida estructural y funcional?', opciones:['El átomo','La célula','El tejido','El órgano'], respuestaCorrecta:'La célula', explicacion:'Todos los organismos vivos están compuestos por una o más células.' },
+      { tipo:'true_false', nivel:'v2', pregunta:'La fuerza que nos mantiene sobre la superficie de la Tierra es el magnetismo', respuestaCorrecta:'false', explicacion:'La fuerza responsable es la gravedad, que atrae los cuerpos hacia el centro del planeta.' },
+      { tipo:'fill_blank', nivel:'v2', pregunta:'El planeta más cercano al Sol en nuestro sistema solar es ___', respuestaCorrecta:'Mercurio', explicacion:'Mercurio orbita más cerca del Sol que cualquier otro planeta.' }
+    ]
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  //  HISTORIA
+  // ══════════════════════════════════════════════════════════════════════════
+  historia: {
+    _default: [
+      { tipo:'multiple_choice', nivel:'v1', pregunta:'¿En qué año Cristóbal Colón llegó a América?', opciones:['1492','1521','1810','1910'], respuestaCorrecta:'1492', explicacion:'La llegada de Colón marcó el inicio del contacto europeo con América.' },
+      { tipo:'true_false', nivel:'v1', pregunta:'Miguel Hidalgo lideró el inicio de la Independencia de México', respuestaCorrecta:'true', explicacion:'Hidalgo dio el Grito de Dolores el 16 de septiembre de 1810.' },
+      { tipo:'fill_blank', nivel:'v1', pregunta:'La gran ciudad construida por los aztecas sobre un lago se llamaba ___', respuestaCorrecta:'Tenochtitlán', explicacion:'Esta ciudad fue el corazón del imperio mexica hasta la conquista española.' },
+      { tipo:'multiple_choice', nivel:'v2', pregunta:'¿Qué evento de 1910 buscó terminar con la dictadura de Porfirio Díaz?', opciones:['La Guerra de Reforma','La Independencia','La Revolución Mexicana','La Guerra Cristera'], respuestaCorrecta:'La Revolución Mexicana', explicacion:'Iniciada por Francisco I. Madero con el Plan de San Luis.' },
+      { tipo:'true_false', nivel:'v2', pregunta:'El Tratado de Guadalupe Hidalgo puso fin a la guerra de Reforma', respuestaCorrecta:'false', explicacion:'Dicho tratado finalizó la guerra México-Estados Unidos, resultando en la pérdida de la mitad del territorio nacional.' },
+      { tipo:'fill_blank', nivel:'v2', pregunta:'Durante tres siglos, gran parte del territorio de Norteamérica y Centroamérica formó el Virreinato de la Nueva ___', respuestaCorrecta:'España', explicacion:'Se estableció en 1535 con Antonio de Mendoza como primer virrey.' }
+    ]
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  //  FORMACIÓN
+  // ══════════════════════════════════════════════════════════════════════════
+  formacion: {
+    _default: [
+      { tipo:'multiple_choice', nivel:'v1', pregunta:'¿Qué documento establece los derechos fundamentales de todos los mexicanos?', opciones:['El Código Penal','La Biblia','La Constitución Política','El Reglamento de Tránsito'], respuestaCorrecta:'La Constitución Política', explicacion:'La Constitución de 1917 rige la vida jurídica de México.' },
+      { tipo:'true_false', nivel:'v1', pregunta:'Discriminar significa tratar a todos por igual', respuestaCorrecta:'false', explicacion:'Discriminar significa dar un trato desigual y perjudicial a alguien por motivos de raza, sexo, ideas, etc.' },
+      { tipo:'fill_blank', nivel:'v1', pregunta:'La capacidad de ponerse en el lugar de los demás y comprender sus sentimientos se llama ___', respuestaCorrecta:'empatía', explicacion:'La empatía es fundamental para la convivencia social.' },
+      { tipo:'multiple_choice', nivel:'v2', pregunta:'¿Qué es la "separación de poderes"?', opciones:['Dividir a la policía y al ejército','Dividir el país en estados','Distribuir las funciones del estado en Poder Ejecutivo, Legislativo y Judicial','Separar a los niños por edades en las escuelas'], respuestaCorrecta:'Distribuir las funciones del estado en Poder Ejecutivo, Legislativo y Judicial', explicacion:'Este principio busca evitar la concentración de poder y garantizar el equilibrio y la libertad.' },
+      { tipo:'true_false', nivel:'v2', pregunta:'La cultura de la legalidad promueve que la gente decida cuáles reglas cumplir y cuáles ignorar', respuestaCorrecta:'false', explicacion:'La cultura de la legalidad implica conocer, respetar y cumplir las leyes por convicción.' },
+      { tipo:'fill_blank', nivel:'v2', pregunta:'El sistema de gobierno en el cual los ciudadanos eligen a sus representantes es una ___', respuestaCorrecta:'democracia', explicacion:'Proviene del griego "demos" (pueblo) y "kratos" (poder).' }
+    ]
+  },
 }; // fin BANCO
 
 // ─── Temas especiales que mapean a un banco concreto ─────────────────────────
@@ -194,9 +263,22 @@ const TEMA_MAP = {
   'El campo y la ciudad': 'conocimiento',
 };
 
+// Mapeos de nombres de materias NEM (Nueva Escuela Mexicana) y otras
+const MATERIA_MAP = {
+  'saberes_cientificos': 'ciencias',
+  'lenguajes_nem': 'espanol',
+  'multiples_lenguajes': 'espanol',
+  'etica_naturaleza': 'formacion',
+  'humano_comunitario': 'formacion',
+  'proyectos_nem': 'formacion',
+  'civica': 'formacion',
+  'filosofia': 'formacion'
+};
+
 // ─── Seleccionar ejercicios por materia/temas ─────────────────────────────────
 function getEjercicios(materia, temas = []) {
-  const bancoMateria = BANCO[materia];
+  const materiaReal = MATERIA_MAP[materia] || materia;
+  const bancoMateria = BANCO[materiaReal];
   if (!bancoMateria) return null;
 
   // Buscar por tema específico primero
@@ -296,7 +378,8 @@ for (const filePath of allFiles) {
 
   if (!isBroken(original)) { skipped++; continue; }
 
-  if (!BANCO[original.materia]) {
+  const materiaReal = MATERIA_MAP[original.materia] || original.materia;
+  if (!BANCO[materiaReal]) {
     console.log(`⚠   Sin banco para materia "${original.materia}": ${rel}`);
     noBank++;
     continue;

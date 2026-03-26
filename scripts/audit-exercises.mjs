@@ -57,7 +57,7 @@ function collectJsonFiles(dir) {
     for (const entry of readdirSync(d)) {
       const full = join(d, entry);
       if (statSync(full).isDirectory()) { walk(full); continue; }
-      if (entry.endsWith('.json')) files.push(full);
+      if (entry.endsWith('.json') && !entry.endsWith('indice.json')) files.push(full);
     }
   }
   walk(dir);
