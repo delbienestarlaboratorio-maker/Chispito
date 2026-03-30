@@ -3,7 +3,6 @@ name = "chispito-mx"
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".open-next/assets"
-minify = true
 
 [vars]
 NEXT_PUBLIC_SITE_URL = "https://chispito.mx"
