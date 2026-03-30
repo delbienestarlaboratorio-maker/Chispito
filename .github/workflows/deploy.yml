@@ -115,7 +115,8 @@ jobs:
             echo "==== WRANGLER DEPLOY FAILED ===="
             echo "Exit code: $?"
             echo "Retrying with verbose logging..."
-            WRANGLER_LOG=debug npx wrangler pages deploy .open-next/assets --project-name chispito-mx --branch main 2>&1 || true
+            WRANGLER_LOG=debug npx wrangler pages deploy .open-next/assets --project-name chispito-mx --branch main 2>&1
+            exit 1
           }
 
       - name: Deploy Sitemap Worker
