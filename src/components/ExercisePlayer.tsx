@@ -41,6 +41,32 @@ function getMensaje(estado: EstadoRespuesta, indice: number, grado: string) {
 }
 
 
+// Helper to highlight blank placeholder in pregunta
+function renderPregunta(pregunta: string) {
+    const parts = pregunta.split(/(___|\?\?\?)/g);
+    return (
+        <>
+            {parts.map((part, idx) =>
+                part === '___' || part === '???' ? (
+                    <span key={idx} className="blank-placeholder" style={{
+                        textDecoration: 'underline dotted',
+                        fontWeight: 'bold',
+                        color: '#D97706',
+                        backgroundColor: '#FEF3C7',
+                        padding: '0 4px',
+                        borderRadius: '4px',
+                        borderBottom: '2px dashed #D97706'
+                    }}>
+                        {part}
+                    </span>
+                ) : (
+                    <span key={idx}>{part}</span>
+                )
+            )}
+        </>
+    );
+}
+
 // ── CONFETTI COMPONENT ─────────────────────────────────────────────────────────
 function Confetti() {
     const pieces = ["🌟", "⭐", "✨", "🎊", "🎉", "💫", "🥳", "🎈"];
@@ -503,7 +529,7 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
                         className="font-fredoka text-gray-800 mb-5 leading-snug"
                         style={{ fontSize: esGradoPequeno ? "1.6rem" : "1.4rem" }}
                     >
-                        {ejercicioActual.pregunta}
+                        {renderPregunta(ejercicioActual.pregunta)}
                     </p>
 
                     {/* Visual Grid para conteo (solo en ejercicios visuales de grados pequeños) */}

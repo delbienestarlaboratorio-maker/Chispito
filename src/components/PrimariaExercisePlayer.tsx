@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Lock, ChevronRight, Star } from "lucide-react";
 import { normalizeAnswer, normalizeTrueFalse } from "@/lib/pedagogy";
+import { renderPregunta } from "@/lib/renderPregunta";
 
 // ─── Tipos ───────────────────────────────────────────
 type Ejercicio = {
@@ -435,7 +436,7 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
                         textAlign: tier === 1 ? "center" : "left",
                     }}>
                         {tier === 1 && <span className="mr-2">{emoji}</span>}
-                        {ejercicio.pregunta}
+                        {renderPregunta(ejercicio.pregunta)}
                     </p>
 
                     {/* Opciones */}

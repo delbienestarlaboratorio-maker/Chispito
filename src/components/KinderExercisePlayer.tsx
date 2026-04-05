@@ -8,6 +8,7 @@ import ChispitoCompanion, { type CompanionState } from "./ChispitoCompanion";
 import { useGameSounds } from "@/hooks/useGameSounds";
 import { useBlockMusic } from "@/hooks/useBlockMusic";
 import { normalizeAnswer, normalizeTrueFalse } from "@/lib/pedagogy";
+import { renderPregunta } from "@/lib/renderPregunta";
 
 type KinderEjercicio = {
     id: string;
@@ -539,7 +540,7 @@ export default function KinderExercisePlayer({ ejercicios, grado, materia, bloqu
                                 className="text-center font-bold mb-6 leading-snug"
                                 style={{ fontSize: "clamp(1.3rem, 4.5vw, 1.8rem)", color: "#1E293B" }}
                             >
-                                {preguntaLimpia}
+                                {renderPregunta(preguntaLimpia)}
                             </motion.p>
 
                             {/* Opciones con entrada escalonada */}

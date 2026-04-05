@@ -78,6 +78,7 @@ export default async function BloquePage({ params }: Props) {
         ...((datos.ejercicios.v1 || []) as never[]),
         ...((datos.ejercicios.v2 || []) as never[]),
     ];
+    console.log(`[BloquePage] ${grado}/${materia}/${bloque}: todosEjercicios length = ${todosEjercicios.length}`);
 
     const esKinder = GRADOS_KINDER.includes(grado);
 
@@ -117,6 +118,7 @@ export default async function BloquePage({ params }: Props) {
                 {/* Schema LearningResource */}
                 <script
                     type="application/ld+json"
+                    suppressHydrationWarning
                     dangerouslySetInnerHTML={{
                         __html: JSON.stringify({
                             "@context": "https://schema.org",

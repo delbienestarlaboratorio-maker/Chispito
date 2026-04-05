@@ -1,4 +1,7 @@
-export const runtime = 'edge';
+// nodejs runtime: necesario porque el fallback de desarrollo usa fs/path (Node.js APIs).
+// En producción (Cloudflare Pages), R2_PUBLIC_URL está definido y la ruta redirige
+// a R2 antes de llegar al código de fs, por lo que no hay impacto en el worker.
+export const runtime = 'nodejs';
 import { NextRequest, NextResponse } from "next/server";
 
 /**

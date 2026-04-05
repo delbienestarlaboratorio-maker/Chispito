@@ -40,17 +40,17 @@ export default async function GradoPage({ params }: Props) {
     const materiasGrado = grado.materias.map((id) => MATERIAS[id]).filter(Boolean);
 
     // Note: GRADOS_CONTENIDO already includes telesecundaria via content-telesecundaria-slim
-    const { GRADOS_CONTENIDO } = await import("@/data/content-primaria-slim");
+    const { GRADOS_CONTENIDO } = (await import("@/data/content-primaria-slim")) as any;
 
     // Derive bloquesGrado from BLOQUES (curriculum.ts) or GRADOS_CONTENIDO
     // This avoids importing the heavy content-telesecundaria.ts (30KB) which exceeds Edge limits
     let bloquesGrado: Record<string, { numero: number; nombre: string; meses: string; temas: string[] }[]> = BLOQUES[grado.slug] || {};
     if (Object.keys(bloquesGrado).length === 0) {
-        const gradoContenido = GRADOS_CONTENIDO[grado.slug];
+        const gradoContenido = GRADOS_CONTENIDO[grado.slug] as any;
         if (gradoContenido) {
             const derived: typeof bloquesGrado = {};
-            for (const [materiaId, materiaData] of Object.entries(gradoContenido.materias)) {
-                derived[materiaId] = materiaData.bloques.map((b) => ({
+            for (const [materiaId, materiaData] of Object.entries(gradoContenido.materias) as [string, any][]) {
+                derived[materiaId] = materiaData.bloques.map((b: any) => ({
                     numero: b.bloque,
                     nombre: b.nombre,
                     meses: b.meses,
@@ -644,7 +644,7 @@ export default async function GradoPage({ params }: Props) {
                             if (gradoMasticado) {
                                 return (
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
-                                        {Object.values(gradoMasticado.materias).map((mat) => {
+                                        {(Object.values(gradoMasticado.materias) as any[]).map((mat) => {
                                             const mesActual = new Date().getMonth();
                                             const bloqueIdx = Math.min(Math.floor(mesActual / 2), mat.bloques.length - 1);
                                             const bloqueHoy = mat.bloques[bloqueIdx];
@@ -732,7 +732,7 @@ export default async function GradoPage({ params }: Props) {
                                         <h2 className="font-fredoka text-3xl text-white mb-6">
                                             📅 Programa del año escolar
                                         </h2>
-                                        {materias.map((mat) => (
+                                        {(materias as any[]).map((mat) => (
                                             <div key={mat.materia} className="mb-8">
                                                 <h3
                                                     className="font-fredoka text-xl mb-4 flex items-center gap-2"
@@ -741,7 +741,7 @@ export default async function GradoPage({ params }: Props) {
                                                     {mat.emoji} {mat.nombre}
                                                 </h3>
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                                    {mat.bloques.map((bloque) => (
+                                                    {mat.bloques.map((bloque: any) => (
                                                         <Link
                                                             key={bloque.bloque}
                                                             href={`/${grado.slug}/${mat.materia}/bloque-${bloque.bloque}`}

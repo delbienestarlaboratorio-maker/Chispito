@@ -50,15 +50,18 @@ export default function RootLayout({
   return (
     <html lang="es-MX">
       <head>
+        <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self';" />
         {/* Google AdSense */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6867283748828267"
           crossOrigin="anonymous"
+          suppressHydrationWarning
         />
         {/* Schema markup: EducationalOrganization */}
         <script
           type="application/ld+json"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
