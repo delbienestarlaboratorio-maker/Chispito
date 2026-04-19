@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  assetPrefix: process.env.NODE_ENV === "production" ? "https://chispito-mx.pages.dev" : undefined,
   // Imágenes: usar unoptimized en CF Pages (no tiene Image Optimization en free tier)
   images: {
     unoptimized: true,
