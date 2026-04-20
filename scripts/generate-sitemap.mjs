@@ -51,15 +51,26 @@ for (const slug of GRADOS_SLUGS) {
     urls.push({ loc: `${SITE_URL}/${slug}`, priority: '0.9', changefreq: 'weekly' });
 }
 
+// Leer rutas completas generadas por local script
+let dynamicRoutes = [];
+try {
+    const jsonPath = join(__dirname, 'all-routes.json');
+    dynamicRoutes = JSON.parse(readFileSync(jsonPath, 'utf8'));
+    console.log(`Cargadas ${dynamicRoutes.length} rutas dinámicas de ejercicios`);
+} catch(e) {
+    console.log("No se encontró all-routes.json, usando defaults");
+}
+
 // 3. Rutas de materias por grado
 for (const [grado, materias] of Object.entries(MATERIAS_POR_GRADO)) {
     for (const materia of materias) {
         urls.push({ loc: `${SITE_URL}/${grado}/${materia}`, priority: '0.8', changefreq: 'weekly' });
-        // Bloques 1-5
-        for (let b = 1; b <= 5; b++) {
-            urls.push({ loc: `${SITE_URL}/${grado}/${materia}/bloque-${b}`, priority: '0.7', changefreq: 'monthly' });
-        }
     }
+}
+
+// Añadir todas las rutas dinámicas descubiertas en los micro-frontends
+for (const route of dynamicRoutes) {
+    urls.push({ loc: `${SITE_URL}${route}`, priority: '0.7', changefreq: 'monthly' });
 }
 
 // 4. Rutas extra (kinder, preescolar)
