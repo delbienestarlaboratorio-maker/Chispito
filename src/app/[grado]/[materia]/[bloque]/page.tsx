@@ -136,6 +136,25 @@ export default async function BloquePage({ params }: Props) {
                     }}
                 />
 
+                
+                {/* Schema BreadcrumbList for Google rich results */}
+                <script
+                    type="application/ld+json"
+                    suppressHydrationWarning
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "BreadcrumbList",
+                            itemListElement: [
+                                { "@type": "ListItem", position: 1, name: "Inicio", item: "https://chispito.mx/" },
+                                { "@type": "ListItem", position: 2, name: gradoInfo.nombre, item: `https://chispito.mx/${grado}` },
+                                { "@type": "ListItem", position: 3, name: materiaInfo.nombre, item: `https://chispito.mx/${grado}/${materia}` },
+                                { "@type": "ListItem", position: 4, name: datos.nombre },
+                            ],
+                        }),
+                    }}
+                />
+
                 {/* Breadcrumb */}
                 <div className="text-white/40 text-sm mb-4 flex items-center justify-center gap-2">
                     <Link href="/" className="hover:text-white transition-colors">Inicio</Link>
