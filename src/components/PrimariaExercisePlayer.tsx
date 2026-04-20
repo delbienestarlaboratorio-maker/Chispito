@@ -216,7 +216,7 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
     const theme = TIER_THEME[tier];
     const accentColor = color || theme.accent; // usa color de materia o theme default
 
-    const FREE_LIMIT = 3;
+    const FREE_LIMIT = 999;
     const lista = ejercicios.slice(0, tier === 1 ? 10 : tier === 2 ? 12 : 15);
     const [indice, setIndice] = useState(0);
     const [estadoOps, setEstadoOps] = useState<Record<string, "idle" | "correcto" | "incorrecto">>({});

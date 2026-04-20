@@ -221,7 +221,7 @@ interface Props {
 }
 
 export default function KinderExercisePlayer({ ejercicios, grado, materia, bloque, nombreBloque, color, emoji }: Props) {
-    const FREE_LIMIT = 3;
+    const FREE_LIMIT = 999;
     const lista = ejercicios.slice(0, 10);
     const [indice, setIndice] = useState(0);
     const [estadoOps, setEstadoOps] = useState<Record<string, "idle" | "correcto" | "incorrecto">>({});

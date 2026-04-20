@@ -230,7 +230,7 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
     const [nicoBounce, setNicoBounce] = useState(false);
     const [mensajeIndex, setMensajeIndex] = useState(0);
 
-    const V1_LIMIT = 3;
+    const V1_LIMIT = 999;
     const ejercicioActual = ejercicios[indice];
     const esUltimoGratis = indice === V1_LIMIT - 1;
     const esV2Bloqueado = indice >= V1_LIMIT;
