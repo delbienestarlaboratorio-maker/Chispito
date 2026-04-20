@@ -1,0 +1,13 @@
+{
+  "access-control-allow-origin": "*",
+  "cache-control": "no-store",
+  "cf-ray": "9e6bf157295fa918-DFW",
+  "connection": "keep-alive",
+  "content-length": "0",
+  "date": "Fri, 03 Apr 2026 23:44:42 GMT",
+  "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+  "referrer-policy": "strict-origin-when-cross-origin",
+  "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=5KwTDCNCI5G90YRLXNfkd1ame48Q3Pel%2BTFgUzKTr%2F2hyRlpFIN8Df0cRUBcpeGes%2BYL5runYLvLkD9cIQzPSPsYBp5qTeOdgn7BA9%2BXn1B28lwHmnK8xqwii0E2Ng%3D%3D\"}]}",
+  "server": "cloudflare",
+  "vary": "Accept-Encoding"
+}

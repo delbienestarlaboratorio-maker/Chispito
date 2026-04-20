@@ -1,0 +1,52 @@
+[
+  {
+    "url": "https://5adaef5c.chispito-mx.pages.dev/secundaria-3/ciencias/bloque-1",
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 ()",
+      "Failed to load resource: the server responded with a status of 404 ()",
+      "Failed to load resource: the server responded with a status of 404 ()",
+      "Failed to load resource: the server responded with a status of 404 ()"
+    ],
+    "placeholderCount": 0,
+    "starRatingWorks": false,
+    "playerContainer": false,
+    "cspMeta": null,
+    "iframeCount": 0
+  },
+  {
+    "url": "https://5adaef5c.chispito-mx.pages.dev/secundaria-3/matematicas/bloque-6",
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 ()",
+      "Failed to load resource: the server responded with a status of 404 ()",
+      "Failed to load resource: the server responded with a status of 404 ()"
+    ],
+    "placeholderCount": 0,
+    "starRatingWorks": false,
+    "playerContainer": false,
+    "cspMeta": null,
+    "iframeCount": 0
+  },
+  {
+    "url": "https://5adaef5c.chispito-mx.pages.dev/preescolar-1/espanol/bloque-6",
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 ()",
+      "Failed to load resource: the server responded with a status of 404 ()"
+    ],
+    "placeholderCount": 0,
+    "starRatingWorks": false,
+    "playerContainer": false,
+    "cspMeta": null,
+    "iframeCount": 0
+  },
+  {
+    "url": "https://5adaef5c.chispito-mx.pages.dev/primaria-1/matematicas/bloque-1",
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 ()"
+    ],
+    "placeholderCount": 0,
+    "starRatingWorks": false,
+    "playerContainer": false,
+    "cspMeta": null,
+    "iframeCount": 0
+  }
+]

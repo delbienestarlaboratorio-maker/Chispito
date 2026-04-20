@@ -1,0 +1,82 @@
+[
+  {
+    "url": "http://localhost:5001/primaria-1/matematicas/bloque-1",
+    "stars": {
+      "success": true,
+      "error": null
+    },
+    "fillBlank": {
+      "found": true,
+      "placeholderMissing": true,
+      "inputCount": 1
+    },
+    "consoleErrors": [],
+    "hydrationMismatch": false,
+    "visibleErrors": [],
+    "screenshot": "crawl__primaria-1_matematicas_bloque-1.png"
+  },
+  {
+    "url": "http://localhost:5001/primaria-1/matematicas/bloque-2",
+    "stars": {
+      "success": true,
+      "error": null
+    },
+    "fillBlank": {
+      "found": true,
+      "placeholderMissing": true,
+      "inputCount": 1
+    },
+    "consoleErrors": [],
+    "hydrationMismatch": false,
+    "visibleErrors": [],
+    "screenshot": "crawl__primaria-1_matematicas_bloque-2.png"
+  },
+  {
+    "url": "http://localhost:5001/primaria-1/matematicas/bloque-3",
+    "stars": {
+      "success": true,
+      "error": null
+    },
+    "fillBlank": {
+      "found": true,
+      "placeholderMissing": true,
+      "inputCount": 1
+    },
+    "consoleErrors": [],
+    "hydrationMismatch": false,
+    "visibleErrors": [],
+    "screenshot": "crawl__primaria-1_matematicas_bloque-3.png"
+  },
+  {
+    "url": "http://localhost:5001/primaria-1/matematicas/bloque-4",
+    "stars": {
+      "success": true,
+      "error": null
+    },
+    "fillBlank": {
+      "found": true,
+      "placeholderMissing": true,
+      "inputCount": 1
+    },
+    "consoleErrors": [],
+    "hydrationMismatch": false,
+    "visibleErrors": [],
+    "screenshot": "crawl__primaria-1_matematicas_bloque-4.png"
+  },
+  {
+    "url": "http://localhost:5001/primaria-1/matematicas/bloque-5",
+    "stars": {
+      "success": true,
+      "error": null
+    },
+    "fillBlank": {
+      "found": true,
+      "placeholderMissing": true,
+      "inputCount": 1
+    },
+    "consoleErrors": [],
+    "hydrationMismatch": false,
+    "visibleErrors": [],
+    "screenshot": "crawl__primaria-1_matematicas_bloque-5.png"
+  }
+]

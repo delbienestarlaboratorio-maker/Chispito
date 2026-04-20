@@ -13,8 +13,10 @@ export function normalizeAnswer(text: any): string {
         /* Remueve acentos y diéresis descomponiendo (NFD) y borrando marcas combinadas */
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
-        /* Remueve puntuación que penaliza falsamente al niño (puntos, comas, exclamaciones) */
-        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?\\¿¡"']/g, "")
+        /* Solo remueve signos de interrogación/exclamación, comillas y paréntesis para no romper decimales o fracciones */
+        .replace(/[!¡?¿"'(){}\[\]]/g, "")
+        /* Remueve un punto al final si lo pusieron accidentalmente (ej. "4." -> "4") */
+        .replace(/\.$/, "")
         /* Colapsa múltiples espacios a uno solo por tipeos accidentales */
         .replace(/\s{2,}/g, " ")
         .trim();

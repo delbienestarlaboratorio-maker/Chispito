@@ -10,6 +10,8 @@ type Ejercicio = {
     id: string;
     tipo: "multiple_choice" | "fill_blank" | "true_false" | "visual_count";
     pregunta: string;
+    visual?: string;
+    imagenUrl?: string;
     opciones?: string[];
     respuestaCorrecta: string;
     explicacion: string;
@@ -322,6 +324,13 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
                     <p className="text-gray-600 mb-2">
                         Respondiste <strong>{puntaje}/{V1_LIMIT}</strong> ejercicios correctamente
                     </p>
+
+                    {/* Imagen URL / Visual estático */}
+                    {(ejercicioActual.imagenUrl || ejercicioActual.visual?.startsWith('http') || ejercicioActual.visual?.startsWith('/')) && (
+                        <div className="flex justify-center mb-5">
+                            <img src={ejercicioActual.imagenUrl || ejercicioActual.visual} alt="Ilustración" className="max-w-full rounded-2xl shadow-sm border-2 border-slate-100" style={{ maxHeight: "250px", objectFit: "contain" }} />
+                        </div>
+                    )}
                     <p className="text-gray-500 text-sm">
                         📅 {nombreBloque} · {meses}
                     </p>
