@@ -12,6 +12,7 @@ type Ejercicio = {
     tipo: "multiple_choice" | "true_false" | "fill_blank" | "visual_count";
     pregunta: string;
     visual?: string;
+    imagenUrl?: string;
     ejemplo?: string;          // hint/ejemplo para P3-4
     datoClave?: string;        // concepto clave para P5-6
     formula?: string;          // fórmula para P5-6
@@ -412,12 +413,20 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
                     className="rounded-2xl p-5 md:p-6 mb-4"
                     style={{ background: "white", boxShadow: `0 4px 24px ${accentColor}20`, border: `2px solid ${accentColor}25` }}
                 >
-                    {/* Tier 1: emoji visual grande */}
-                    {tier === 1 && ejercicio.visual && (
+                    {/* Render visual: URL image, imagenUrl, or emoji */}
+                    {(ejercicio.visual?.startsWith('http') || ejercicio.visual?.startsWith('/')) ? (
+                        <div className="flex justify-center mb-4">
+                            <img src={ejercicio.visual} alt="Apoyo Visual" className="max-w-full rounded-xl shadow-sm border-2" style={{ borderColor: accentColor + "40", maxHeight: "300px", objectFit: "contain" }} />
+                        </div>
+                    ) : ejercicio.imagenUrl ? (
+                        <div className="flex justify-center mb-4">
+                            <img src={ejercicio.imagenUrl} alt="Imagen" className="max-w-full rounded-xl shadow-sm border-2" style={{ borderColor: accentColor + "40", maxHeight: "300px", objectFit: "contain" }} />
+                        </div>
+                    ) : tier === 1 && ejercicio.visual ? (
                         <div className="text-center mb-3 text-7xl leading-none select-none">
                             {ejercicio.visual}
                         </div>
-                    )}
+                    ) : null}
 
                     {/* Tier 2: caja de ejemplo colapsable */}
                     {tier === 2 && ejercicio.ejemplo && (
