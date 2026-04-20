@@ -268,6 +268,32 @@ export default async function BloquePage({ params }: Props) {
                 </section>
             )}
 
+            {/* SEO Transcript (Invisible para niños, visible para Googlebot) */}
+            <section className="px-4 py-8 mt-4 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)', background: esKinder ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.1)' }}>
+                <div className="max-w-2xl mx-auto opacity-30 hover:opacity-100 transition-opacity">
+                    <h2 className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: esKinder ? '#333' : 'white' }}>
+                        Guía de Repaso SEP: {datos.nombre}
+                    </h2>
+                    <div className="space-y-4">
+                        {todosEjercicios.map((ej: any, idx: number) => (
+                            <div key={ej.id || idx} className="text-xs" style={{ color: esKinder ? '#555' : 'white' }}>
+                                <h3 className="font-semibold mb-1">{idx + 1}. {typeof ej.pregunta === 'string' ? ej.pregunta.replace(/(___|\?\?\?)/g, '___') : typeof ej.pregunta === 'function' ? 'Pregunta interactiva' : ej.pregunta}</h3>
+                                {ej.opciones && (
+                                    <ul className="list-disc pl-5 mb-1 opacity-80">
+                                        {ej.opciones.map((op: string, oIdx: number) => (
+                                            <li key={oIdx}>{op}</li>
+                                        ))}
+                                    </ul>
+                                )}
+                                <p className="opacity-90 font-bold" style={{ color: materiaInfo.color }}>
+                                    ✅ Respuesta correcta: {String(ej.respuestaCorrecta) === 'true' ? 'Verdadero' : String(ej.respuestaCorrecta) === 'false' ? 'Falso' : String(ej.respuestaCorrecta)}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* Footer */}
             <footer className="py-8 text-center text-white/30 text-sm border-t border-white/06">
                 <Link href={`/${grado}/${materia}`} className="hover:text-white transition-colors">
