@@ -31,14 +31,16 @@ export default function Navbar() {
     };
 
     const links = [
-        { href: "/#grados", label: "Grados" },
-        { href: "/#materias", label: "Materias" },
+        { href: "https://chispito.mx/#grados", label: "Grados" },
+        { href: "https://chispito.mx/#materias", label: "Materias" },
         { href: "/cuadernillos", label: "Cuadernillos PDF", badge: true },
         { href: "/universo", label: "🌌 Universo", special: true },
+        { href: "/telesecundaria-1", label: "📺 Telesecundaria" },
+        { href: "/bachillerato-1", label: "🎓 Prepa" },
         { href: "/planes", label: "Planes 💎" },
         { href: "/blog", label: "Blog" },
         { href: "/maestros", label: "👩‍🏫 Maestros" },
-        { href: "/#papa", label: "Para Papás" },
+        { href: "https://chispito.mx/#papa", label: "Para Papás" },
     ];
     type NavLink = { href: string; label: string; special?: boolean; badge?: boolean };
 
