@@ -45,3 +45,5 @@ wrangler_config.toml
 
 # Vercel
 .vercel/
+
+wrangler_config.toml
