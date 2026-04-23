@@ -47,3 +47,7 @@ wrangler_config.toml
 .vercel/
 
 wrangler_config.toml
+
+deployments_list.*
+.env.*
+.wrangler/
