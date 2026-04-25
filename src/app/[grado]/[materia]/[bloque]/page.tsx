@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { GRADOS, MATERIAS } from "@/data/curriculum";
-import { GRADOS_CONTENIDO } from "@/data/content-primaria-slim";
+import { GRADOS_CONTENIDO } from "@/data/content-index";
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import ExercisePlayer from "@/components/ExercisePlayer";

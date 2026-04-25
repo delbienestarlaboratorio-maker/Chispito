@@ -40,7 +40,7 @@ export default async function GradoPage({ params }: Props) {
     const materiasGrado = grado.materias.map((id) => MATERIAS[id]).filter(Boolean);
 
     // Note: GRADOS_CONTENIDO already includes telesecundaria via content-telesecundaria-slim
-    const { GRADOS_CONTENIDO } = (await import("@/data/content-primaria-slim")) as any;
+    const { GRADOS_CONTENIDO } = (await import("@/data/content-index")) as any;
 
     // Derive bloquesGrado from BLOQUES (curriculum.ts) or GRADOS_CONTENIDO
     // This avoids importing the heavy content-telesecundaria.ts (30KB) which exceeds Edge limits

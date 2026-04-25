@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { AdBannerHorizontal } from "@/components/AdBanner";
-import { GRADOS_CONTENIDO } from "@/data/content-primaria-slim";
+import { GRADOS_CONTENIDO } from "@/data/content-index";
 import { GRADOS, MATERIAS } from "@/data/curriculum";
 
 interface Props {
