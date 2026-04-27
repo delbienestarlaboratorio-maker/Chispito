@@ -1,0 +1,204 @@
+{
+  "Kinder (Preescolar 3°)": {
+    "totalMaterias": 4,
+    "materias": {
+      "Números y Formas": 5,
+      "Lenguaje y Letras": 6,
+      "Conocimiento del Medio": 1,
+      "Educación Física": 1
+    }
+  },
+  "3° Preescolar": {
+    "totalMaterias": 4,
+    "materias": {
+      "Español": 1,
+      "Conocimiento del Medio": 1,
+      "Educación Física": 1,
+      "Matemáticas": 1
+    }
+  },
+  "1° Preescolar": {
+    "totalMaterias": 5,
+    "materias": {
+      "Artes": 6,
+      "Conocimiento del Medio": 6,
+      "Educación Física": 6,
+      "Español": 6,
+      "Matemáticas": 6
+    }
+  },
+  "2° Preescolar": {
+    "totalMaterias": 4,
+    "materias": {
+      "Educación Artística": 5,
+      "Educación Física": 5,
+      "Español": 5,
+      "Matemáticas": 5
+    }
+  },
+  "1° Primaria": {
+    "totalMaterias": 9,
+    "materias": {
+      "Matemáticas": 6,
+      "Español": 6,
+      "Lenguas Indígenas": 17,
+      "Ciencias Naturales": 5,
+      "Historia y Entorno": 5,
+      "Educación Artística": 5,
+      "Cívica y Ética": 5,
+      "Formación y Valores": 5,
+      "Educación Física": 6
+    }
+  },
+  "2° Primaria": {
+    "totalMaterias": 9,
+    "materias": {
+      "Matemáticas": 6,
+      "Español": 6,
+      "Lenguas Indígenas": 17,
+      "Ciencias Naturales": 5,
+      "Historia": 5,
+      "Educación Artística": 5,
+      "Cívica y Ética": 5,
+      "Formación y Valores": 5,
+      "Educación Física": 6
+    }
+  },
+  "3° Primaria": {
+    "totalMaterias": 6,
+    "materias": {
+      "Matemáticas": 6,
+      "Español": 6,
+      "Ciencias Naturales": 6,
+      "Historia": 5,
+      "Lenguas Indígenas": 17,
+      "Formación": 1
+    }
+  },
+  "4° Primaria": {
+    "totalMaterias": 10,
+    "materias": {
+      "Educación Artística": 5,
+      "Ciencias": 8,
+      "Cívica y Ética": 5,
+      "Educación Física": 5,
+      "Español": 7,
+      "Formación y Valores": 5,
+      "Geografía": 6,
+      "Historia": 8,
+      "Inglés": 5,
+      "Matemáticas": 8
+    }
+  },
+  "5° Primaria": {
+    "totalMaterias": 10,
+    "materias": {
+      "Educación Artística": 5,
+      "Ciencias": 8,
+      "Cívica y Ética": 5,
+      "Educación Física": 5,
+      "Español": 7,
+      "Formación y Valores": 5,
+      "Geografía": 6,
+      "Historia": 8,
+      "Inglés": 5,
+      "Matemáticas": 8
+    }
+  },
+  "6° Primaria": {
+    "totalMaterias": 10,
+    "materias": {
+      "Educación Artística": 5,
+      "Ciencias": 7,
+      "Cívica y Ética": 5,
+      "Educación Física": 5,
+      "Español": 7,
+      "Formación y Valores": 5,
+      "Geografía": 6,
+      "Historia": 8,
+      "Inglés": 5,
+      "Matemáticas": 8
+    }
+  },
+  "1° Secundaria": {
+    "totalMaterias": 10,
+    "materias": {
+      "Educación Artística": 5,
+      "Ciencias": 6,
+      "Educación Física": 5,
+      "Español": 6,
+      "Formación y Valores": 5,
+      "Geografía": 5,
+      "Historia": 6,
+      "Inglés": 5,
+      "Matemáticas": 6,
+      "Tecnología": 5
+    }
+  },
+  "2° Secundaria": {
+    "totalMaterias": 10,
+    "materias": {
+      "Educación Artística": 5,
+      "Ciencias": 6,
+      "Educación Física": 5,
+      "Español": 6,
+      "Formación y Valores": 5,
+      "Geografía": 5,
+      "Historia": 6,
+      "Inglés": 5,
+      "Matemáticas": 6,
+      "Tecnología": 5
+    }
+  },
+  "3° Secundaria": {
+    "totalMaterias": 10,
+    "materias": {
+      "Educación Artística": 5,
+      "Ciencias": 6,
+      "Educación Física": 5,
+      "Español": 6,
+      "Formación y Valores": 5,
+      "Geografía": 5,
+      "Historia": 6,
+      "Inglés": 5,
+      "Matemáticas": 6,
+      "Tecnología": 5
+    }
+  },
+  "1° Telesecundaria": {
+    "totalMaterias": 7,
+    "materias": {
+      "Lenguajes": 5,
+      "Saberes y Pensamiento Científico": 5,
+      "Ética, Naturaleza y Sociedades": 5,
+      "De lo Humano y lo Comunitario": 5,
+      "Múltiples Lenguajes": 5,
+      "Proyectos": 3,
+      "Inglés": 5
+    }
+  },
+  "2° Telesecundaria": {
+    "totalMaterias": 7,
+    "materias": {
+      "Lenguajes": 5,
+      "Saberes y Pensamiento Científico": 5,
+      "Ética, Naturaleza y Sociedades": 5,
+      "De lo Humano y lo Comunitario": 5,
+      "Múltiples Lenguajes": 5,
+      "Proyectos": 3,
+      "Inglés": 5
+    }
+  },
+  "3° Telesecundaria": {
+    "totalMaterias": 7,
+    "materias": {
+      "Lenguajes": 5,
+      "Saberes y Pensamiento Científico": 5,
+      "Ética, Naturaleza y Sociedades": 5,
+      "De lo Humano y lo Comunitario": 5,
+      "Múltiples Lenguajes": 5,
+      "Proyectos": 3,
+      "Inglés": 5
+    }
+  }
+}

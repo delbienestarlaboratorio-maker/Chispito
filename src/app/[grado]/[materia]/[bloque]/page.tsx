@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
-import { GRADOS, MATERIAS } from "@/data/curriculum";
+import { GRADOS, MATERIAS, CARRERAS_UNIVERSITARIAS } from "@/data/curriculum";
+import { ENFERMERIA_MALLA } from "@/data/content-enfermeria";
+import UniversityExercisePlayer from "@/components/UniversityExercisePlayer";
+import UniversityFlowWrapper from "@/components/UniversityFlowWrapper";
 import { GRADOS_CONTENIDO } from "@/data/content-index";
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
@@ -55,6 +58,18 @@ export const dynamicParams = true;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { grado, materia, bloque } = await params;
+
+    const carrera = CARRERAS_UNIVERSITARIAS.find((c) => c.slug === grado);
+    if (carrera) {
+        const materiaUni = [...ENFERMERIA_MALLA.tronco_comun, ...ENFERMERIA_MALLA.especialidad].find(m => m.id === materia);
+        if (materiaUni) {
+            return {
+                title: `${materiaUni.nombre} Bloque ${bloque.replace('bloque-', '')} — ${carrera.nombre} | Chispito Pro`,
+                description: `Laboratorio activo de ${materiaUni.nombre}. Fase ${bloque}.`
+            };
+        }
+    }
+
     const datos = await cargarBloque(grado, materia, bloque);
     const gradoInfo = GRADOS.find((g) => g.slug === grado);
     const materiaInfo = MATERIAS[materia];
@@ -69,6 +84,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function BloquePage({ params }: Props) {
     const { grado, materia, bloque } = await params;
     const datos = await cargarBloque(grado, materia, bloque);
+
+    const carrera = CARRERAS_UNIVERSITARIAS.find((c) => c.slug === grado);
+    if (carrera) {
+        const materiaUni = [...ENFERMERIA_MALLA.tronco_comun, ...ENFERMERIA_MALLA.especialidad].find(m => m.id === materia);
+        if (!materiaUni || !datos) notFound();
+        return <UniversityFlowWrapper carrera={carrera} materia={materiaUni} bloqueId={bloque.replace('bloque-', '')} datos={datos} />;
+    }
     const gradoInfo = GRADOS.find((g) => g.slug === grado);
     const materiaInfo = MATERIAS[materia];
     if (!datos || !gradoInfo || !materiaInfo) notFound();

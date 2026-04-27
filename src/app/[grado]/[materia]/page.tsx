@@ -4,7 +4,9 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { AdBannerHorizontal } from "@/components/AdBanner";
 import { GRADOS_CONTENIDO } from "@/data/content-index";
-import { GRADOS, MATERIAS } from "@/data/curriculum";
+import { GRADOS, MATERIAS, CARRERAS_UNIVERSITARIAS } from "@/data/curriculum";
+import { ENFERMERIA_MALLA } from "@/data/content-enfermeria";
+import UniversitySubjectPage from "@/components/UniversitySubjectPage";
 
 interface Props {
     params: Promise<{ grado: string; materia: string }>;
@@ -26,11 +28,29 @@ export async function generateStaticParams() {
             params.push({ grado, materia });
         }
     }
+    
+    // Add university params
+    const subjectsEnf = [...ENFERMERIA_MALLA.tronco_comun, ...ENFERMERIA_MALLA.especialidad];
+    for (const mat of subjectsEnf) {
+        params.push({ grado: "enfermeria", materia: mat.id });
+    }
     return params;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { grado, materia } = await params;
+    
+    const carrera = CARRERAS_UNIVERSITARIAS.find((c) => c.slug === grado);
+    if (carrera) {
+        const materiaUni = [...ENFERMERIA_MALLA.tronco_comun, ...ENFERMERIA_MALLA.especialidad].find(m => m.id === materia);
+        if (materiaUni) {
+            return {
+                title: `${materiaUni.nombre} — ${carrera.nombre} | Chispito Pro`,
+                description: materiaUni.desc,
+            };
+        }
+    }
+
     const gradoData = GRADOS_CONTENIDO[grado];
     const materiaData = gradoData?.materias[materia];
     if (!gradoData || !materiaData) return {};
@@ -46,6 +66,14 @@ const ICONOS_BLOQUE = ["📖", "🔥", "⭐", "🚀", "🏆"];
 
 export default async function MateriaPage({ params }: Props) {
     const { grado, materia } = await params;
+    
+    const carrera = CARRERAS_UNIVERSITARIAS.find((c) => c.slug === grado);
+    if (carrera) {
+        const materiaUni = [...ENFERMERIA_MALLA.tronco_comun, ...ENFERMERIA_MALLA.especialidad].find(m => m.id === materia);
+        if (!materiaUni) notFound();
+        return <UniversitySubjectPage carrera={carrera} materia={materiaUni} />;
+    }
+
     const gradoData = GRADOS_CONTENIDO[grado];
     const gradoInfo = GRADOS.find((g) => g.slug === grado);
     const materiaInfo = MATERIAS[materia];

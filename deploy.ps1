@@ -1,7 +1,15 @@
+if (Test-Path ".open-next/assets") { Remove-Item -Path ".open-next/assets" -Recurse -Force }
+New-Item -ItemType Directory -Path ".open-next/assets"
+
 Copy-Item -Path ".open-next/worker.js" -Destination ".open-next/assets/_worker.js" -Force
 Copy-Item -Path ".open-next/cloudflare" -Destination ".open-next/assets/cloudflare" -Recurse -Force
 Copy-Item -Path ".open-next/middleware" -Destination ".open-next/assets/middleware" -Recurse -Force
 Copy-Item -Path ".open-next/server-functions" -Destination ".open-next/assets/server-functions" -Recurse -Force
+
+# Prune heavy static contents and node_modules from the bundled server-functions to keep under Cloudflare 20k limit
+Remove-Item -Path ".open-next/assets/server-functions/default/libros-sep" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item -Path ".open-next/assets/server-functions/default/node_modules" -Recurse -Force -ErrorAction SilentlyContinue
+
 Copy-Item -Path ".open-next/.build" -Destination ".open-next/assets/.build" -Recurse -Force
 if (Test-Path ".open-next/cache") { Copy-Item -Path ".open-next/cache" -Destination ".open-next/assets/cache" -Recurse -Force }
 Get-ChildItem -Path "public" | Copy-Item -Destination ".open-next/assets/" -Recurse -Force

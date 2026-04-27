@@ -149,6 +149,38 @@ export const PREESCOLAR_1: GradoContenido = {
     }
 };
 
+export const PREESCOLAR_3: GradoContenido = {
+    grado: "preescolar-3",
+    nombre: "3° Preescolar",
+    emoji: "🌳",
+    materias: {
+        espanol: {
+            materia: "espanol", nombre: "Español", emoji: "📚", color: "#22C55E",
+            bloques: [
+                { bloque: 6, nombre: "Sílabas y Cortesía (LSM)", meses: "Todo el ciclo escolar" }
+            ]
+        },
+        conocimiento: {
+            materia: "conocimiento", nombre: "Conocimiento del Medio", emoji: "🔍", color: "#EC4899",
+            bloques: [
+                { bloque: 6, nombre: "Oficios y Transportes (LSM)", meses: "Todo el ciclo escolar" }
+            ]
+        },
+        educacion_fisica: {
+            materia: "educacion_fisica", nombre: "Educación Física", emoji: "⚽", color: "#F97316",
+            bloques: [
+                { bloque: 6, nombre: "Olimpiadas Silenciosas (LSM)", meses: "Todo el ciclo escolar" }
+            ]
+        },
+        matematicas: {
+            materia: "matematicas", nombre: "Matemáticas", emoji: "📐", color: "#3B82F6",
+            bloques: [
+                { bloque: 6, nombre: "Conteo avanzado 11-20 (LSM)", meses: "Todo el ciclo escolar" }
+            ]
+        }
+    }
+};
+
 export const PREESCOLAR_2: GradoContenido = {
     grado: "preescolar-2",
     nombre: "2° Preescolar",

@@ -1,7 +1,8 @@
-import { GRADOS, MATERIAS, BLOQUES } from "@/data/curriculum";
+import { GRADOS, MATERIAS, BLOQUES, CARRERAS_UNIVERSITARIAS } from "@/data/curriculum";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import UniversityPage from "@/components/UniversityPage";
 import { AdBannerHorizontal, AdSidebar } from "@/components/AdBanner";
 import { notFound } from "next/navigation";
 import BuscadorPagina from "@/components/BuscadorPaginaLazy";
@@ -13,12 +14,28 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-    return GRADOS.map((g) => ({ grado: g.slug }));
+    const gradosParams = GRADOS.map((g) => ({ grado: g.slug }));
+    const carrerasParams = CARRERAS_UNIVERSITARIAS.map((c) => ({ grado: c.slug }));
+    return [...gradosParams, ...carrerasParams];
 }
 
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { grado: gradoSlug } = await params;
+    
+    const carrera = CARRERAS_UNIVERSITARIAS.find((c) => c.slug === gradoSlug);
+    if (carrera) {
+        return {
+            title: `${carrera.nombre} — Chispito Universidad`,
+            description: carrera.descripcion,
+            alternates: { canonical: `https://chispito.mx/${gradoSlug}` },
+            openGraph: {
+                title: `${carrera.emoji} ${carrera.nombre} — Chispito Pro`,
+                description: carrera.descripcion,
+            },
+        };
+    }
+
     const grado = GRADOS.find((g) => g.slug === gradoSlug);
     if (!grado) return {};
     return {
@@ -34,6 +51,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function GradoPage({ params }: Props) {
     const { grado: gradoSlug } = await params;
+    
+    // Intercepción Universitaria (Chispito Pro)
+    const carrera = CARRERAS_UNIVERSITARIAS.find((c) => c.slug === gradoSlug);
+    if (carrera) {
+        return <UniversityPage carrera={carrera} />;
+    }
+
     const grado = GRADOS.find((g) => g.slug === gradoSlug);
     if (!grado) notFound();
 

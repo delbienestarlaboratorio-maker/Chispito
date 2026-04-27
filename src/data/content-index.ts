@@ -3,7 +3,7 @@ import { KINDER } from "./content-kinder-slim";
 import { PREESCOLAR_1_COMPLETE } from "./content-preescolar1-slim";
 import { PRIMARIA_1, PRIMARIA_2 } from "./content-primaria-slim";
 import { PRIMARIA_3 } from "./content-primaria3-slim";
-import { PREESCOLAR_1, PREESCOLAR_2, PRIMARIA_4, PRIMARIA_5, PRIMARIA_6, SECUNDARIA_1, SECUNDARIA_2, SECUNDARIA_3 } from "./content-grados-superiores-slim";
+import { PREESCOLAR_1, PREESCOLAR_2, PREESCOLAR_3, PRIMARIA_4, PRIMARIA_5, PRIMARIA_6, SECUNDARIA_1, SECUNDARIA_2, SECUNDARIA_3 } from "./content-grados-superiores-slim";
 import { TELESECUNDARIA_1, TELESECUNDARIA_2, TELESECUNDARIA_3 } from "./content-telesecundaria-slim";
 
 // === Bloque 6: Lengua de Señas Mexicana (LSM) para Primaria 3 ===
@@ -136,7 +136,7 @@ if (PRIMARIA_6.materias["historia"]) {
 
 export const GRADOS_CONTENIDO: Record<string, GradoContenido> = {
     "kinder": KINDER,
-    "preescolar-3": KINDER,
+    "preescolar-3": PREESCOLAR_3,
     "preescolar-1": PREESCOLAR_1_COMPLETE,
     "preescolar-2": PREESCOLAR_2,
     "primaria-1": PRIMARIA_1,

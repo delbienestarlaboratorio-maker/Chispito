@@ -50,7 +50,7 @@ export default function RootLayout({
   return (
     <html lang="es-MX">
       <head>
-        <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self';" />
+        <meta httpEquiv="Content-Security-Policy" content="frame-ancestors 'self';" />
         {/* Google AdSense */}
         <script
           async
