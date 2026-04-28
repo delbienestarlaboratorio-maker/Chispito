@@ -142,7 +142,23 @@ export default function UniversityExercisePlayer({ carrera, materia, bloqueId, d
                                         Análisis Clínico ({selectedOption === currentQ.respuestaCorrecta ? 'Acierto' : 'Fallo'})
                                     </h4>
                                     <p className="text-slate-300 leading-relaxed text-sm">
-                                        {currentQ.retroalimentacion || "La opción seleccionada ha sido analizada contra la bibliografía oficial del tronco médico. Asegúrate de revisar las métricas basales para comprender este fenómeno en escenarios de urgencia real."}
+                                        {currentQ.retroalimentacion || (selectedOption === currentQ.respuestaCorrecta ? 
+                                            [
+                                                "Excelente correlación clínica. Recuerda que la medicina basada en evidencia siempre será tu mejor protocolo de actuación. 🩺",
+                                                "Tu razonamiento fisiopatológico es acertado. Estos signos prodrómicos son la clave del diagnóstico diferencial. 🌟",
+                                                "Magnífica extrapolación del cuadro clínico. Sigue cultivando tu ojo crítico para escenarios de alta complejidad médica. 🏆",
+                                                "Precisión diagnóstica confirmada. Mantén este nivel de especificidad y sensibilidad en tu práctica hospitalaria. 🧬",
+                                                "Resolución oportuna. La toma de decisiones bajo presión clínica salva vidas y optimiza pronósticos. ⚕️"
+                                            ][currentQuestion % 5]
+                                            : 
+                                            [
+                                                "La opción seleccionada difiere del consenso clínico actual. Una revisión a las Guías Clínicas aclarará el panorama. ¡Sigue puliendo tu criterio! 📖",
+                                                "Este escenario presenta variables confusoras. Vuelve a examinar el cuadro clínico prestando especial atención a los síntomas pivote. 💡",
+                                                "El diagnóstico diferencial requería considerar otra nosología prevalente... ¡El análisis iterativo es la base de la clínica médica, no te rindas! 💪",
+                                                "El entrenamiento en simulación existe justo para afinar estos criterios. Replantear la anamnesis ayudará en el próximo caso. 🌱",
+                                                "La medicina es 50% conocimiento y 50% práctica iterativa. ¡Cada fallo es un paso seguro hacia la maestría hospitalaria! 🚀"
+                                            ][currentQuestion % 5]
+                                        )}
                                     </p>
                                 </div>
                                 <div className="text-right">

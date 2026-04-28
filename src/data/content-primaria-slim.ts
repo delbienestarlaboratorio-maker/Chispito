@@ -261,6 +261,29 @@ const EDUCACION_FISICA_P2: MateriaContenido = {
     ]
 };
 
+const CONOCIMIENTO_P2: MateriaContenido = {
+    materia: "conocimiento", nombre: "Conocimiento del Medio", emoji: "🔍", color: "#EAB308",
+    bloques: [
+        { bloque: 1, nombre: "Mi cuerpo y mi entorno", meses: "Agosto – Septiembre" },
+        { bloque: 2, nombre: "Cuidado de la naturaleza", meses: "Octubre – Noviembre" },
+        { bloque: 3, nombre: "Los seres vivos y su medio", meses: "Diciembre – Enero" },
+        { bloque: 4, nombre: "Cambios en el tiempo", meses: "Febrero – Marzo" },
+        { bloque: 5, nombre: "Mi comunidad y tradiciones", meses: "Abril – Junio" }
+    ]
+};
+
+const FORMACION_CIVICA_P2: MateriaContenido = {
+    materia: "formacion_civica", nombre: "Formación Cívica y Ética", emoji: "🤝", color: "#8B5CF6",
+    bloques: [
+        { bloque: 1, nombre: "Identidad y pertenencia", meses: "Agosto – Septiembre" },
+        { bloque: 2, nombre: "La democracia en mi escuela", meses: "Octubre – Noviembre" },
+        { bloque: 3, nombre: "Resolución de conflictos", meses: "Diciembre – Enero" },
+        { bloque: 4, nombre: "Participación ciudadana", meses: "Febrero – Marzo" },
+        { bloque: 5, nombre: "Ciudadanía y bien común", meses: "Abril – Junio" }
+    ]
+};
+
+
 // ============================================================
 // INYECCIÓN DE TODAS LAS MATERIAS
 // ============================================================
@@ -276,6 +299,8 @@ PRIMARIA_2.materias["artes"] = ARTES_P2;
 PRIMARIA_2.materias["civica"] = CIVICA_P2;
 PRIMARIA_2.materias["formacion"] = FORMACION_P2;
 PRIMARIA_2.materias["educacion_fisica"] = EDUCACION_FISICA_P2;
+PRIMARIA_2.materias["conocimiento"] = CONOCIMIENTO_P2;
+PRIMARIA_2.materias["formacion_civica"] = FORMACION_CIVICA_P2;
 
 // === Bloque 6: Lengua de Señas Mexicana (LSM) para Primaria 1 ===
 PRIMARIA_1.materias["espanol"].bloques.push({ bloque: 6, nombre: "Mis palabras en señas (LSM)", meses: "Julio" });
@@ -286,5 +311,6 @@ PRIMARIA_1.materias["educacion_fisica"].bloques.push({ bloque: 6, nombre: "Juego
 PRIMARIA_2.materias["espanol"].bloques.push({ bloque: 6, nombre: "Conecto mis palabras (LSM)", meses: "Julio" });
 PRIMARIA_2.materias["matematicas"].bloques.push({ bloque: 6, nombre: "Cálculo en mis manos (LSM)", meses: "Julio" });
 PRIMARIA_2.materias["educacion_fisica"].bloques.push({ bloque: 6, nombre: "Cuerpo en movimiento (LSM)", meses: "Julio" });
+PRIMARIA_2.materias["formacion_civica"].bloques.push({ bloque: 6, nombre: "Repaso General", meses: "Julio" });
 
 // Nota: Para grados superiores y consolidación de GRADOS_CONTENIDO, usa src/data/content-index.ts
