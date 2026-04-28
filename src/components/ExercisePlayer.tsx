@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, XCircle, Lock, Star, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { getMensajesGrado, getCompañero } from "@/data/personajes";
-import { normalizeAnswer, normalizeTrueFalse } from "@/lib/pedagogy";
+import { normalizeAnswer, normalizeTrueFalse, checkAnswerFuzzy } from "@/lib/pedagogy";
 
 type Ejercicio = {
     id: string;
@@ -229,6 +229,7 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
     const [showConfetti, setShowConfetti] = useState(false);
     const [nicoBounce, setNicoBounce] = useState(false);
     const [mensajeIndex, setMensajeIndex] = useState(0);
+    const [typoMsg, setTypoMsg] = useState("");
 
     const V1_LIMIT = 999;
     const ejercicioActual = ejercicios[indice];
@@ -253,13 +254,19 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
         if (!ejercicioActual) return;
         let target = normalizeAnswer(ejercicioActual.respuestaCorrecta);
         let selected = normalizeAnswer(respuestaSeleccionada);
+        let esCorrecta = false;
 
-        if (ejercicioActual.tipo === "true_false") {
-            target = normalizeTrueFalse(ejercicioActual.respuestaCorrecta);
-            selected = normalizeTrueFalse(respuestaSeleccionada);
+        if (ejercicioActual.tipo === "true_false" || ejercicioActual.opciones) {
+            if (ejercicioActual.tipo === "true_false") {
+                target = normalizeTrueFalse(ejercicioActual.respuestaCorrecta);
+                selected = normalizeTrueFalse(respuestaSeleccionada);
+            }
+            esCorrecta = selected === target;
+        } else {
+            const r = checkAnswerFuzzy(respuestaSeleccionada, ejercicioActual.respuestaCorrecta);
+            esCorrecta = r.isCorrect;
+            if (r.isTypo) setTypoMsg(r.typoMessage || "");
         }
-
-        const esCorrecta = selected === target;
 
         setEstado(esCorrecta ? "correcto" : "incorrecto");
         if (esCorrecta) {
@@ -284,6 +291,7 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
             setEstado("sin_responder");
             setShowConfetti(false);
             setNicoBounce(false);
+            setTypoMsg("");
             setMensajeIndex(i => i + 1);
         }
     }
@@ -401,6 +409,7 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
                                 setEstrellas(0);
                                 setCompletado(false);
                                 setMensajeIndex(0);
+                                setTypoMsg("");
                             }}
                             className="text-white/50 hover:text-white text-sm underline transition-colors"
                         >
@@ -667,7 +676,10 @@ export default function ExercisePlayer({ ejercicios, grado, materia, bloque, nom
                                 <p className="text-sm font-bold mb-1" style={{ color: estado === "correcto" ? "#0F766E" : "#B91C1C" }}>
                                     {estado === "correcto" ? "✅ ¡Correcto! 🎉" : "❌ Respuesta incorrecta"}
                                 </p>
-                                <p className="text-gray-700 text-sm">{ejercicioActual.explicacion}</p>
+                                <p className="text-gray-700 text-sm mt-2">
+                                    {typoMsg && <span className="block mb-1 font-bold text-amber-600">{typoMsg}</span>}
+                                    {ejercicioActual.explicacion}
+                                </p>
                             </motion.div>
                         )}
                     </AnimatePresence>

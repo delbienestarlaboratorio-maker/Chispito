@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Lock, ChevronRight, Star } from "lucide-react";
-import { normalizeAnswer, normalizeTrueFalse } from "@/lib/pedagogy";
+import { normalizeAnswer, normalizeTrueFalse, checkAnswerFuzzy } from "@/lib/pedagogy";
 import { renderPregunta } from "@/lib/renderPregunta";
 
 // ─── Tipos ───────────────────────────────────────────
@@ -45,6 +45,12 @@ const TIER_THEME = {
             { emoji: "🎯", texto: "¡Exacto!", color: "#10B981", bg: "#F0FDF4" },
             { emoji: "🔥", texto: "¡Correcto!", color: "#EF4444", bg: "#FFF5F5" },
             { emoji: "🏅", texto: "¡Muy bien!", color: "#6366F1", bg: "#EEF2FF" },
+            { emoji: "🚀", texto: "¡A la velocidad de la luz!", color: "#0EA5E9", bg: "#F0F9FF" },
+            { emoji: "🎨", texto: "¡Una obra de arte!", color: "#D946EF", bg: "#FDF4FF" },
+            { emoji: "🦖", texto: "¡Roar! ¡Perfecto!", color: "#65A30D", bg: "#ECFCCB" },
+            { emoji: "💎", texto: "¡Brillante!", color: "#06B6D4", bg: "#ECFEFF" },
+            { emoji: "🏆", texto: "¡Medalla de oro!", color: "#D97706", bg: "#FEF3C7" },
+            { emoji: "🦸‍♂️", texto: "¡Superhéroe activado!", color: "#E11D48", bg: "#FFE4E6" }
         ],
     },
     2: {
@@ -61,6 +67,12 @@ const TIER_THEME = {
             { emoji: "💪", texto: "¡Vas muy bien!", color: "#06B6D4", bg: "#F0FDFA" },
             { emoji: "🎖️", texto: "¡Excelente!", color: "#8B5CF6", bg: "#F5F3FF" },
             { emoji: "⚡", texto: "¡Perfecto!", color: "#F59E0B", bg: "#FFFBEB" },
+            { emoji: "🧭", texto: "¡Vas en la ruta exacta!", color: "#059669", bg: "#ECFDF5" },
+            { emoji: "🌋", texto: "¡Imparable!", color: "#DC2626", bg: "#FEF2F2" },
+            { emoji: "🧠", texto: "¡Qué inteligente!", color: "#C026D3", bg: "#FDF4FF" },
+            { emoji: "🐉", texto: "¡Poder absoluto!", color: "#16A34A", bg: "#DCFCE7" },
+            { emoji: "⚔️", texto: "¡Desafío superado!", color: "#475569", bg: "#F1F5F9" },
+            { emoji: "🌠", texto: "¡Pides un deseo y aciertas!", color: "#2563EB", bg: "#EFF6FF" }
         ],
     },
     3: {
@@ -77,6 +89,12 @@ const TIER_THEME = {
             { emoji: "💡", texto: "¡Excelente razonamiento!", color: "#059669", bg: "#ECFDF5" },
             { emoji: "🏆", texto: "¡Dominas el tema!", color: "#B45309", bg: "#FFFBEB" },
             { emoji: "🎯", texto: "¡Precisión perfecta!", color: "#1D4ED8", bg: "#EFF6FF" },
+            { emoji: "🔬", texto: "¡Ciencia exacta!", color: "#0891B2", bg: "#ECFEFF" },
+            { emoji: "📚", texto: "¡Sabiduría en acción!", color: "#9333EA", bg: "#F3E8FF" },
+            { emoji: "📈", texto: "¡Lógica impecable!", color: "#0EA5E9", bg: "#F0F9FF" },
+            { emoji: "🧩", texto: "¡Pieza encajada!", color: "#16A34A", bg: "#F0FDF4" },
+            { emoji: "⚙️", texto: "¡Mecanismo resuelto!", color: "#475569", bg: "#F8FAFC" },
+            { emoji: "🪐", texto: "¡Mente maestra!", color: "#4F46E5", bg: "#EEF2FF" }
         ],
     },
 } as const;
@@ -230,6 +248,7 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
     const [inputVal, setInputVal] = useState("");
     const [terminado, setTerminado] = useState(false);
     const [mostrarPaywall, setMostrarPaywall] = useState(false);
+    const [typoMsg, setTypoMsg] = useState("");
 
     const ejercicio = lista[indice] as Ejercicio;
     const esUltimo = indice >= lista.length - 1;
@@ -249,6 +268,7 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
         setCorrecto(null);
         setInputVal("");
         setConfeti(false);
+        setTypoMsg("");
     }, [indice]);
 
     const responder = useCallback((resp: string) => {
@@ -256,13 +276,19 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
         
         let target = normalizeAnswer(ejercicio.respuestaCorrecta);
         let selected = normalizeAnswer(resp);
+        let ok = false;
         
-        if (ejercicio.tipo === "true_false") {
-            target = normalizeTrueFalse(ejercicio.respuestaCorrecta);
-            selected = normalizeTrueFalse(resp);
+        if (ejercicio.tipo === "true_false" || ejercicio.opciones) {
+            if (ejercicio.tipo === "true_false") {
+                target = normalizeTrueFalse(ejercicio.respuestaCorrecta);
+                selected = normalizeTrueFalse(resp);
+            }
+            ok = selected === target;
+        } else {
+            const r = checkAnswerFuzzy(resp, ejercicio.respuestaCorrecta);
+            ok = r.isCorrect;
+            if (r.isTypo) setTypoMsg(r.typoMessage || "");
         }
-
-        const ok = selected === target;
 
         setRespondido(true);
         setCorrecto(ok);
@@ -292,7 +318,7 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
     }, [respondido, ejercicio, estadoOps, tier, theme]);
 
     if (terminado || !ejercicio) {
-        const total = FREE_LIMIT;
+        const total = lista.length;
         const pct = Math.round((puntaje / total) * 100);
         const msgs = [
             pct >= 90 ? "¡Maestro! Dominas el tema" :
@@ -307,7 +333,26 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
                 <h2 className="text-2xl font-bold mb-1" style={{ color: pct >= 70 ? "#15803D" : "#92400E" }}>{msgs[0]}</h2>
                 <div className="text-4xl font-bold my-3" style={{ color: accentColor }}>{puntaje}/{total}</div>
                 <div className="text-sm text-gray-500 mb-6">{pct}% correcto · Bloque {bloque} · {meses}</div>
-                <button onClick={() => { setIndice(0); setTerminado(false); setPuntaje(0); setRacha(0); setMostrarPaywall(false); }}
+                <button onClick={() => { 
+                    setIndice(0); 
+                    setTerminado(false); 
+                    setPuntaje(0); 
+                    setRacha(0); 
+                    setMostrarPaywall(false); 
+                    setRespondido(false);
+                    setCorrecto(null);
+                    setConfeti(false);
+                    setInputVal("");
+                    setTypoMsg("");
+                    const ops: Record<string, "idle" | "correcto" | "incorrecto"> = {};
+                    if (ejercicio?.opciones) {
+                        ejercicio.opciones.forEach(o => { ops[o] = "idle"; });
+                    } else if (ejercicio?.tipo === "true_false") {
+                        ops["true"] = "idle";
+                        ops["false"] = "idle";
+                    }
+                    setEstadoOps(ops);
+                }}
                     className="px-8 py-3 rounded-xl font-bold text-white"
                     style={{ background: accentColor }}>
                     🔄 Intentar de nuevo
@@ -327,7 +372,7 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
                     ¡Completaste los ejercicios gratis!
                 </h2>
                 <p className="text-gray-500 mb-2">
-                    Respondiste <strong>{puntaje}/{FREE_LIMIT}</strong> correctamente
+                    Respondiste <strong>{puntaje}/{lista.length}</strong> correctamente
                 </p>
                 <p className="text-lg font-bold mb-6" style={{ color: accentColor }}>
                     ¡Hay {lista.length - FREE_LIMIT} ejercicios más en este bloque!
@@ -357,7 +402,19 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
                 </Link>
                 <p className="text-gray-400 text-xs mt-3">OXXO · Tarjeta · Transferencia · Cancela cuando quieras</p>
 
-                <button onClick={() => { setIndice(0); setMostrarPaywall(false); setPuntaje(0); setRacha(0); }}
+                <button onClick={() => { 
+                    setIndice(0); 
+                    setMostrarPaywall(false); 
+                    setPuntaje(0); 
+                    setRacha(0); 
+                    setRespondido(false);
+                    setCorrecto(null);
+                    const ops: Record<string, "idle" | "correcto" | "incorrecto"> = {};
+                    if (ejercicio?.opciones) {
+                        ejercicio.opciones.forEach(o => { ops[o] = "idle"; });
+                    }
+                    setEstadoOps(ops);
+                }}
                     className="mt-4 text-gray-400 hover:text-gray-600 text-sm underline transition-colors">
                     Volver a intentar los ejercicios gratis
                 </button>
@@ -539,7 +596,10 @@ export default function PrimariaExercisePlayer({ ejercicios, grado, materia, blo
                                 {correcto ? cel.texto : "La respuesta correcta es: " + (ejercicio.tipo === "true_false" ? (normalizeTrueFalse(ejercicio.respuestaCorrecta) === "true" ? "Verdadero" : "Falso") : ejercicio.respuestaCorrecta)}
                             </span>
                         </div>
-                        <p className="text-xs text-gray-500 ml-1">{ejercicio.explicacion}</p>
+                        <p className="text-xs text-gray-500 ml-1 mt-2">
+                            {typoMsg && <span className="block mb-1 font-bold text-amber-600">{typoMsg}</span>}
+                            {ejercicio.explicacion}
+                        </p>
                     </motion.div>
                 )}
             </AnimatePresence>

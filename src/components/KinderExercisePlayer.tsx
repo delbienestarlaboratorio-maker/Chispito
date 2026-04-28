@@ -7,7 +7,7 @@ import { Lock, ChevronRight, Volume2, VolumeX, Music, MusicIcon } from "lucide-r
 import ChispitoCompanion, { type CompanionState } from "./ChispitoCompanion";
 import { useGameSounds } from "@/hooks/useGameSounds";
 import { useBlockMusic } from "@/hooks/useBlockMusic";
-import { normalizeAnswer, normalizeTrueFalse } from "@/lib/pedagogy";
+import { normalizeAnswer, normalizeTrueFalse, checkAnswerFuzzy } from "@/lib/pedagogy";
 import { renderPregunta } from "@/lib/renderPregunta";
 
 type KinderEjercicio = {
@@ -33,12 +33,29 @@ const CELEBRACIONES = [
     { emoji: "🏆", texto: "¡Súper!", bg: "#EFF6FF", borde: "#6366F1", texto_color: "#1E1B4B" },
     { emoji: "🦁", texto: "¡Campeón!", bg: "#FDF4FF", borde: "#EC4899", texto_color: "#4A044E" },
     { emoji: "🚀", texto: "¡Increíble!", bg: "#F0F9FF", borde: "#0EA5E9", texto_color: "#082F49" },
+    { emoji: "🦄", texto: "¡Mágico!", bg: "#F5F3FF", borde: "#8B5CF6", texto_color: "#4C1D95" },
+    { emoji: "🦖", texto: "¡Dinosáurico!", bg: "#ECFCCB", borde: "#84CC16", texto_color: "#3F6212" },
+    { emoji: "🐬", texto: "¡Fenomenal!", bg: "#E0F2FE", borde: "#38BDF8", texto_color: "#0C4A6E" },
+    { emoji: "🦸‍♂️", texto: "¡Eres súper!", bg: "#FFE4E6", borde: "#F43F5E", texto_color: "#881337" },
+    { emoji: "👑", texto: "¡Espléndido!", bg: "#FEF9C3", borde: "#EAB308", texto_color: "#713F12" },
+    { emoji: "🐯", texto: "¡Genialidad!", bg: "#FFEDD5", borde: "#F97316", texto_color: "#7C2D12" },
+    { emoji: "🥳", texto: "¡Felicidades!", bg: "#FCE7F3", borde: "#EC4899", texto_color: "#831843" },
+    { emoji: "🪄", texto: "¡Abracadabra! ¡Bien!", bg: "#FAF5FF", borde: "#A855F7", texto_color: "#581C87" },
+    { emoji: "🛸", texto: "¡Fuera de este mundo!", bg: "#F8FAFC", borde: "#64748B", texto_color: "#0F172A" }
 ];
 
 const ERRORES = [
     { emoji: "💪", texto: "¡Inténtalo de nuevo!", bg: "#FFF7ED", borde: "#F59E0B" },
     { emoji: "🤔", texto: "¡Casi! Sigue intentando", bg: "#F0F9FF", borde: "#0EA5E9" },
     { emoji: "😊", texto: "¡Tú puedes!", bg: "#F0FDF4", borde: "#22C55E" },
+    { emoji: "🌱", texto: "¡Poquito a poco!", bg: "#F7FEE7", borde: "#84CC16" },
+    { emoji: "🕵️‍♂️", texto: "¡Buscamos otra pista!", bg: "#F8FAFC", borde: "#64748B" },
+    { emoji: "🦉", texto: "¡Vamos a pensar un poquito!", bg: "#FEF2F2", borde: "#EF4444" },
+    { emoji: "🐢", texto: "¡Lento pero seguro!", bg: "#ECFCCB", borde: "#65A30D" },
+    { emoji: "🐿️", texto: "¡A intentarlo con fuerza!", bg: "#FFFBEB", borde: "#D97706" },
+    { emoji: "🌈", texto: "¡No te rindas!", bg: "#F5F3FF", borde: "#8B5CF6" },
+    { emoji: "🧗‍♂️", texto: "¡Casi llegamos!", bg: "#E0E7FF", borde: "#4F46E5" },
+    { emoji: "🤝", texto: "¡Estamos aprendiendo!", bg: "#FDF4FF", borde: "#C026D3" }
 ];
 
 // ── Visual grande — emoji o imagen ──────────────────────
@@ -234,6 +251,7 @@ export default function KinderExercisePlayer({ ejercicios, grado, materia, bloqu
     const [feedbackIdx, setFeedbackIdx] = useState(0);
     const [mostrarPaywall, setMostrarPaywall] = useState(false);
     const [companionState, setCompanionState] = useState<CompanionState>("idle");
+    const [typoMsg, setTypoMsg] = useState("");
 
     const { play, muted, toggleMute } = useGameSounds();
     const { playMelody, musicMuted, toggleMusicMute } = useBlockMusic(materia);
@@ -268,6 +286,7 @@ export default function KinderExercisePlayer({ ejercicios, grado, materia, bloqu
         setCorrecto(null);
         setInputVal("");
         setConfeti(false);
+        setTypoMsg("");
         setCompanionState("idle");
         play("swoosh");
     }, [indice]);
@@ -286,13 +305,19 @@ export default function KinderExercisePlayer({ ejercicios, grado, materia, bloqu
         
         let target = normalizeAnswer(ejercicio.respuestaCorrecta);
         let selected = normalizeAnswer(respuesta);
+        let esCorrecta = false;
 
-        if (ejercicio.tipo === "true_false") {
-            target = normalizeTrueFalse(ejercicio.respuestaCorrecta);
-            selected = normalizeTrueFalse(respuesta);
+        if (ejercicio.tipo === "true_false" || ejercicio.opciones) {
+            if (ejercicio.tipo === "true_false") {
+                target = normalizeTrueFalse(ejercicio.respuestaCorrecta);
+                selected = normalizeTrueFalse(respuesta);
+            }
+            esCorrecta = selected === target;
+        } else {
+            const r = checkAnswerFuzzy(respuesta, ejercicio.respuestaCorrecta);
+            esCorrecta = r.isCorrect;
+            if (r.isTypo) setTypoMsg(r.typoMessage || "");
         }
-
-        const esCorrecta = selected === target;
         
         setRespondido(true);
         setCorrecto(esCorrecta);
@@ -334,7 +359,7 @@ export default function KinderExercisePlayer({ ejercicios, grado, materia, bloqu
 
     // ── PANTALLA FINAL ─────────────────────────────────
     if (terminado || !ejercicio) {
-        const total = FREE_LIMIT;
+        const total = lista.length;
         const pct = Math.round((puntaje / total) * 100);
         const excelente = pct >= 70;
 
@@ -375,7 +400,26 @@ export default function KinderExercisePlayer({ ejercicios, grado, materia, bloqu
 
                 <motion.button
                     whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}
-                    onClick={() => { setIndice(0); setTerminado(false); setPuntaje(0); setMostrarPaywall(false); }}
+                    onClick={() => { 
+                        setIndice(0); 
+                        setTerminado(false); 
+                        setPuntaje(0); 
+                        setMostrarPaywall(false);
+                        setRespondido(false);
+                        setCorrecto(null);
+                        setConfeti(false);
+                        setInputVal("");
+                        setTypoMsg("");
+                        setCompanionState("idle");
+                        const ops: Record<string, "idle" | "correcto" | "incorrecto"> = {};
+                        if (ejercicio?.opciones) {
+                            ejercicio.opciones.forEach(o => { ops[o] = "idle"; });
+                        } else if (ejercicio?.tipo === "true_false") {
+                            ops["true"] = "idle";
+                            ops["false"] = "idle";
+                        }
+                        setEstadoOps(ops);
+                    }}
                     className="px-8 py-4 rounded-2xl font-bold text-white text-xl"
                     style={{ background: `linear-gradient(135deg, ${color}, ${color}CC)`, boxShadow: `0 6px 20px ${color}40` }}
                 >
@@ -398,7 +442,7 @@ export default function KinderExercisePlayer({ ejercicios, grado, materia, bloqu
                     ¡Terminaste los juegos gratis!
                 </h2>
                 <p className="text-gray-500 mb-2">
-                    Acertaste <strong>{puntaje}/{FREE_LIMIT}</strong> ⭐
+                    Acertaste <strong>{puntaje}/{lista.length}</strong> ⭐
                 </p>
                 <p className="text-lg font-bold mb-6" style={{ color }}>
                     ¡Hay {lista.length - FREE_LIMIT} juegos más esperando!
@@ -429,7 +473,22 @@ export default function KinderExercisePlayer({ ejercicios, grado, materia, bloqu
                 <p className="text-gray-400 text-xs mt-3">OXXO · Tarjeta · Transferencia</p>
 
                 <motion.button whileTap={{ scale: 0.95 }}
-                    onClick={() => { setIndice(0); setMostrarPaywall(false); setPuntaje(0); }}
+                    onClick={() => { 
+                        setIndice(0); 
+                        setMostrarPaywall(false); 
+                        setPuntaje(0); 
+                        setRespondido(false);
+                        setCorrecto(null);
+                        setConfeti(false);
+                        const ops: Record<string, "idle" | "correcto" | "incorrecto"> = {};
+                        if (ejercicio?.opciones) {
+                            ejercicio.opciones.forEach(o => { ops[o] = "idle"; });
+                        } else if (ejercicio?.tipo === "true_false") {
+                            ops["true"] = "idle";
+                            ops["false"] = "idle";
+                        }
+                        setEstadoOps(ops);
+                    }}
                     className="mt-4 text-gray-400 hover:text-gray-600 text-sm underline transition-colors">
                     🔄 Jugar los juegos gratis otra vez
                 </motion.button>
@@ -627,7 +686,10 @@ export default function KinderExercisePlayer({ ejercicios, grado, materia, bloqu
                                 <p className="font-bold text-xl mt-1" style={{ color: correcto ? cel.texto_color : "#92400E" }}>
                                     {correcto ? cel.texto : err.texto}
                                 </p>
-                                <p className="text-sm text-gray-500 mt-2 leading-relaxed">{ejercicio.explicacion}</p>
+                                <p className="text-sm text-gray-500 mt-2 leading-relaxed">
+                                    {typoMsg && <span className="block mb-2 font-bold text-amber-600">{typoMsg}</span>}
+                                    {ejercicio.explicacion}
+                                </p>
                             </motion.div>
                         )}
                     </AnimatePresence>
