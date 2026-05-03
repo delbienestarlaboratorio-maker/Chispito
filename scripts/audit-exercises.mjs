@@ -87,29 +87,33 @@ function auditFile(filePath) {
   // Para resto de checks incluimos preview pero no en duplicados
   const allExsConPreview = [...allExs, ...(ejercicios.preview || []).map(ex => ({ ...ex, _nivel: 'preview' }))];
 
-  // ── 1. IDs duplicados (solo v1 y v2, preview es copia intencional) ──────
-  const idMap = {};
-  for (const ex of allExs) {
-    if (!ex.id) {
-      issues.push({ sev: SEV.CRITICAL, msg: `Ejercicio sin ID en nivel ${ex._nivel}` });
-      continue;
-    }
-    if (idMap[ex.id]) {
-      issues.push({ sev: SEV.WARN, msg: `ID duplicado (dentro de v1/v2): "${ex.id}" (en ${idMap[ex.id]} y ${ex._nivel})` });
-    } else {
-      idMap[ex.id] = ex._nivel;
+  // ── 1. IDs duplicados (dentro del mismo nivel, no entre v1 y v2) ──────
+  for (const niv of nivelesAudit) {
+    const idMap = {};
+    for (const ex of allExs.filter(e => e._nivel === niv)) {
+      if (!ex.id) {
+        issues.push({ sev: SEV.CRITICAL, msg: `Ejercicio sin ID en nivel ${niv}` });
+        continue;
+      }
+      if (idMap[ex.id]) {
+        issues.push({ sev: SEV.WARN, msg: `ID duplicado en ${niv}: "${ex.id}"` });
+      } else {
+        idMap[ex.id] = niv;
+      }
     }
   }
 
-  // ── 2. Preguntas duplicadas (solo v1 y v2) ──────────────────────────────
-  const preguntaMap = {};
-  for (const ex of allExs) {
-    if (!ex.pregunta) continue;
-    const key = ex.pregunta.trim().toLowerCase();
-    if (preguntaMap[key]) {
-      issues.push({ sev: SEV.CRITICAL, msg: `Pregunta DUPLICADA: "${ex.pregunta.slice(0, 80)}" (ids: ${preguntaMap[key]}, ${ex.id})` });
-    } else {
-      preguntaMap[key] = ex.id || '?';
+  // ── 2. Preguntas duplicadas (dentro del mismo nivel, v1 vs v1 o v2 vs v2)
+  for (const niv of nivelesAudit) {
+    const preguntaMap = {};
+    for (const ex of allExs.filter(e => e._nivel === niv)) {
+      if (!ex.pregunta) continue;
+      const key = ex.pregunta.trim().toLowerCase();
+      if (preguntaMap[key]) {
+        issues.push({ sev: SEV.CRITICAL, msg: `Pregunta DUPLICADA en ${niv}: "${ex.pregunta.slice(0, 80)}" (ids: ${preguntaMap[key]}, ${ex.id})` });
+      } else {
+        preguntaMap[key] = ex.id || '?';
+      }
     }
   }
 

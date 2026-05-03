@@ -246,7 +246,20 @@ h3,
   overflow: hidden;
 }
 
-/* Responsive */
+/* ============================================
+   RESPONSIVE — Tablet (max-width: 1024px)
+   ============================================ */
+@media (max-width: 1024px) {
+  /* Sidebar layout on grade pages: stack vertically */
+  .grade-page-layout {
+    flex-direction: column !important;
+    gap: 2rem !important;
+  }
+}
+
+/* ============================================
+   RESPONSIVE — Tablet & small (max-width: 768px)
+   ============================================ */
 @media (max-width: 768px) {
 
   .btn-primary,
@@ -258,5 +271,61 @@ h3,
   .ejercicio-card {
     padding: 1.5rem;
     border-radius: 16px;
+  }
+
+  .materia-pill {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .grade-card {
+    border-radius: 16px;
+  }
+
+  .grade-card:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  .ad-banner {
+    min-height: 60px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE — Mobile (max-width: 480px)
+   ============================================ */
+@media (max-width: 480px) {
+
+  .btn-primary,
+  .btn-secondary {
+    font-size: 0.95rem;
+    padding: 11px 20px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ejercicio-card {
+    padding: 1.25rem;
+    border-radius: 14px;
+  }
+
+  .materia-pill {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    gap: 4px;
+  }
+
+  .grade-card {
+    border-radius: 14px;
+    padding: 1rem !important;
+  }
+
+  .grade-card:hover {
+    transform: translateY(-2px) scale(1);
+  }
+
+  .ad-banner {
+    min-height: 50px;
+    border-radius: 8px;
   }
 }

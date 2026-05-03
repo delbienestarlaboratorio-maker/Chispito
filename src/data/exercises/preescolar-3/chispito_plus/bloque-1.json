@@ -7,7 +7,7 @@
   "temas": [
     "Misiones interactivas"
   ],
-  "totalEjercicios": 1,
+  "totalEjercicios": 2,
   "ejercicios": {
     "v1": [
       {
@@ -24,7 +24,21 @@
         "explicacion": "¡Excelente actitud! Chispito Plus es 100% interactivo."
       }
     ],
-    "v2": [],
+    "v2": [
+      {
+        "id": "preescolar-3-plus-b1-v2-001",
+        "tema": "Misión Inicial",
+        "tipo": "multiple_choice",
+        "nivel": "v2",
+        "pregunta": "¿Estás listo para iniciar tu laboratorio interactivo de habilidades para la vida?",
+        "opciones": [
+          "¡Sí, estoy listo!",
+          "No, quiero volver a la teoría aburrida."
+        ],
+        "respuestaCorrecta": "¡Sí, estoy listo!",
+        "explicacion": "¡Excelente actitud! Chispito Plus es 100% interactivo."
+      }
+    ],
     "preview": []
   },
   "generado": "2026-04-28T12:00:00.000Z",
