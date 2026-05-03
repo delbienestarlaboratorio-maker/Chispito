@@ -210,16 +210,12 @@ export default function HomePage() {
                 transition={{ delay: i * 0.06 }}
               >
                 <Link
-                  href="/#grados"
+                  href={`/materias/${m.id}`}
                   className="materia-pill"
                   style={{
                     background: `${m.color}22`,
                     color: m.color,
                     borderColor: `${m.color}55`,
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById('grados')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                 >
                   {m.emoji} {m.nombre}
