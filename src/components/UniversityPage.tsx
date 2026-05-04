@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Carrera } from "@/data/curriculum";
-import { ENFERMERIA_MALLA } from "@/data/content-enfermeria";
 import { AdBannerHorizontal } from "@/components/AdBanner";
 
-export default function UniversityPage({ carrera }: { carrera: Carrera }) {
+type MallaData = { tronco_comun: any[]; especialidad: any[] };
+
+export default function UniversityPage({ carrera, mallaData }: { carrera: Carrera; mallaData?: MallaData }) {
     // Para renderizar el escudo o iconos de herramientas basados en la carrera
     const isEnfermeria = carrera.slug === "enfermeria";
 
@@ -77,7 +78,7 @@ export default function UniversityPage({ carrera }: { carrera: Carrera }) {
                         <div className="col-span-1 lg:col-span-2">
                             <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 mt-2">Tronco Común Universitario</h3>
                         </div>
-                        {isEnfermeria && ENFERMERIA_MALLA.tronco_comun.map((mat) => (
+                        {isEnfermeria && mallaData && mallaData.tronco_comun.map((mat) => (
                             <Link key={mat.id} href={`/${carrera.slug}/${mat.id}`}>
                                 <SubjectCard title={mat.nombre} desc={mat.desc} icon={mat.icon} color={mat.color} blocks={mat.bloques} />
                             </Link>
@@ -90,7 +91,7 @@ export default function UniversityPage({ carrera }: { carrera: Carrera }) {
                                 <span className="px-2 py-0.5 rounded text-xs font-bold" style={{ backgroundColor: `${carrera.color}20`, color: carrera.color }}>Avanzado</span>
                             </div>
                         </div>
-                        {isEnfermeria && ENFERMERIA_MALLA.especialidad.map((mat) => (
+                        {isEnfermeria && mallaData && mallaData.especialidad.map((mat) => (
                             <Link key={mat.id} href={`/${carrera.slug}/${mat.id}`}>
                                 <SubjectCard title={mat.nombre} desc={mat.desc} icon={mat.icon} color={mat.color} blocks={mat.bloques} isPro={mat.isPro} />
                             </Link>

@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
-import { ENFERMERIA_MALLA } from "@/data/content-enfermeria";
+// ENFERMERIA_MALLA se importa dinámicamente
 
-export default function ProfesorDashboard() {
+export default async function ProfesorDashboard() {
+    const { ENFERMERIA_MALLA } = await import("@/data/content-enfermeria");
     const todasLasMaterias = [...ENFERMERIA_MALLA.tronco_comun, ...ENFERMERIA_MALLA.especialidad];
 
     return (

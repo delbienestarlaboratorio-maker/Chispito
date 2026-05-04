@@ -55,7 +55,8 @@ export default async function GradoPage({ params }: Props) {
     // Intercepción Universitaria (Chispito Pro)
     const carrera = CARRERAS_UNIVERSITARIAS.find((c) => c.slug === gradoSlug);
     if (carrera) {
-        return <UniversityPage carrera={carrera} />;
+        const { ENFERMERIA_MALLA } = await import("@/data/content-enfermeria");
+        return <UniversityPage carrera={carrera} mallaData={ENFERMERIA_MALLA} />;
     }
 
     const grado = GRADOS.find((g) => g.slug === gradoSlug);

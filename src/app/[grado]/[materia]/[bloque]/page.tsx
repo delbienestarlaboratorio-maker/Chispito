@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { GRADOS, MATERIAS, CARRERAS_UNIVERSITARIAS } from "@/data/curriculum";
-import { ENFERMERIA_MALLA } from "@/data/content-enfermeria";
+// ENFERMERIA_MALLA se importa dinámicamente para no inflar el bundle
 import UniversityExercisePlayer from "@/components/UniversityExercisePlayer";
 import UniversityFlowWrapper from "@/components/UniversityFlowWrapper";
 import { GRADOS_CONTENIDO } from "@/data/content-index";
@@ -61,6 +61,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     const carrera = CARRERAS_UNIVERSITARIAS.find((c) => c.slug === grado);
     if (carrera) {
+        const { ENFERMERIA_MALLA } = await import("@/data/content-enfermeria");
         const materiaUni = [...ENFERMERIA_MALLA.tronco_comun, ...ENFERMERIA_MALLA.especialidad].find(m => m.id === materia);
         if (materiaUni) {
             return {
@@ -87,6 +88,7 @@ export default async function BloquePage({ params }: Props) {
 
     const carrera = CARRERAS_UNIVERSITARIAS.find((c) => c.slug === grado);
     if (carrera) {
+        const { ENFERMERIA_MALLA } = await import("@/data/content-enfermeria");
         const materiaUni = [...ENFERMERIA_MALLA.tronco_comun, ...ENFERMERIA_MALLA.especialidad].find(m => m.id === materia);
         if (!materiaUni || !datos) notFound();
         return <UniversityFlowWrapper carrera={carrera} materia={materiaUni} bloqueId={bloque.replace('bloque-', '')} datos={datos} />;

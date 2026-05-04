@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import { AdBannerHorizontal } from "@/components/AdBanner";
 import { GRADOS_CONTENIDO } from "@/data/content-index";
 import { GRADOS, MATERIAS, CARRERAS_UNIVERSITARIAS } from "@/data/curriculum";
-import { ENFERMERIA_MALLA } from "@/data/content-enfermeria";
+// ENFERMERIA_MALLA se importa dinámicamente para no inflar el bundle del server
 import UniversitySubjectPage from "@/components/UniversitySubjectPage";
 
 interface Props {
@@ -29,11 +29,14 @@ export async function generateStaticParams() {
         }
     }
     
-    // Add university params
-    const subjectsEnf = [...ENFERMERIA_MALLA.tronco_comun, ...ENFERMERIA_MALLA.especialidad];
-    for (const mat of subjectsEnf) {
-        params.push({ grado: "enfermeria", materia: mat.id });
-    }
+    // Add university params (dynamic import to keep bundle small)
+    try {
+        const { ENFERMERIA_MALLA } = await import("@/data/content-enfermeria");
+        const subjectsEnf = [...ENFERMERIA_MALLA.tronco_comun, ...ENFERMERIA_MALLA.especialidad];
+        for (const mat of subjectsEnf) {
+            params.push({ grado: "enfermeria", materia: mat.id });
+        }
+    } catch { /* enfermeria not available yet */ }
     return params;
 }
 
@@ -42,6 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     
     const carrera = CARRERAS_UNIVERSITARIAS.find((c) => c.slug === grado);
     if (carrera) {
+        const { ENFERMERIA_MALLA } = await import("@/data/content-enfermeria");
         const materiaUni = [...ENFERMERIA_MALLA.tronco_comun, ...ENFERMERIA_MALLA.especialidad].find(m => m.id === materia);
         if (materiaUni) {
             return {
@@ -69,6 +73,7 @@ export default async function MateriaPage({ params }: Props) {
     
     const carrera = CARRERAS_UNIVERSITARIAS.find((c) => c.slug === grado);
     if (carrera) {
+        const { ENFERMERIA_MALLA } = await import("@/data/content-enfermeria");
         const materiaUni = [...ENFERMERIA_MALLA.tronco_comun, ...ENFERMERIA_MALLA.especialidad].find(m => m.id === materia);
         if (!materiaUni) notFound();
         return <UniversitySubjectPage carrera={carrera} materia={materiaUni} />;
