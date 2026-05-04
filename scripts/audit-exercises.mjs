@@ -190,7 +190,9 @@ function auditFile(filePath) {
     issues.push({ sev: SEV.CRITICAL, msg: 'nivel v1 está vacío' });
   }
   if (!ejercicios.v2 || ejercicios.v2.length === 0) {
-    issues.push({ sev: SEV.CRITICAL, msg: 'nivel v2 está vacío' });
+    // v2 vacío en enfermeria/chispito_plus es esperado (WIP + límite 3MB worker)
+    const isWipPath = relPath.includes('enfermeria') || relPath.includes('chispito_plus');
+    issues.push({ sev: isWipPath ? SEV.WARN : SEV.CRITICAL, msg: 'nivel v2 está vacío' });
   }
 
   // ── 9. Conteo declarado vs real ─────────────────────────────────────────
