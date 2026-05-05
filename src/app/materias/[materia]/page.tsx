@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import { AdBannerHorizontal } from "@/components/AdBanner";
 import { notFound } from "next/navigation";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 interface Props {
     params: Promise<{ materia: string }>;
