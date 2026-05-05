@@ -36,7 +36,14 @@ async function cargarBloqueDatos(grado: string, materia: string, bloqueNum: numb
         const filePath = join(process.cwd(), "src", "data", "exercises", grado, materia, `bloque-${bloqueNum}.json`);
         const data = JSON.parse(readFileSync(filePath, "utf-8"));
         return { nombre: data.nombre, meses: data.meses, temas: data.temas || [] };
-    } catch { return null; }
+    } catch {
+        try {
+            const res = await fetch(`https://chispito.mx/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`, { next: { revalidate: 86400 } });
+            if (!res.ok) return null;
+            const data = await res.json();
+            return { nombre: data.nombre, meses: data.meses, temas: data.temas || [] };
+        } catch { return null; }
+    }
 }
 
 function getMesActual() {

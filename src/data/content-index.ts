@@ -11,6 +11,7 @@ import { SECUNDARIA_2 } from "./content-secundaria2-slim";
 import { SECUNDARIA_3 } from "./content-secundaria3-slim";
 import { PREESCOLAR_1, PREESCOLAR_2, PREESCOLAR_3 } from "./content-grados-superiores-slim";
 import { TELESECUNDARIA_1, TELESECUNDARIA_2, TELESECUNDARIA_3 } from "./content-telesecundaria-slim";
+import { BACHILLERATO_1, BACHILLERATO_2, BACHILLERATO_3, BACHILLERATO_4, BACHILLERATO_5, BACHILLERATO_6 } from "./content-bachillerato-slim";
 import { 
     CHISPITO_PLUS_K1, CHISPITO_PLUS_K2, CHISPITO_PLUS_K3,
     CHISPITO_PLUS_P1, CHISPITO_PLUS_P2, CHISPITO_PLUS_P3,
@@ -178,5 +179,11 @@ export const GRADOS_CONTENIDO: Record<string, GradoContenido> = {
     "secundaria-3": SECUNDARIA_3,
     "telesecundaria-1": TELESECUNDARIA_1,
     "telesecundaria-2": TELESECUNDARIA_2,
-    "telesecundaria-3": TELESECUNDARIA_3
+    "telesecundaria-3": TELESECUNDARIA_3,
+    "bachillerato-1": BACHILLERATO_1,
+    "bachillerato-2": BACHILLERATO_2,
+    "bachillerato-3": BACHILLERATO_3,
+    "bachillerato-4": BACHILLERATO_4,
+    "bachillerato-5": BACHILLERATO_5,
+    "bachillerato-6": BACHILLERATO_6,
 };

@@ -19,10 +19,17 @@ async function cargarBloques(grado: string): Promise<CuadernilloData[]> {
     await Promise.all(gradoInfo.materias.map(async (materia) => {
         for (let b = 1; b <= 6; b++) {
             try {
-                const { readFileSync } = await import("fs");
-                const { join } = await import("path");
-                const filePath = join(process.cwd(), "src", "data", "exercises", grado, materia, `bloque-${b}.json`);
-                const raw = JSON.parse(readFileSync(filePath, "utf-8"));
+                let raw: any;
+                try {
+                    const { readFileSync } = await import("fs");
+                    const { join } = await import("path");
+                    const filePath = join(process.cwd(), "src", "data", "exercises", grado, materia, `bloque-${b}.json`);
+                    raw = JSON.parse(readFileSync(filePath, "utf-8"));
+                } catch {
+                    const res = await fetch(`https://chispito.mx/exercises/${grado}/${materia}/bloque-${b}.json`, { next: { revalidate: 86400 } });
+                    if (!res.ok) continue;
+                    raw = await res.json();
+                }
                 const materiaInfo = MATERIAS[materia as keyof typeof MATERIAS];
                 const bloqueNum = raw.bloque || b;
 

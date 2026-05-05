@@ -33,16 +33,23 @@ type BloqueData = {
 };
 
 async function cargarBloque(grado: string, materia: string, bloque: string): Promise<BloqueData | null> {
+    // Strategy: fs.readFileSync at build time (avoids bundling 1090 JSONs),
+    // fetch from static assets at edge runtime (Cloudflare Workers)
     try {
-        // Use fs.readFile instead of dynamic import() to prevent esbuild from
-        // bundling ALL 1,090 exercise JSONs into the server handler (15MB → ~1MB)
         const { readFileSync } = await import("fs");
         const { join } = await import("path");
         const filePath = join(process.cwd(), "src", "data", "exercises", grado, materia, `${bloque}.json`);
-        const raw = readFileSync(filePath, "utf-8");
-        return JSON.parse(raw) as BloqueData;
+        return JSON.parse(readFileSync(filePath, "utf-8")) as BloqueData;
     } catch {
-        return null;
+        // Fallback: fetch from static CDN assets (edge runtime)
+        try {
+            const url = `https://chispito.mx/exercises/${grado}/${materia}/${bloque}.json`;
+            const res = await fetch(url, { next: { revalidate: 86400 } });
+            if (!res.ok) return null;
+            return (await res.json()) as BloqueData;
+        } catch {
+            return null;
+        }
     }
 }
 

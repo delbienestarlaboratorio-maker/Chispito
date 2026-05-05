@@ -57,43 +57,81 @@ export default function GradeSelector() {
                                 {NIVEL_LABELS[nivel]}
                             </h3>
 
-                            {/* BACHILLERATO (PREPA.CHISPITO.MX) */}
+                            {/* BACHILLERATO (PREPA.CHISPITO.MX + GRADOS INTERNOS) */}
                             {nivel === "bachillerato" && (
-                                <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
-                                    {PREPA_CARDS.map((card, i) => (
-                                        <motion.div
-                                            key={card.id}
-                                            initial={{ opacity: 0, y: 30 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ delay: i * 0.07 }}
-                                        >
-                                            <a href={card.href} className="block group">
-                                                <div
-                                                    className="grade-card p-6 text-center select-none h-full flex flex-col items-center justify-center transition-all group-hover:scale-105"
-                                                    style={{
-                                                        background: `linear-gradient(135deg, ${card.color}22, ${card.color}11)`,
-                                                        border: `1px solid ${card.color}33`,
-                                                    }}
-                                                >
-                                                    <div className="text-5xl mb-3">{card.emoji}</div>
+                                <div className="space-y-6">
+                                    {/* Grados de Bachillerato 1-6 */}
+                                    <div className="grid gap-4 grid-cols-3 md:grid-cols-6">
+                                        {IMPORTED_GRADOS.filter(g => g.nivel === "bachillerato").map((grado, i) => (
+                                            <motion.div
+                                                key={grado.slug}
+                                                initial={{ opacity: 0, y: 30 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                viewport={{ once: true }}
+                                                transition={{ delay: i * 0.07 }}
+                                            >
+                                                <Link href={`/${grado.slug}`}>
                                                     <div
-                                                        className="font-fredoka text-xl leading-tight mb-1"
-                                                        style={{ color: card.color }}
+                                                        className="grade-card p-5 text-center select-none"
+                                                        style={{
+                                                            background: `linear-gradient(135deg, ${grado.color}22, ${grado.color}11)`,
+                                                        }}
                                                     >
-                                                        {card.titulo}
+                                                        <div className="text-4xl mb-2">{grado.emoji}</div>
+                                                        <div
+                                                            className="font-fredoka text-lg leading-tight"
+                                                            style={{ color: grado.color }}
+                                                        >
+                                                            {grado.numero}°
+                                                        </div>
+                                                        <div className="text-xs text-white/50 mt-1">Bachillerato</div>
+                                                        <div className="text-xs text-white/30 mt-1">
+                                                            {(grado.alumnos / 1000000).toFixed(1)}M alumnos
+                                                        </div>
                                                     </div>
-                                                    <div className="text-sm text-white/60">
-                                                        {card.subtitulo}
+                                                </Link>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+
+                                    {/* Herramientas Prepa */}
+                                    <p className="text-white/40 text-xs uppercase tracking-wider font-bold text-center">🛠️ Herramientas de Admisión</p>
+                                    <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
+                                        {PREPA_CARDS.map((card, i) => (
+                                            <motion.div
+                                                key={card.id}
+                                                initial={{ opacity: 0, y: 30 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                viewport={{ once: true }}
+                                                transition={{ delay: i * 0.07 }}
+                                            >
+                                                <a href={card.href} className="block group">
+                                                    <div
+                                                        className="grade-card p-6 text-center select-none h-full flex flex-col items-center justify-center transition-all group-hover:scale-105"
+                                                        style={{
+                                                            background: `linear-gradient(135deg, ${card.color}22, ${card.color}11)`,
+                                                            border: `1px solid ${card.color}33`,
+                                                        }}
+                                                    >
+                                                        <div className="text-5xl mb-3">{card.emoji}</div>
+                                                        <div
+                                                            className="font-fredoka text-xl leading-tight mb-1"
+                                                            style={{ color: card.color }}
+                                                        >
+                                                            {card.titulo}
+                                                        </div>
+                                                        <div className="text-sm text-white/60">
+                                                            {card.subtitulo}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </a>
-                                        </motion.div>
-                                    ))}
+                                                </a>
+                                            </motion.div>
+                                        ))}
+                                    </div>
                                 </div>
                             )}
 
-                            {/* TELESECUNDARIA (TELESECUNDARIA.CHISPITO.MX) */}
+                            {/* TELESECUNDARIA */}
                             {nivel === "telesecundaria" && (
                                 <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
                                     {TELESECUNDARIA_GRADES.map((grado, i) => (
@@ -104,7 +142,7 @@ export default function GradeSelector() {
                                             viewport={{ once: true }}
                                             transition={{ delay: i * 0.07 }}
                                         >
-                                            <a href={`https://telesecundaria.chispito.mx/${grado.slug}`} className="block">
+                                            <Link href={`/${grado.slug}`}>
                                                 <div
                                                     className="grade-card p-5 text-center select-none"
                                                     style={{
@@ -125,7 +163,7 @@ export default function GradeSelector() {
                                                         {(grado.alumnos / 1000000).toFixed(1)}M alumnos
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </Link>
                                         </motion.div>
                                     ))}
                                 </div>

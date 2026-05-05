@@ -1,9 +1,12 @@
 import { GRADOS, MATERIAS } from "@/data/curriculum";
+import { GRADOS_CONTENIDO } from "@/data/content-index";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { AdBannerHorizontal } from "@/components/AdBanner";
 import { notFound } from "next/navigation";
+
+export const dynamicParams = false;
 
 interface Props {
     params: Promise<{ materia: string }>;
@@ -32,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // Agrupa grados por nivel
 function agruparPorNivel(grados: typeof GRADOS) {
     const grupos: Record<string, typeof GRADOS> = {};
-    const orden = ["preescolar", "primaria", "secundaria", "telesecundaria"];
+    const orden = ["preescolar", "primaria", "secundaria", "telesecundaria", "bachillerato"];
     for (const g of grados) {
         if (!grupos[g.nivel]) grupos[g.nivel] = [];
         grupos[g.nivel].push(g);
@@ -48,6 +51,7 @@ const NIVEL_LABELS: Record<string, { label: string; emoji: string; color: string
     primaria: { label: "Primaria", emoji: "🚀", color: "#3B82F6" },
     secundaria: { label: "Secundaria", emoji: "⚗️", color: "#8B5CF6" },
     telesecundaria: { label: "Telesecundaria", emoji: "📺", color: "#0EA5E9" },
+    bachillerato: { label: "Bachillerato / Prepa", emoji: "🎓", color: "#6366F1" },
 };
 
 export default async function MateriaPage({ params }: Props) {
@@ -62,12 +66,7 @@ export default async function MateriaPage({ params }: Props) {
 
     const grupos = agruparPorNivel(gradosConMateria);
 
-    // Cargar contenido dinámico para mostrar info de bloques
-    let GRADOS_CONTENIDO: any = {};
-    try {
-        const mod = await import("@/data/content-index");
-        GRADOS_CONTENIDO = (mod as any).GRADOS_CONTENIDO || {};
-    } catch { /* no content available */ }
+    // GRADOS_CONTENIDO importado estáticamente arriba (6KB, no infla bundle)
 
     return (
         <main className="min-h-screen" style={{ background: "var(--navy)" }}>

@@ -48,6 +48,8 @@ jobs:
           cp -r .open-next/.build .open-next/assets/.build
           cp -r .open-next/cache .open-next/assets/cache || true
           cp -r public/* .open-next/assets/ || true
+          # Copy exercises as static JSON for edge runtime fetch fallback
+          cp -r src/data/exercises .open-next/assets/exercises
           cat << 'EOF' > .open-next/assets/.cfignore
           cloudflare
           middleware
@@ -98,7 +100,8 @@ jobs:
               "/robots.txt",
               "/ads.txt",
               "/personajes/*",
-              "/img/*"
+              "/img/*",
+              "/exercises/*"
             ]
           }
           EOF
