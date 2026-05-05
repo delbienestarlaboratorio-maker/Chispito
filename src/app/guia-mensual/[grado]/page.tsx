@@ -31,8 +31,11 @@ const MESES_CICLO = [
 
 async function cargarBloqueDatos(grado: string, materia: string, bloqueNum: number): Promise<BloqueData | null> {
     try {
-        const data = await import(`@/data/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`);
-        return { nombre: data.default.nombre, meses: data.default.meses, temas: data.default.temas || [] };
+        const { readFileSync } = await import("fs");
+        const { join } = await import("path");
+        const filePath = join(process.cwd(), "src", "data", "exercises", grado, materia, `bloque-${bloqueNum}.json`);
+        const data = JSON.parse(readFileSync(filePath, "utf-8"));
+        return { nombre: data.nombre, meses: data.meses, temas: data.temas || [] };
     } catch { return null; }
 }
 

@@ -34,8 +34,13 @@ type BloqueData = {
 
 async function cargarBloque(grado: string, materia: string, bloque: string): Promise<BloqueData | null> {
     try {
-        const data = await import(`@/data/exercises/${grado}/${materia}/${bloque}.json`);
-        return data.default as BloqueData;
+        // Use fs.readFile instead of dynamic import() to prevent esbuild from
+        // bundling ALL 1,090 exercise JSONs into the server handler (15MB → ~1MB)
+        const { readFileSync } = await import("fs");
+        const { join } = await import("path");
+        const filePath = join(process.cwd(), "src", "data", "exercises", grado, materia, `${bloque}.json`);
+        const raw = readFileSync(filePath, "utf-8");
+        return JSON.parse(raw) as BloqueData;
     } catch {
         return null;
     }

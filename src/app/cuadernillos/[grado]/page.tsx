@@ -85,8 +85,10 @@ async function cargarCuadernillos(gradoId: string): Promise<CuadernilloData[]> {
     await Promise.all(gradoData.materias.map(async (materia) => {
         for (let b = 1; b <= 6; b++) {
             try {
-                const module = await import(`@/data/exercises/${gradoId}/${materia}/bloque-${b}.json`);
-                const raw = module.default;
+                const { readFileSync } = await import("fs");
+                const { join } = await import("path");
+                const filePath = join(process.cwd(), "src", "data", "exercises", gradoId, materia, `bloque-${b}.json`);
+                const raw = JSON.parse(readFileSync(filePath, "utf-8"));
                 const materiaInfo = MATERIAS[materia as keyof typeof MATERIAS];
                 const bloqueNum = raw.bloque || b;
 
