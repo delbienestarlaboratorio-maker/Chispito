@@ -1,4 +1,5 @@
 import { GRADOS, MATERIAS } from "@/data/curriculum";
+import { findGradoSafe } from "@/lib/findGradoSafe";
 import { GRADOS_CONTENIDO } from "@/data/content-index";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -68,7 +69,7 @@ export default async function MateriaPage({ params }: Props) {
     if (gradosConMateria.length === 0) {
         for (const [slug, contenido] of Object.entries(GRADOS_CONTENIDO)) {
             if (contenido.materias && contenido.materias[materiaSlug]) {
-                const gradoBase = GRADOS.find(g => g.slug === slug);
+                const gradoBase = findGradoSafe(slug);
                 if (gradoBase && !gradosConMateria.find(g => g.slug === slug)) {
                     gradosConMateria.push(gradoBase);
                 }

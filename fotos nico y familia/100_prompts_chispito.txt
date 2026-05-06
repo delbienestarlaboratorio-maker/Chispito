@@ -1,0 +1,217 @@
+[CONTEXTO GLOBAL PARA LA IA GENERADORA]
+Estilo visual obligatorio: Animación 3D estilo Pixar/Disney, alta calidad (4k, 8k, Unreal Engine 5 render), iluminación global suave, colores vibrantes y amigables para niños, texturas detalladas pero caricaturescas. Cero texto en las imágenes.
+
+[REFERENCIA DE PERSONAJES PARA MANTENER CONSISTENCIA]
+- NICO: Un niño mexicano de 8-10 años, estudiante, curioso y alegre, cabello oscuro ligeramente despeinado, piel morena clara, ropa casual escolar cómoda, ojos grandes y expresivos.
+- PIPO: Una mascota mágica pequeña, adorable, con forma redondeada y brillante, siempre acompaña a Nico.
+- REX: Un simpático T-Rex bebé rechoncho y verde. Experto en Historia, a veces usa un sombrero de explorador de safari o lee pergaminos antiguos.
+- NANO: Un personaje científico pequeñito. Usa una bata de laboratorio blanca que le queda grande y unas gafas de seguridad gigantes. Experto en Biología/Química.
+- COSMOS: Un niño/ente con un lindo traje de astronauta futurista. Siempre rodeado de estrellas o planetas flotantes. Experto en Astronomía.
+- VOLT: Un personaje muy veloz y enérgico, con detalles eléctricos, ropa amarilla y azul brillante. Experto en Física y energía.
+- CALI: Una niña muy analítica y ordenada, cabello recogido. Siempre lleva instrumentos de medición como una regla gigante o un compás. Experta en Matemáticas y Geometría.
+- BRUMA: Una niña mística y tranquila, vestida con tonos suaves y rodeada de elementos de la naturaleza o neblina mágica.
+- ELI: Una niña muy estudiosa e intelectual, usa anteojos redondos y grandes, siempre cargando libros gruesos.
+- LUNA: Una niña calmada, con ropa de tonos azul oscuro y plateado, motivos de estrellas y luna.
+- PAGES: Un personaje sabio, rodeado de libros antiguos y páginas que flotan mágicamente a su alrededor. Experto en Lectura y Español.
+
+[INICIO DE LOS 100 PROMPTS]
+
+Prompt 1: Pixar style 3D render of Nico y Pipo resolviendo un rompecabezas gigante de madera en el piso de un salón de clases soleado. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 2: Pixar style 3D render of Rex desenterrando un hueso de dinosaurio brillante con un pincel en un desierto caricaturesco. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 3: Pixar style 3D render of Nano mezclando dos líquidos de colores brillantes en matraces que sacan burbujas mágicas. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 4: Pixar style 3D render of Cosmos flotando en gravedad cero persiguiendo un pequeño cometa sonriente. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 5: Pixar style 3D render of Volt corriendo tan rápido que deja una estela de rayos amarillos en una pista de atletismo. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 6: Pixar style 3D render of Cali midiendo un ángulo en un pizarrón gigante con un transportador de madera enorme. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 7: Pixar style 3D render of Bruma meditando flotando a unos centímetros del suelo rodeada de hojas de otoño cayendo suavemente. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 8: Pixar style 3D render of Eli leyendo un libro mágico del cual salen letras brillantes que flotan en el aire. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 9: Pixar style 3D render of Luna mirando por un telescopio dorado hacia un cielo nocturno estrellado espectacular. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 10: Pixar style 3D render of Pages organizando una biblioteca donde los libros vuelan solos hacia los estantes. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 11: Pixar style 3D render of Nico y Cali construyendo una torre altísima con bloques de geometría de colores vivos. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 12: Pixar style 3D render of Nico y Rex mirando un mapa del tesoro antiguo extendido sobre una mesa de madera rústica. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 13: Pixar style 3D render of Nico y Nano mirando asombrados por el ocular de un microscopio metálico gigante. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 14: Pixar style 3D render of Pipo saltando alegremente sobre charcos de agua que reflejan un arcoíris. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 15: Pixar style 3D render of Todos los amigos celebrando una fiesta de graduación con confeti, globos y sombreros de graduados. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 16: Pixar style 3D render of Volt y Nano creando una máquina de energía estática que hace que se les ponga el pelo de punta. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 17: Pixar style 3D render of Eli y Pages sentados bajo un gran árbol de roble leyendo juntos rodeados de mariposas brillantes. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 18: Pixar style 3D render of Nico, Bruma y Pipo observando una oruga convertirse en mariposa en un jardín mágico. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 19: Pixar style 3D render of Cosmos y Luna dibujando constelaciones en el cielo nocturno con un pincel brillante. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 20: Pixar style 3D render of Rex y Cali calculando el tamaño de una pirámide egipcia usando reglas gigantes en el desierto. Highly detailed, vibrant colors, educational vibe, soft global illumination, 8k.
+
+Prompt 21: Pixar style 3D render of Rex and Eli together, estudiando matemáticas con números flotantes brillantes de colores. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 22: Pixar style 3D render of Nano and Rex together, observando el sistema solar en un planetario mágico. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 23: Pixar style 3D render of Rex and Nico together, aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 24: Pixar style 3D render of Pages and Volt together, haciendo un experimento de química con tubos de ensayo que explotan confeti. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 25: Pixar style 3D render of Eli and Pipo together, observando el sistema solar en un planetario mágico. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 26: Pixar style 3D render of Pages and Cosmos together, pintando un mural gigante con colores neón en una pared de ladrillo. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 27: Pixar style 3D render of Pipo and Cosmos together, explorando el cuerpo humano en una nave microscópica. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 28: Pixar style 3D render of Cosmos and Eli together, pintando un mural gigante con colores neón en una pared de ladrillo. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 29: Pixar style 3D render of Nico observando el sistema solar en un planetario mágico. Masterpiece, highly detailed, expressive cute face, educational bright lighting.
+
+Prompt 30: Pixar style 3D render of Rex and Bruma together, aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 31: Pixar style 3D render of Nico and Luna together, plantando una semilla mágica que crece instantáneamente. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 32: Pixar style 3D render of Pages resolviendo un misterio con lupas gigantes de detective. Masterpiece, highly detailed, expressive cute face, educational bright lighting.
+
+Prompt 33: Pixar style 3D render of Luna and Volt together, aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 34: Pixar style 3D render of Volt and Cali together, escribiendo un cuento en un pergamino con una pluma gigante. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 35: Pixar style 3D render of Cosmos and Volt together, estudiando matemáticas con números flotantes brillantes de colores. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 36: Pixar style 3D render of Cosmos and Pipo together, explorando el cuerpo humano en una nave microscópica. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 37: Pixar style 3D render of Rex and Cosmos together, plantando una semilla mágica que crece instantáneamente. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 38: Pixar style 3D render of Nano and Bruma together, explorando el cuerpo humano en una nave microscópica. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 39: Pixar style 3D render of Cosmos and Nano together, pintando un mural gigante con colores neón en una pared de ladrillo. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 40: Pixar style 3D render of Rex and Pages together, aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 41: Pixar style 3D render of Nico and Eli together, tocando instrumentos musicales que emiten notas brillantes de colores. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 42: Pixar style 3D render of Rex and Pipo together, aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 43: Pixar style 3D render of Nano and Volt together, resolviendo un misterio con lupas gigantes de detective. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 44: Pixar style 3D render of Luna and Nano together, tocando instrumentos musicales que emiten notas brillantes de colores. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 45: Pixar style 3D render of Luna and Pipo together, estudiando matemáticas con números flotantes brillantes de colores. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 46: Pixar style 3D render of Nano and Pipo together, aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 47: Pixar style 3D render of Pipo and Volt together, observando el sistema solar en un planetario mágico. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 48: Pixar style 3D render of Pages and Cosmos together, observando el sistema solar en un planetario mágico. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 49: Pixar style 3D render of Pages and Rex together, pintando un mural gigante con colores neón en una pared de ladrillo. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 50: Pixar style 3D render of Eli and Nano together, resolviendo un misterio con lupas gigantes de detective. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 51: Pixar style 3D render of Luna and Cosmos together, pintando un mural gigante con colores neón en una pared de ladrillo. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 52: Pixar style 3D render of Luna plantando una semilla mágica que crece instantáneamente. Masterpiece, highly detailed, expressive cute face, educational bright lighting.
+
+Prompt 53: Pixar style 3D render of Rex and Bruma together, observando el sistema solar en un planetario mágico. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 54: Pixar style 3D render of Bruma and Nano together, resolviendo un misterio con lupas gigantes de detective. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 55: Pixar style 3D render of Nico and Pages together, explorando el cuerpo humano en una nave microscópica. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 56: Pixar style 3D render of Eli and Pages together, resolviendo un misterio con lupas gigantes de detective. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 57: Pixar style 3D render of Bruma and Luna together, plantando una semilla mágica que crece instantáneamente. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 58: Pixar style 3D render of Pipo and Pages together, escribiendo un cuento en un pergamino con una pluma gigante. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 59: Pixar style 3D render of Nico and Rex together, plantando una semilla mágica que crece instantáneamente. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 60: Pixar style 3D render of Volt and Nico together, resolviendo un misterio con lupas gigantes de detective. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 61: Pixar style 3D render of Bruma and Volt together, pintando un mural gigante con colores neón en una pared de ladrillo. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 62: Pixar style 3D render of Volt and Pipo together, aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 63: Pixar style 3D render of Nano and Nico together, tocando instrumentos musicales que emiten notas brillantes de colores. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 64: Pixar style 3D render of Nano and Cali together, haciendo un experimento de química con tubos de ensayo que explotan confeti. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 65: Pixar style 3D render of Pages and Volt together, estudiando matemáticas con números flotantes brillantes de colores. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 66: Pixar style 3D render of Bruma and Cosmos together, explorando el cuerpo humano en una nave microscópica. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 67: Pixar style 3D render of Pages escribiendo un cuento en un pergamino con una pluma gigante. Masterpiece, highly detailed, expressive cute face, educational bright lighting.
+
+Prompt 68: Pixar style 3D render of Nano and Pages together, pintando un mural gigante con colores neón en una pared de ladrillo. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 69: Pixar style 3D render of Volt and Eli together, aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 70: Pixar style 3D render of Cali and Pipo together, resolviendo un misterio con lupas gigantes de detective. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 71: Pixar style 3D render of Pipo and Volt together, explorando el cuerpo humano en una nave microscópica. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 72: Pixar style 3D render of Cosmos and Pipo together, pintando un mural gigante con colores neón en una pared de ladrillo. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 73: Pixar style 3D render of Volt and Cosmos together, escribiendo un cuento en un pergamino con una pluma gigante. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 74: Pixar style 3D render of Pages and Nano together, plantando una semilla mágica que crece instantáneamente. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 75: Pixar style 3D render of Volt aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, expressive cute face, educational bright lighting.
+
+Prompt 76: Pixar style 3D render of Pipo and Cosmos together, haciendo un experimento de química con tubos de ensayo que explotan confeti. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 77: Pixar style 3D render of Nano and Volt together, haciendo un experimento de química con tubos de ensayo que explotan confeti. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 78: Pixar style 3D render of Cali and Luna together, explorando el cuerpo humano en una nave microscópica. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 79: Pixar style 3D render of Nano and Cosmos together, estudiando matemáticas con números flotantes brillantes de colores. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 80: Pixar style 3D render of Bruma and Cosmos together, plantando una semilla mágica que crece instantáneamente. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 81: Pixar style 3D render of Nico and Volt together, pintando un mural gigante con colores neón en una pared de ladrillo. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 82: Pixar style 3D render of Pages and Nano together, explorando el cuerpo humano en una nave microscópica. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 83: Pixar style 3D render of Nico and Bruma together, aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 84: Pixar style 3D render of Cosmos and Nano together, resolviendo un misterio con lupas gigantes de detective. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 85: Pixar style 3D render of Eli and Cosmos together, observando el sistema solar en un planetario mágico. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 86: Pixar style 3D render of Pages and Luna together, observando el sistema solar en un planetario mágico. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 87: Pixar style 3D render of Nano and Cali together, aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 88: Pixar style 3D render of Rex and Eli together, tocando instrumentos musicales que emiten notas brillantes de colores. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 89: Pixar style 3D render of Cosmos and Eli together, haciendo un experimento de química con tubos de ensayo que explotan confeti. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 90: Pixar style 3D render of Volt and Nano together, aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 91: Pixar style 3D render of Pipo pintando un mural gigante con colores neón en una pared de ladrillo. Masterpiece, highly detailed, expressive cute face, educational bright lighting.
+
+Prompt 92: Pixar style 3D render of Pipo and Rex together, escribiendo un cuento en un pergamino con una pluma gigante. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 93: Pixar style 3D render of Rex and Luna together, escribiendo un cuento en un pergamino con una pluma gigante. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 94: Pixar style 3D render of Bruma and Cosmos together, escribiendo un cuento en un pergamino con una pluma gigante. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 95: Pixar style 3D render of Eli and Nico together, observando el sistema solar en un planetario mágico. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 96: Pixar style 3D render of Nico and Cali together, observando el sistema solar en un planetario mágico. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 97: Pixar style 3D render of Luna and Volt together, aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 98: Pixar style 3D render of Pipo and Cosmos together, resolviendo un misterio con lupas gigantes de detective. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 99: Pixar style 3D render of Luna and Cosmos together, aprendiendo historia antigua frente a un templo maya de caricatura. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
+
+Prompt 100: Pixar style 3D render of Bruma and Eli together, tocando instrumentos musicales que emiten notas brillantes de colores. Masterpiece, highly detailed, teamwork, joyful educational atmosphere.
