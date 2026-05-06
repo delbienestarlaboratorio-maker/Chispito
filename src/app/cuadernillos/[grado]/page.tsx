@@ -1,6 +1,7 @@
 import CuadernilloPDF from "@/components/CuadernilloPDF";
 import type { CuadernilloData, Ejercicio, ContenidoPedagogico } from "@/components/CuadernilloPDF";
 import { GRADOS, MATERIAS } from "@/data/curriculum";
+import { findGradoSafe } from "@/lib/findGradoSafe";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -74,7 +75,7 @@ const COLORES_NIVEL: Record<string, string> = {
 };
 
 async function cargarCuadernillos(gradoId: string): Promise<CuadernilloData[]> {
-    const gradoData = GRADOS.find(g => g.slug === gradoId);
+    const gradoData = findGradoSafe(gradoId);
     if (!gradoData) return [];
 
     const gradoInfo = NOMBRES_GRADOS[gradoId];

@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { AdBannerHorizontal } from "@/components/AdBanner";
 import { GRADOS_CONTENIDO } from "@/data/content-index";
 import { GRADOS, MATERIAS, CARRERAS_UNIVERSITARIAS } from "@/data/curriculum";
+import { findGradoSafe } from "@/lib/findGradoSafe";
 // ENFERMERIA_MALLA se importa dinámicamente para no inflar el bundle del server
 import UniversitySubjectPage from "@/components/UniversitySubjectPage";
 
@@ -58,7 +59,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const gradoData = GRADOS_CONTENIDO[grado];
     const materiaData = gradoData?.materias[materia];
     if (!gradoData || !materiaData) return {};
-    const gradoInfo = GRADOS.find((g) => g.slug === grado);
+    const gradoInfo = findGradoSafe(grado);
     return {
         title: `${materiaData.nombre} ${gradoData.nombre} — Ejercicios SEP con guía para papás | Chispito.mx`,
         description: `Ejercicios interactivos de ${materiaData.nombre} para ${gradoData.nombre}, con guía paso a paso para que los papás expliquen en casa. Alineado al programa SEP 2025.`,
@@ -80,7 +81,7 @@ export default async function MateriaPage({ params }: Props) {
     }
 
     const gradoData = GRADOS_CONTENIDO[grado];
-    const gradoInfo = GRADOS.find((g) => g.slug === grado);
+    const gradoInfo = findGradoSafe(grado);
     const materiaInfo = MATERIAS[materia];
 
     // Datos desde GRADOS_CONTENIDO

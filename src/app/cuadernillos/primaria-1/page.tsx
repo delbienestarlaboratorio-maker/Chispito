@@ -1,12 +1,13 @@
 import CuadernilloPDF from "@/components/CuadernilloPDF";
 import type { CuadernilloData, Ejercicio, ContenidoPedagogico } from "@/components/CuadernilloPDF";
 import { GRADOS, MATERIAS } from "@/data/curriculum";
+import { findGradoSafe } from "@/lib/findGradoSafe";
 import Link from "next/link";
 
 export const dynamic = "force-static";
 
 async function cargarBloques(grado: string): Promise<CuadernilloData[]> {
-    const gradoInfo = GRADOS.find(g => g.slug === grado);
+    const gradoInfo = findGradoSafe(grado);
     if (!gradoInfo) return [];
 
     const cuadernillos: CuadernilloData[] = [];
@@ -81,7 +82,7 @@ export default async function CuadernillosPage() {
         porMateria[c.materia].push(c);
     });
 
-    const gradoInfo = GRADOS.find(g => g.slug === grado);
+    const gradoInfo = findGradoSafe(grado);
 
     return (
         <main className="min-h-screen" style={{ background: "#0D1B2A" }}>

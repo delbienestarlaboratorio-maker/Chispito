@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { GRADOS, MATERIAS } from "@/data/curriculum";
+import { findGradoSafe } from "@/lib/findGradoSafe";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -53,7 +54,7 @@ function getMesActual() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { grado } = await params;
-    const gradoInfo = GRADOS.find(g => g.slug === grado);
+    const gradoInfo = findGradoSafe(grado);
     if (!gradoInfo) return {};
     return {
         title: `Guía de estudio mensual — ${gradoInfo.nombre} | Chispito.mx`,
@@ -68,7 +69,7 @@ export async function generateStaticParams() {
 }
 export default async function GuiaMensualPage({ params }: Props) {
     const { grado } = await params;
-    const gradoInfo = GRADOS.find(g => g.slug === grado);
+    const gradoInfo = findGradoSafe(grado);
     if (!gradoInfo) notFound();
 
     const mesActual = getMesActual();

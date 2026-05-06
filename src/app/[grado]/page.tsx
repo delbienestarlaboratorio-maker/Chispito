@@ -1,4 +1,5 @@
 import { GRADOS, MATERIAS, BLOQUES, CARRERAS_UNIVERSITARIAS } from "@/data/curriculum";
+import { findGradoSafe } from "@/lib/findGradoSafe";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         };
     }
 
-    const grado = GRADOS.find((g) => g.slug === gradoSlug);
+    const grado = findGradoSafe(gradoSlug);
     if (!grado) return {};
     return {
         title: `Ejercicios ${grado.nombre} SEP México — Chispito.mx`,
@@ -59,7 +60,7 @@ export default async function GradoPage({ params }: Props) {
         return <UniversityPage carrera={carrera} mallaData={ENFERMERIA_MALLA} />;
     }
 
-    const grado = GRADOS.find((g) => g.slug === gradoSlug);
+    const grado = findGradoSafe(gradoSlug);
     if (!grado) notFound();
 
     const materiasGrado = grado.materias.map((id) => MATERIAS[id]).filter(Boolean);

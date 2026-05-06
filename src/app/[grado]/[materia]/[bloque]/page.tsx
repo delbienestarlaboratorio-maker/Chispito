@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { GRADOS, MATERIAS, CARRERAS_UNIVERSITARIAS } from "@/data/curriculum";
+import { findGradoSafe } from "@/lib/findGradoSafe";
 // ENFERMERIA_MALLA se importa dinámicamente para no inflar el bundle
 import UniversityExercisePlayer from "@/components/UniversityExercisePlayer";
 import UniversityFlowWrapper from "@/components/UniversityFlowWrapper";
@@ -84,7 +85,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     const datos = await cargarBloque(grado, materia, bloque);
-    const gradoInfo = GRADOS.find((g) => g.slug === grado);
+    const gradoInfo = findGradoSafe(grado);
     const materiaInfo = MATERIAS[materia];
     if (!datos || !gradoInfo || !materiaInfo) return {};
     return {
@@ -105,7 +106,7 @@ export default async function BloquePage({ params }: Props) {
         if (!materiaUni || !datos) notFound();
         return <UniversityFlowWrapper carrera={carrera} materia={materiaUni} bloqueId={bloque.replace('bloque-', '')} datos={datos} />;
     }
-    const gradoInfo = GRADOS.find((g) => g.slug === grado);
+    const gradoInfo = findGradoSafe(grado);
     const materiaInfo = MATERIAS[materia];
     if (!datos || !gradoInfo || !materiaInfo) notFound();
 
