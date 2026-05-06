@@ -225,6 +225,54 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      {/* EXTRAS — Chispito Plus, Enfermería, Lenguas */}
+      <section className="py-16 px-4">
+        <div className="max-w-5xl mx-auto">
+          <motion.h2
+            className="font-fredoka text-3xl md:text-4xl text-white mb-3 text-center"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            🌟 Más en Chispito
+          </motion.h2>
+          <p className="text-white/60 mb-10 text-center">
+            Módulos especiales que complementan tu aprendizaje
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Chispito Plus */}
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <Link href="/materias/chispito_plus" className="block group">
+                <div className="glass rounded-2xl p-6 text-center transition-all group-hover:scale-105 h-full" style={{ borderColor: "#F43F5E33" }}>
+                  <div className="text-5xl mb-3">🏙️</div>
+                  <h3 className="font-fredoka text-xl mb-1" style={{ color: "#F43F5E" }}>Chispito Plus</h3>
+                  <p className="text-white/60 text-sm">Habilidades de vida, educación financiera, inteligencia emocional y más.</p>
+                </div>
+              </Link>
+            </motion.div>
+            {/* Enfermería */}
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+              <Link href="/enfermeria" className="block group">
+                <div className="glass rounded-2xl p-6 text-center transition-all group-hover:scale-105 h-full" style={{ borderColor: "#0F766E33" }}>
+                  <div className="text-5xl mb-3">⚕️</div>
+                  <h3 className="font-fredoka text-xl mb-1" style={{ color: "#0F766E" }}>Enfermería</h3>
+                  <p className="text-white/60 text-sm">Simuladores clínicos, cálculo IV, herramientas PAE y escalas médicas.</p>
+                </div>
+              </Link>
+            </motion.div>
+            {/* Lenguas Indígenas */}
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+              <Link href="/materias/lenguas" className="block group">
+                <div className="glass rounded-2xl p-6 text-center transition-all group-hover:scale-105 h-full" style={{ borderColor: "#D9761533" }}>
+                  <div className="text-5xl mb-3">🪶</div>
+                  <h3 className="font-fredoka text-xl mb-1" style={{ color: "#D97615" }}>Lenguas Indígenas</h3>
+                  <p className="text-white/60 text-sm">Náhuatl, Maya, Zapoteco, Mixteco y 13 lenguas originarias más.</p>
+                </div>
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* FEATURES */}
       <section className="py-20 px-4">

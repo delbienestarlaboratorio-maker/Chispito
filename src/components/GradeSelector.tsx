@@ -12,6 +12,17 @@ const TELESECUNDARIA_GRADES = [
     { numero: 3, nombre: "3° Telesecundaria", nivel: "telesecundaria" as const, slug: "telesecundaria-3", emoji: "📺", color: "#0891B2", alumnos: 460000 },
 ];
 
+// Hardcoded bachillerato grades — esbuild truncates GRADOS array on client,
+// dropping bachillerato entries (same pattern as telesecundaria above).
+const BACHILLERATO_GRADES = [
+    { numero: 1, nombre: "1° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-1", emoji: "🔭", color: "#6366F1", alumnos: 2100000 },
+    { numero: 2, nombre: "2° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-2", emoji: "📊", color: "#8B5CF6", alumnos: 1980000 },
+    { numero: 3, nombre: "3° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-3", emoji: "🧪", color: "#A855F7", alumnos: 1850000 },
+    { numero: 4, nombre: "4° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-4", emoji: "💡", color: "#EC4899", alumnos: 1720000 },
+    { numero: 5, nombre: "5° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-5", emoji: "🌐", color: "#F59E0B", alumnos: 1600000 },
+    { numero: 6, nombre: "6° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-6", emoji: "🏆", color: "#EF4444", alumnos: 1500000 },
+];
+
 const PREPA_CARDS = [
     { id: "simulador-unam", titulo: "Simulador UNAM", subtitulo: "Examen 120 Reactivos", emoji: "🦅", color: "#EAB308", href: "https://prepa.chispito.mx/unam/simulador" },
     { id: "catalogo-ecoems", titulo: "Catálogo ECOEMS", subtitulo: "Prepas sin examen CDMX", emoji: "🏛️", color: "#3B82F6", href: "https://prepa.chispito.mx/ecoems/escuelas" },
@@ -62,7 +73,7 @@ export default function GradeSelector() {
                                 <div className="space-y-6">
                                     {/* Grados de Bachillerato 1-6 */}
                                     <div className="grid gap-4 grid-cols-3 md:grid-cols-6">
-                                        {IMPORTED_GRADOS.filter(g => g.nivel === "bachillerato").map((grado, i) => (
+                                        {BACHILLERATO_GRADES.map((grado, i) => (
                                             <motion.div
                                                 key={grado.slug}
                                                 initial={{ opacity: 0, y: 30 }}
