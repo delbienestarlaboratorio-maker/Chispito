@@ -59,8 +59,22 @@ export default async function MateriaPage({ params }: Props) {
     const materia = MATERIAS[materiaSlug];
     if (!materia) notFound();
 
-    // Filtrar grados que contienen esta materia
-    const gradosConMateria = GRADOS.filter((g) => g.materias.includes(materiaSlug));
+    // Filter grades that contain this materia.
+    // Some materias (chispito_plus, lenguas) are injected dynamically in content-index
+    // and don't appear in GRADOS[].materias. Check both sources.
+    let gradosConMateria = GRADOS.filter((g) => g.materias.includes(materiaSlug));
+    
+    // Fallback: find grades from content-index that have this materia injected
+    if (gradosConMateria.length === 0) {
+        for (const [slug, contenido] of Object.entries(GRADOS_CONTENIDO)) {
+            if (contenido.materias && contenido.materias[materiaSlug]) {
+                const gradoBase = GRADOS.find(g => g.slug === slug);
+                if (gradoBase && !gradosConMateria.find(g => g.slug === slug)) {
+                    gradosConMateria.push(gradoBase);
+                }
+            }
+        }
+    }
 
     if (gradosConMateria.length === 0) notFound();
 
