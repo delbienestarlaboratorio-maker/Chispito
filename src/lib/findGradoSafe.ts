@@ -18,10 +18,16 @@ const BACHILLERATO_FALLBACK: Record<string, typeof GRADOS[number]> = {
     "bachillerato-6": { numero: 6, nombre: "6° Bachillerato", nivel: "bachillerato", slug: "bachillerato-6", emoji: "🏆", color: "#EF4444", gradient: "from-red-500 to-rose-600", alumnos: 1500000, materias: ["matematicas", "espanol", "ciencias", "historia", "ingles", "filosofia"] },
 };
 
+const TELESECUNDARIA_FALLBACK: Record<string, typeof GRADOS[number]> = {
+    "telesecundaria-1": { numero: 1, nombre: "1° Telesecundaria", nivel: "telesecundaria", slug: "telesecundaria-1", emoji: "📺", color: "#0EA5E9", gradient: "from-sky-400 to-blue-500", alumnos: 500000, materias: ["matematicas", "espanol", "ciencias", "historia", "geografia", "civica", "artes", "ingles", "tecnologia"] },
+    "telesecundaria-2": { numero: 2, nombre: "2° Telesecundaria", nivel: "telesecundaria", slug: "telesecundaria-2", emoji: "📺", color: "#06B6D4", gradient: "from-cyan-400 to-blue-500", alumnos: 480000, materias: ["matematicas", "espanol", "ciencias", "historia", "civica", "artes", "ingles", "tecnologia", "fisica"] },
+    "telesecundaria-3": { numero: 3, nombre: "3° Telesecundaria", nivel: "telesecundaria", slug: "telesecundaria-3", emoji: "📺", color: "#0891B2", gradient: "from-cyan-500 to-blue-600", alumnos: 460000, materias: ["matematicas", "espanol", "ciencias", "historia", "civica", "artes", "ingles", "tecnologia", "quimica"] },
+};
+
 /**
  * Find a grade by slug with edge-safe fallback.
  * First tries GRADOS array, then falls back to hardcoded bachillerato data.
  */
 export function findGradoSafe(slug: string): typeof GRADOS[number] | undefined {
-    return GRADOS.find((g) => g.slug === slug) || BACHILLERATO_FALLBACK[slug];
+    return GRADOS.find((g) => g.slug === slug) || BACHILLERATO_FALLBACK[slug] || TELESECUNDARIA_FALLBACK[slug];
 }

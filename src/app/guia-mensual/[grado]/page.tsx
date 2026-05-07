@@ -39,7 +39,12 @@ async function cargarBloqueDatos(grado: string, materia: string, bloqueNum: numb
         return { nombre: data.nombre, meses: data.meses, temas: data.temas || [] };
     } catch {
         try {
-            const res = await fetch(`https://chispito.mx/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`, { next: { revalidate: 86400 } });
+            const { headers } = await import("next/headers");
+            const headersList = await headers();
+            const host = headersList.get("host") || "chispito.mx";
+            const protocol = host.includes("localhost") ? "http" : "https";
+            const url = `${protocol}://${host}/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`;
+            const res = await fetch(url, { next: { revalidate: 86400 } });
             if (!res.ok) return null;
             const data = await res.json();
             return { nombre: data.nombre, meses: data.meses, temas: data.temas || [] };
