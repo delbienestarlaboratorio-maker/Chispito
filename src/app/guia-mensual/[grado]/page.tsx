@@ -33,9 +33,19 @@ const MESES_CICLO = [
 import { headers } from "next/headers";
 
 async function cargarBloqueDatos(grado: string, materia: string, bloqueNum: number): Promise<BloqueData | null> {
-    const host = "57f6a070.chispito-mx.pages.dev";
-    const protocol = "https";
-    const url = `${protocol}://${host}/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`;
+    let url = `https://chispito.mx/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`;
+    try {
+        const headersList = await headers();
+        const host = headersList.get("host");
+        if (host) {
+            const protocol = host.includes("localhost") ? "http" : "https";
+            url = `${protocol}://${host}/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`;
+        }
+    } catch (error: any) {
+        if (error && (error.name === 'DynamicServerError' || error.message?.includes('DYNAMIC_SERVER_USAGE') || error.digest === 'DYNAMIC_SERVER_USAGE')) {
+            throw error;
+        }
+    }
 
     try {
         const { readFileSync } = await import("fs");

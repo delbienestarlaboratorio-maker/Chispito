@@ -83,8 +83,20 @@ async function cargarCuadernillos(gradoId: string): Promise<CuadernilloData[]> {
     const gradoInfo = NOMBRES_GRADOS[gradoId];
     const gradoNombre = gradoInfo?.nombre ?? gradoId;
 
-    const host = "57f6a070.chispito-mx.pages.dev";
-    const protocol = "https";
+    let host = "chispito.mx";
+    let protocol = "https";
+    try {
+        const headersList = await headers();
+        const headerHost = headersList.get("host");
+        if (headerHost) {
+            host = headerHost;
+            protocol = host.includes("localhost") ? "http" : "https";
+        }
+    } catch (error: any) {
+        if (error && (error.name === 'DynamicServerError' || error.message?.includes('DYNAMIC_SERVER_USAGE') || error.digest === 'DYNAMIC_SERVER_USAGE')) {
+            throw error;
+        }
+    }
 
     const cuadernillos: CuadernilloData[] = [];
 
