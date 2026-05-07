@@ -74,6 +74,8 @@ const COLORES_NIVEL: Record<string, string> = {
     "Bachillerato": "#EF4444",
 };
 
+import { headers } from "next/headers";
+
 async function cargarCuadernillos(gradoId: string): Promise<CuadernilloData[]> {
     const gradoData = findGradoSafe(gradoId);
     if (!gradoData) return [];
@@ -82,7 +84,6 @@ async function cargarCuadernillos(gradoId: string): Promise<CuadernilloData[]> {
     const gradoNombre = gradoInfo?.nombre ?? gradoId;
 
     // Determine dynamic host outside of try/catch so Next.js bailout errors aren't swallowed
-    const { headers } = await import("next/headers");
     const headersList = await headers();
     const host = headersList.get("host") || "chispito.mx";
     const protocol = host.includes("localhost") ? "http" : "https";

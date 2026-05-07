@@ -5,7 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const BASE = "https://4dbca78f.chispito-mx.pages.dev";
+const BASE = "https://57f6a070.chispito-mx.pages.dev";
 const TIMEOUT = 12000;
 
 // ═══════════════════════════════════════════════════════════════
@@ -159,9 +159,9 @@ async function testUrl(url) {
     }
 }
 
-// Run in batches of 10
+// Run in batches of 2 to avoid Cloudflare Workers 503 limits
 const results = { ok: [], fail: [], timeout: [] };
-const BATCH = 10;
+const BATCH = 2;
 
 for (let i = 0; i < uniqueRoutes.length; i += BATCH) {
     const batch = uniqueRoutes.slice(i, i + BATCH);
@@ -176,6 +176,8 @@ for (let i = 0; i < uniqueRoutes.length; i += BATCH) {
     });
     await Promise.all(promises);
     process.stdout.write(`  Tested ${Math.min(i + BATCH, uniqueRoutes.length)}/${uniqueRoutes.length}\r`);
+    // sleep to prevent 503s
+    await new Promise(r => setTimeout(r, 1000));
 }
 
 console.log(`\n\n══════════════════════════════════════`);

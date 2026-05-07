@@ -33,9 +33,10 @@ type BloqueData = {
     ejercicios: { v1: unknown[]; v2: unknown[]; preview: unknown[] };
 };
 
+import { headers } from "next/headers";
+
 async function cargarBloque(grado: string, materia: string, bloque: string): Promise<BloqueData | null> {
     // Determine dynamic host outside of try/catch so Next.js bailout errors aren't swallowed
-    const { headers } = await import("next/headers");
     const headersList = await headers();
     const host = headersList.get("host") || "chispito.mx";
     const protocol = host.includes("localhost") ? "http" : "https";
