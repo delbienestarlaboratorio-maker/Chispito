@@ -33,10 +33,8 @@ const MESES_CICLO = [
 import { headers } from "next/headers";
 
 async function cargarBloqueDatos(grado: string, materia: string, bloqueNum: number): Promise<BloqueData | null> {
-    // Determine dynamic host outside of try/catch so Next.js bailout errors aren't swallowed
-    const headersList = await headers();
-    const host = headersList.get("host") || "chispito.mx";
-    const protocol = host.includes("localhost") ? "http" : "https";
+    const host = "57f6a070.chispito-mx.pages.dev";
+    const protocol = "https";
     const url = `${protocol}://${host}/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`;
 
     try {

@@ -83,10 +83,8 @@ async function cargarCuadernillos(gradoId: string): Promise<CuadernilloData[]> {
     const gradoInfo = NOMBRES_GRADOS[gradoId];
     const gradoNombre = gradoInfo?.nombre ?? gradoId;
 
-    // Determine dynamic host outside of try/catch so Next.js bailout errors aren't swallowed
-    const headersList = await headers();
-    const host = headersList.get("host") || "chispito.mx";
-    const protocol = host.includes("localhost") ? "http" : "https";
+    const host = "57f6a070.chispito-mx.pages.dev";
+    const protocol = "https";
 
     const cuadernillos: CuadernilloData[] = [];
 

@@ -36,10 +36,8 @@ type BloqueData = {
 import { headers } from "next/headers";
 
 async function cargarBloque(grado: string, materia: string, bloque: string): Promise<BloqueData | null> {
-    // Determine dynamic host outside of try/catch so Next.js bailout errors aren't swallowed
-    const headersList = await headers();
-    const host = headersList.get("host") || "chispito.mx";
-    const protocol = host.includes("localhost") ? "http" : "https";
+    const host = "57f6a070.chispito-mx.pages.dev";
+    const protocol = "https";
     const url = `${protocol}://${host}/exercises/${grado}/${materia}/${bloque}.json`;
 
     // Strategy: fs.readFileSync at build time (avoids bundling 1090 JSONs),
