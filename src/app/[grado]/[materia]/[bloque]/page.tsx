@@ -36,31 +36,14 @@ type BloqueData = {
 import { headers } from "next/headers";
 
 async function cargarBloque(grado: string, materia: string, bloque: string): Promise<BloqueData | null> {
-    let url = `https://chispito.mx/exercises/${grado}/${materia}/${bloque}.json`;
-    try {
-        const headersList = await headers();
-        const host = headersList.get("host");
-        if (host) {
-            const protocol = host.includes("localhost") ? "http" : "https";
-            url = `${protocol}://${host}/exercises/${grado}/${materia}/${bloque}.json`;
-        }
-    } catch (error: any) {
-        // Must rethrow Next.js bailout errors (DYNAMIC_SERVER_USAGE)
-        if (error && (error.name === 'DynamicServerError' || error.message?.includes('DYNAMIC_SERVER_USAGE') || error.digest === 'DYNAMIC_SERVER_USAGE')) {
-            throw error;
-        }
-        // otherwise silently fallback to chispito.mx
-    }
+    const url = `http://localhost/exercises/${grado}/${materia}/${bloque}.json`;
 
-    // Strategy: fs.readFileSync at build time (avoids bundling 1090 JSONs),
-    // fetch from static assets at edge runtime (Cloudflare Workers)
     try {
         const { readFileSync } = await import("fs");
         const { join } = await import("path");
         const filePath = join(process.cwd(), "src", "data", "exercises", grado, materia, `${bloque}.json`);
         return JSON.parse(readFileSync(filePath, "utf-8")) as BloqueData;
     } catch {
-        // Fallback: fetch from static CDN assets (edge runtime)
         try {
             const res = await fetch(url, { next: { revalidate: 86400 } });
             if (!res.ok) return null;

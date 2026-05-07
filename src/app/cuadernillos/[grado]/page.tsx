@@ -83,21 +83,6 @@ async function cargarCuadernillos(gradoId: string): Promise<CuadernilloData[]> {
     const gradoInfo = NOMBRES_GRADOS[gradoId];
     const gradoNombre = gradoInfo?.nombre ?? gradoId;
 
-    let host = "chispito.mx";
-    let protocol = "https";
-    try {
-        const headersList = await headers();
-        const headerHost = headersList.get("host");
-        if (headerHost) {
-            host = headerHost;
-            protocol = host.includes("localhost") ? "http" : "https";
-        }
-    } catch (error: any) {
-        if (error && (error.name === 'DynamicServerError' || error.message?.includes('DYNAMIC_SERVER_USAGE') || error.digest === 'DYNAMIC_SERVER_USAGE')) {
-            throw error;
-        }
-    }
-
     const cuadernillos: CuadernilloData[] = [];
 
     await Promise.all(gradoData.materias.map(async (materia) => {
@@ -110,7 +95,7 @@ async function cargarCuadernillos(gradoId: string): Promise<CuadernilloData[]> {
                     const filePath = join(process.cwd(), "src", "data", "exercises", gradoId, materia, `bloque-${b}.json`);
                     raw = JSON.parse(readFileSync(filePath, "utf-8"));
                 } catch {
-                    const url = `${protocol}://${host}/exercises/${gradoId}/${materia}/bloque-${b}.json`;
+                    const url = `http://localhost/exercises/${gradoId}/${materia}/bloque-${b}.json`;
                     const res = await fetch(url, { next: { revalidate: 86400 } });
                     if (!res.ok) continue;
                     raw = await res.json();
