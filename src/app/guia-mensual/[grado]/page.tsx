@@ -31,6 +31,13 @@ const MESES_CICLO = [
 ];
 
 async function cargarBloqueDatos(grado: string, materia: string, bloqueNum: number): Promise<BloqueData | null> {
+    // Determine dynamic host outside of try/catch so Next.js bailout errors aren't swallowed
+    const { headers } = await import("next/headers");
+    const headersList = await headers();
+    const host = headersList.get("host") || "chispito.mx";
+    const protocol = host.includes("localhost") ? "http" : "https";
+    const url = `${protocol}://${host}/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`;
+
     try {
         const { readFileSync } = await import("fs");
         const { join } = await import("path");
@@ -39,11 +46,6 @@ async function cargarBloqueDatos(grado: string, materia: string, bloqueNum: numb
         return { nombre: data.nombre, meses: data.meses, temas: data.temas || [] };
     } catch {
         try {
-            const { headers } = await import("next/headers");
-            const headersList = await headers();
-            const host = headersList.get("host") || "chispito.mx";
-            const protocol = host.includes("localhost") ? "http" : "https";
-            const url = `${protocol}://${host}/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`;
             const res = await fetch(url, { next: { revalidate: 86400 } });
             if (!res.ok) return null;
             const data = await res.json();

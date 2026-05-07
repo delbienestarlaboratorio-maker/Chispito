@@ -34,6 +34,13 @@ type BloqueData = {
 };
 
 async function cargarBloque(grado: string, materia: string, bloque: string): Promise<BloqueData | null> {
+    // Determine dynamic host outside of try/catch so Next.js bailout errors aren't swallowed
+    const { headers } = await import("next/headers");
+    const headersList = await headers();
+    const host = headersList.get("host") || "chispito.mx";
+    const protocol = host.includes("localhost") ? "http" : "https";
+    const url = `${protocol}://${host}/exercises/${grado}/${materia}/${bloque}.json`;
+
     // Strategy: fs.readFileSync at build time (avoids bundling 1090 JSONs),
     // fetch from static assets at edge runtime (Cloudflare Workers)
     try {
@@ -44,11 +51,6 @@ async function cargarBloque(grado: string, materia: string, bloque: string): Pro
     } catch {
         // Fallback: fetch from static CDN assets (edge runtime)
         try {
-            const { headers } = await import("next/headers");
-            const headersList = await headers();
-            const host = headersList.get("host") || "chispito.mx";
-            const protocol = host.includes("localhost") ? "http" : "https";
-            const url = `${protocol}://${host}/exercises/${grado}/${materia}/${bloque}.json`;
             const res = await fetch(url, { next: { revalidate: 86400 } });
             if (!res.ok) return null;
             return (await res.json()) as BloqueData;

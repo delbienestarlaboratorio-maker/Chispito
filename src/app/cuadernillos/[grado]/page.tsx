@@ -81,6 +81,12 @@ async function cargarCuadernillos(gradoId: string): Promise<CuadernilloData[]> {
     const gradoInfo = NOMBRES_GRADOS[gradoId];
     const gradoNombre = gradoInfo?.nombre ?? gradoId;
 
+    // Determine dynamic host outside of try/catch so Next.js bailout errors aren't swallowed
+    const { headers } = await import("next/headers");
+    const headersList = await headers();
+    const host = headersList.get("host") || "chispito.mx";
+    const protocol = host.includes("localhost") ? "http" : "https";
+
     const cuadernillos: CuadernilloData[] = [];
 
     await Promise.all(gradoData.materias.map(async (materia) => {
@@ -93,10 +99,6 @@ async function cargarCuadernillos(gradoId: string): Promise<CuadernilloData[]> {
                     const filePath = join(process.cwd(), "src", "data", "exercises", gradoId, materia, `bloque-${b}.json`);
                     raw = JSON.parse(readFileSync(filePath, "utf-8"));
                 } catch {
-                    const { headers } = await import("next/headers");
-                    const headersList = await headers();
-                    const host = headersList.get("host") || "chispito.mx";
-                    const protocol = host.includes("localhost") ? "http" : "https";
                     const url = `${protocol}://${host}/exercises/${gradoId}/${materia}/bloque-${b}.json`;
                     const res = await fetch(url, { next: { revalidate: 86400 } });
                     if (!res.ok) continue;
