@@ -17,7 +17,7 @@ export default function PrivacidadPage() {
                     <div className="text-center mb-12">
                         <div className="text-5xl mb-4">🔏</div>
                         <h1 className="text-4xl font-black text-white mb-3">Aviso de Privacidad</h1>
-                        <p className="text-white/50">Última actualización: 1 de enero de 2025</p>
+                        <p className="text-white/50">Última actualización: 1 de mayo de 2026</p>
                         <p className="text-white/40 text-sm mt-1">De conformidad con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</p>
                     </div>
 

@@ -17,7 +17,7 @@ export default function TerminosPage() {
                     <div className="text-center mb-12">
                         <div className="text-5xl mb-4">📋</div>
                         <h1 className="text-4xl font-black text-white mb-3">Términos y Condiciones</h1>
-                        <p className="text-white/50">Última actualización: 1 de enero de 2025</p>
+                        <p className="text-white/50">Última actualización: 1 de mayo de 2026</p>
                     </div>
 
                     <div className="space-y-8 text-white/80 leading-relaxed">

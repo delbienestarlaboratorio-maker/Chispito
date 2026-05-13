@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import CookieBanner from "@/components/CookieBanner";
-import Script from "next/script";
+import ConsentScripts from "@/components/ConsentScripts";
 
 export const metadata: Metadata = {
   title: {
@@ -51,13 +51,6 @@ export default function RootLayout({
     <html lang="es-MX">
       <head>
         <meta httpEquiv="Content-Security-Policy" content="frame-ancestors 'self';" />
-        {/* Google AdSense */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6867283748828267"
-          crossOrigin="anonymous"
-          suppressHydrationWarning
-        />
         {/* Schema markup: EducationalOrganization */}
         <script
           type="application/ld+json"
@@ -76,26 +69,21 @@ export default function RootLayout({
             }),
           }}
         />
-        {/* Google Analytics GA4 */}
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-MD0BLYHES8" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-MD0BLYHES8');
-          `}
-        </Script>
       </head>
       <body className="antialiased">
         {children}
+        {/* Consent-gated: AdSense + GA4 only load after user accepts all cookies */}
+        <ConsentScripts />
         <CookieBanner />
-        {/* Footer legal mini */}
+        {/* Footer legal */}
         <div style={{ background: "#060E18", borderTop: "1px solid rgba(255,255,255,0.06)" }} className="text-center py-4 px-4">
           <p style={{ color: "rgba(255,255,255,0.25)", fontSize: "11px" }}>
             © 2026 Chispito.mx · Contenido alineado al programa SEP México ·{" "}
-            <a href="/terminos" style={{ color: "rgba(255,255,255,0.4)", textDecoration: "underline" }}>Términos</a>{" ·"}{" "}
-            <a href="/privacidad" style={{ color: "rgba(255,255,255,0.4)", textDecoration: "underline" }}>Privacidad</a>
+            <a href="/nosotros" style={{ color: "rgba(255,255,255,0.4)", textDecoration: "underline" }}>Nosotros</a>{" · "}
+            <a href="/contacto" style={{ color: "rgba(255,255,255,0.4)", textDecoration: "underline" }}>Contacto</a>{" · "}
+            <a href="/terminos" style={{ color: "rgba(255,255,255,0.4)", textDecoration: "underline" }}>Términos</a>{" · "}
+            <a href="/privacidad" style={{ color: "rgba(255,255,255,0.4)", textDecoration: "underline" }}>Privacidad</a>{" · "}
+            <a href="/cookies" style={{ color: "rgba(255,255,255,0.4)", textDecoration: "underline" }}>Cookies</a>
           </p>
         </div>
       </body>
