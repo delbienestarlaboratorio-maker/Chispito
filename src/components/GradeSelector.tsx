@@ -111,9 +111,9 @@ export default function GradeSelector() {
                                                 viewport={{ once: true }}
                                                 transition={{ delay: i * 0.07 }}
                                             >
-                                                <Link href={`/${grado.slug}`}>
+                                                <a href={`/${grado.slug}`}>
                                                     <div
-                                                        className="grade-card p-5 text-center select-none"
+                                                        className="grade-card p-5 text-center select-none transition-all group-hover:scale-105"
                                                         style={{
                                                             background: `linear-gradient(135deg, ${grado.color}22, ${grado.color}11)`,
                                                         }}
@@ -130,7 +130,7 @@ export default function GradeSelector() {
                                                             {(grado.alumnos / 1000000).toFixed(1)}M alumnos
                                                         </div>
                                                     </div>
-                                                </Link>
+                                                </a>
                                             </motion.div>
                                         ))}
                                     </div>
@@ -183,9 +183,9 @@ export default function GradeSelector() {
                                             viewport={{ once: true }}
                                             transition={{ delay: i * 0.07 }}
                                         >
-                                            <Link href={`/${grado.slug}`}>
+                                            <a href={`/${grado.slug}`}>
                                                 <div
-                                                    className="grade-card p-5 text-center select-none"
+                                                    className="grade-card p-5 text-center select-none transition-all group-hover:scale-105"
                                                     style={{
                                                         background: `linear-gradient(135deg, ${grado.color}22, ${grado.color}11)`,
                                                     }}
@@ -204,7 +204,7 @@ export default function GradeSelector() {
                                                         {(grado.alumnos / 1000000).toFixed(1)}M alumnos
                                                     </div>
                                                 </div>
-                                            </Link>
+                                            </a>
                                         </motion.div>
                                     ))}
                                 </div>
@@ -221,9 +221,9 @@ export default function GradeSelector() {
                                             viewport={{ once: true }}
                                             transition={{ delay: i * 0.07 }}
                                         >
-                                            <Link href={`/${grado.slug}`}>
+                                            <a href={`/${grado.slug}`}>
                                                 <div
-                                                    className="grade-card p-5 text-center select-none"
+                                                    className="grade-card p-5 text-center select-none transition-all group-hover:scale-105"
                                                     style={{
                                                         background: `linear-gradient(135deg, ${grado.color}22, ${grado.color}11)`,
                                                     }}
@@ -242,7 +242,7 @@ export default function GradeSelector() {
                                                         {(grado.alumnos / 1000000).toFixed(1)}M alumnos
                                                     </div>
                                                 </div>
-                                            </Link>
+                                            </a>
                                         </motion.div>
                                     ))}
                                 </div>
