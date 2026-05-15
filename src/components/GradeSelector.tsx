@@ -1,25 +1,47 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { GRADOS as IMPORTED_GRADOS } from "@/data/curriculum";
 
-// Hardcoded telesecundaria grades — the Edge Runtime esbuild bundler truncates
-// the GRADOS array from curriculum.ts, dropping telesecundaria entries.
-// By defining them inline, we bypass the bundler truncation.
+/**
+ * ALL grades are hardcoded here to bypass the Esbuild edge/client bundler
+ * truncation of large arrays from curriculum.ts.
+ * 
+ * CRITICAL: If you add a new grade to curriculum.ts, add it here too.
+ */
+
+const PREESCOLAR_GRADES = [
+    { numero: 1, nombre: "1° Preescolar", nivel: "preescolar" as const, slug: "preescolar-1", emoji: "🌱", color: "#22C55E", alumnos: 1096000 },
+    { numero: 2, nombre: "2° Preescolar", nivel: "preescolar" as const, slug: "preescolar-2", emoji: "🌸", color: "#EC4899", alumnos: 1350000 },
+    { numero: 3, nombre: "3° Preescolar", nivel: "preescolar" as const, slug: "preescolar-3", emoji: "🌈", color: "#A855F7", alumnos: 1550000 },
+];
+
+const PRIMARIA_GRADES = [
+    { numero: 1, nombre: "1° Primaria", nivel: "primaria" as const, slug: "primaria-1", emoji: "🚀", color: "#3B82F6", alumnos: 2140000 },
+    { numero: 2, nombre: "2° Primaria", nivel: "primaria" as const, slug: "primaria-2", emoji: "🌟", color: "#22C55E", alumnos: 2138000 },
+    { numero: 3, nombre: "3° Primaria", nivel: "primaria" as const, slug: "primaria-3", emoji: "🪐", color: "#8B5CF6", alumnos: 2130000 },
+    { numero: 4, nombre: "4° Primaria", nivel: "primaria" as const, slug: "primaria-4", emoji: "🧮", color: "#F97316", alumnos: 2120000 },
+    { numero: 5, nombre: "5° Primaria", nivel: "primaria" as const, slug: "primaria-5", emoji: "🔬", color: "#14B8A6", alumnos: 2110000 },
+    { numero: 6, nombre: "6° Primaria", nivel: "primaria" as const, slug: "primaria-6", emoji: "🌍", color: "#F43F5E", alumnos: 2100000 },
+];
+
+const SECUNDARIA_GRADES = [
+    { numero: 1, nombre: "1° Secundaria", nivel: "secundaria" as const, slug: "secundaria-1", emoji: "⚗️", color: "#6366F1", alumnos: 2200000 },
+    { numero: 2, nombre: "2° Secundaria", nivel: "secundaria" as const, slug: "secundaria-2", emoji: "📡", color: "#EAB308", alumnos: 2100000 },
+    { numero: 3, nombre: "3° Secundaria", nivel: "secundaria" as const, slug: "secundaria-3", emoji: "🎓", color: "#EC4899", alumnos: 1993000 },
+];
+
 const TELESECUNDARIA_GRADES = [
     { numero: 1, nombre: "1° Telesecundaria", nivel: "telesecundaria" as const, slug: "telesecundaria-1", emoji: "📺", color: "#0EA5E9", alumnos: 500000 },
     { numero: 2, nombre: "2° Telesecundaria", nivel: "telesecundaria" as const, slug: "telesecundaria-2", emoji: "📺", color: "#06B6D4", alumnos: 480000 },
     { numero: 3, nombre: "3° Telesecundaria", nivel: "telesecundaria" as const, slug: "telesecundaria-3", emoji: "📺", color: "#0891B2", alumnos: 460000 },
 ];
 
-// Hardcoded bachillerato grades — esbuild truncates GRADOS array on client,
-// dropping bachillerato entries (same pattern as telesecundaria above).
 const BACHILLERATO_GRADES = [
-    { numero: 1, nombre: "1° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-1", emoji: "🔭", color: "#6366F1", alumnos: 2100000 },
-    { numero: 2, nombre: "2° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-2", emoji: "📊", color: "#8B5CF6", alumnos: 1980000 },
-    { numero: 3, nombre: "3° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-3", emoji: "🧪", color: "#A855F7", alumnos: 1850000 },
-    { numero: 4, nombre: "4° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-4", emoji: "💡", color: "#EC4899", alumnos: 1720000 },
-    { numero: 5, nombre: "5° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-5", emoji: "🌐", color: "#F59E0B", alumnos: 1600000 },
+    { numero: 1, nombre: "1° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-1", emoji: "📐", color: "#6366F1", alumnos: 2100000 },
+    { numero: 2, nombre: "2° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-2", emoji: "⚗️", color: "#8B5CF6", alumnos: 1980000 },
+    { numero: 3, nombre: "3° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-3", emoji: "🧬", color: "#A855F7", alumnos: 1850000 },
+    { numero: 4, nombre: "4° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-4", emoji: "🔭", color: "#EC4899", alumnos: 1720000 },
+    { numero: 5, nombre: "5° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-5", emoji: "💡", color: "#F59E0B", alumnos: 1600000 },
     { numero: 6, nombre: "6° Bachillerato", nivel: "bachillerato" as const, slug: "bachillerato-6", emoji: "🏆", color: "#EF4444", alumnos: 1500000 },
 ];
 
@@ -29,7 +51,14 @@ const PREPA_CARDS = [
     { id: "blog-prepa", titulo: "Guías de Estudio", subtitulo: "Blog CCH, IPN, ENP", emoji: "📚", color: "#10B981", href: "https://prepa.chispito.mx/blog" },
 ];
 
-const GRADOS = [...IMPORTED_GRADOS.filter(g => g.nivel !== "telesecundaria" && g.nivel !== "bachillerato")];
+// Map each nivel to its hardcoded grades array
+const GRADES_BY_NIVEL: Record<string, typeof PREESCOLAR_GRADES> = {
+    preescolar: PREESCOLAR_GRADES,
+    primaria: PRIMARIA_GRADES,
+    secundaria: SECUNDARIA_GRADES,
+    telesecundaria: TELESECUNDARIA_GRADES,
+    bachillerato: BACHILLERATO_GRADES,
+};
 
 const NIVELES = ["preescolar", "primaria", "secundaria", "telesecundaria", "bachillerato"] as const;
 const NIVEL_LABELS: Record<string, string> = {
@@ -62,6 +91,7 @@ export default function GradeSelector() {
 
                 {/* Grupos por nivel */}
                 {NIVELES.map((nivel) => {
+                    const gradosNivel = GRADES_BY_NIVEL[nivel] || [];
                     return (
                         <div key={nivel} className="mb-12">
                             <h3 className="font-fredoka text-2xl text-white/70 mb-5 px-2">
@@ -180,10 +210,10 @@ export default function GradeSelector() {
                                 </div>
                             )}
 
-                            {/* PREESCOLAR, PRIMARIA, SECUNDARIA (CHISPITO.MX) */}
+                            {/* PREESCOLAR, PRIMARIA, SECUNDARIA — all hardcoded */}
                             {nivel !== "bachillerato" && nivel !== "telesecundaria" && (
                                 <div className={`grid gap-4 ${nivel === "secundaria" ? "grid-cols-3 md:grid-cols-3" : "grid-cols-3 md:grid-cols-6"}`}>
-                                    {GRADOS.filter(g => g.nivel === nivel && g.slug !== "kinder").map((grado, i) => (
+                                    {gradosNivel.map((grado, i) => (
                                         <motion.div
                                             key={grado.slug}
                                             initial={{ opacity: 0, y: 30 }}
@@ -225,4 +255,3 @@ export default function GradeSelector() {
         </section>
     );
 }
-
