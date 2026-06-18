@@ -2,14 +2,3 @@ name = "chispito-sitemap"
 main = "sitemap-worker.js"
 compatibility_date = "2024-01-01"
 
-[[routes]]
-pattern = "chispito.mx/sitemap.xml"
-zone_name = "chispito.mx"
-
-[[routes]]
-pattern = "chispito.mx/ads.txt"
-zone_name = "chispito.mx"
-
-[[routes]]
-pattern = "chispito.mx/robots.txt"
-zone_name = "chispito.mx"
