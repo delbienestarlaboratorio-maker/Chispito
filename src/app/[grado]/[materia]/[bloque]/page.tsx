@@ -38,18 +38,16 @@ import { headers } from "next/headers";
 export const dynamic = "force-dynamic";
 
 async function cargarBloque(grado: string, materia: string, bloque: string): Promise<BloqueData | null> {
-    const url = `https://chispito-core.pages.dev/exercises/${grado}/${materia}/${bloque}.json`;
+    const url = `https://cdn.jsdelivr.net/gh/delbienestarlaboratorio-maker/Chispito@main/src/data/exercises/${grado}/${materia}/${bloque}.json`;
 
     try {
         const res = await fetch(url, { cache: "no-store" });
         if (!res.ok) return null;
         return (await res.json()) as BloqueData;
     } catch {
-            return null;
-        }
+        return null;
     }
 }
-
 
 // Pre-render ALL grades (including telesecundaria) so the Edge worker doesn't need to SSR them
 const GRADOS_PRE_RENDER = [

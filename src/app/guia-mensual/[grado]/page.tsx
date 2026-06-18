@@ -35,7 +35,7 @@ import { headers } from "next/headers";
 export const dynamic = "force-dynamic";
 
 async function cargarBloqueDatos(grado: string, materia: string, bloqueNum: number): Promise<BloqueData | null> {
-    const url = `https://chispito-core.pages.dev/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`;
+    const url = `https://cdn.jsdelivr.net/gh/delbienestarlaboratorio-maker/Chispito@main/src/data/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`;
 
     try {
         const { readFileSync } = await import("fs");
