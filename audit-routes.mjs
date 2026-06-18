@@ -5,7 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const BASE = "https://834269ff.chispito-mx.pages.dev";
+const BASE = "https://0fe35ede.chispito-mx.pages.dev";
 const TIMEOUT = 12000;
 
 // ═══════════════════════════════════════════════════════════════

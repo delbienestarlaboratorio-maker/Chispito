@@ -99,6 +99,7 @@ jobs:
               "/icon.svg",
               "/robots.txt",
               "/ads.txt",
+              "/sitemap.xml",
               "/personajes/*",
               "/img/*",
               "/exercises/*"

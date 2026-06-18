@@ -1,6 +1,13 @@
 const fs = require('fs');
 const https = require('https');
-const urls = fs.readFileSync('../urls_indexar.txt', 'utf8').split('\n').map(l => l.trim()).filter(Boolean);
+
+const fetchSitemap = () => new Promise((resolve, reject) => {
+    https.get('https://chispito.mx/sitemap.xml', (res) => {
+        let data = '';
+        res.on('data', chunk => data += chunk);
+        res.on('end', () => resolve(data));
+    }).on('error', reject);
+});
 
 const checkUrl = (url) => new Promise((resolve) => {
     try {
@@ -22,12 +29,21 @@ const checkUrl = (url) => new Promise((resolve) => {
 });
 
 async function main() {
-    console.log("Verificando " + urls.length + " URLs publicadas en Chispito.mx...");
+    console.log("Descargando sitemap.xml en vivo...");
+    const xml = await fetchSitemap();
+    const regex = /<loc>(.*?)<\/loc>/g;
+    let match;
+    const urls = [];
+    while ((match = regex.exec(xml)) !== null) {
+        urls.push(match[1]);
+    }
+    
+    console.log(`Verificando ${urls.length} URLs encontradas en el sitemap de Chispito.mx...`);
     let errors = [];
     let count = 0;
     
-    for (let i = 0; i < urls.length; i += 20) {
-        const batch = urls.slice(i, i + 20);
+    for (let i = 0; i < urls.length; i += 30) {
+        const batch = urls.slice(i, i + 30);
         const results = await Promise.all(batch.map(checkUrl));
         for (const res of results) {
             if (res.status === 404) {
@@ -35,7 +51,7 @@ async function main() {
             }
         }
         count += batch.length;
-        if (count % 100 === 0) console.log("Revisados " + count);
+        if (count % 100 === 0 || count === urls.length) console.log("Revisados " + count + " / " + urls.length);
     }
     
     console.log("\n--- ENLACES CON ERROR 404 ---");
@@ -44,7 +60,7 @@ async function main() {
         fs.writeFileSync('404_errors_chispito.txt', errors.join('\n'));
         console.log("\nSe guardaron " + errors.length + " errores 404 en 404_errors_chispito.txt");
     } else {
-        console.log("¡Ningún enlace arrojó 404!");
+        console.log("¡Ningún enlace arrojó 404! Todo el Sitemap está 100% perfecto.");
     }
 }
 main();
