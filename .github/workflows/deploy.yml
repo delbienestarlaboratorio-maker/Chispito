@@ -50,6 +50,8 @@ jobs:
           cp -r public/* .open-next/assets/ || true
           # Copy exercises as static JSON for edge runtime fetch fallback
           cp -r src/data/exercises .open-next/assets/exercises
+          # CRITICAL PATCH: Copy SSG files to prevent OpenNext from falling back to SSR
+          cp -rn .next/server/app/* .open-next/assets/ || true
           cat << 'EOF' > .open-next/assets/.cfignore
           cloudflare
           middleware
