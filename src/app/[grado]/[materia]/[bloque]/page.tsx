@@ -35,21 +35,16 @@ type BloqueData = {
 
 import { headers } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 async function cargarBloque(grado: string, materia: string, bloque: string): Promise<BloqueData | null> {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://chispito.mx";
-    const url = `${siteUrl}/exercises/${grado}/${materia}/${bloque}.json`;
+    const url = `https://chispito-core.pages.dev/exercises/${grado}/${materia}/${bloque}.json`;
 
     try {
-        const { readFileSync } = await import("fs");
-        const { join } = await import("path");
-        const filePath = join(process.cwd(), "src", "data", "exercises", grado, materia, `${bloque}.json`);
-        return JSON.parse(readFileSync(filePath, "utf-8")) as BloqueData;
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) return null;
+        return (await res.json()) as BloqueData;
     } catch {
-        try {
-            const res = await fetch(url, { next: { revalidate: 86400 } });
-            if (!res.ok) return null;
-            return (await res.json()) as BloqueData;
-        } catch {
             return null;
         }
     }

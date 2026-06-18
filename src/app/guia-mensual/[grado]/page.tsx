@@ -32,8 +32,10 @@ const MESES_CICLO = [
 
 import { headers } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 async function cargarBloqueDatos(grado: string, materia: string, bloqueNum: number): Promise<BloqueData | null> {
-    const url = `https://raw.githubusercontent.com/delbienestarlaboratorio-maker/Chispito/main/src/data/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`;
+    const url = `https://chispito-core.pages.dev/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`;
 
     try {
         const { readFileSync } = await import("fs");
@@ -43,7 +45,7 @@ async function cargarBloqueDatos(grado: string, materia: string, bloqueNum: numb
         return { nombre: data.nombre, meses: data.meses, temas: data.temas || [] };
     } catch {
         try {
-            const res = await fetch(url, { next: { revalidate: 86400 } });
+            const res = await fetch(url, { cache: "no-store" });
             if (!res.ok) return null;
             const data = await res.json();
             return { nombre: data.nombre, meses: data.meses, temas: data.temas || [] };
