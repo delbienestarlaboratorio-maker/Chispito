@@ -104,7 +104,17 @@ jobs:
               "/sitemap.xml",
               "/personajes/*",
               "/img/*",
-              "/exercises/*"
+              "/exercises/*",
+              "/preescolar-*",
+              "/primaria-*",
+              "/secundaria-*",
+              "/telesecundaria-*",
+              "/bachillerato-*",
+              "/kinder",
+              "/materias/*",
+              "/cuadernillos/*",
+              "/guia-mensual/*",
+              "/blog/*"
             ]
           }
           EOF
