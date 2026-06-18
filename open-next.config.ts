@@ -7,6 +7,6 @@ import kvIncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cac
 import kvTagCache from "@opennextjs/cloudflare/overrides/tag-cache/kv-next-tag-cache";
 
 export default defineCloudflareConfig({
-    incrementalCache: kvIncrementalCache,
+    // incrementalCache: kvIncrementalCache, // Disabled to use default ASSETS cache
     tagCache: kvTagCache,
 });
