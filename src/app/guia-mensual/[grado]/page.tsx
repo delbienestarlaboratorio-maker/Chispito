@@ -33,7 +33,7 @@ const MESES_CICLO = [
 import { headers } from "next/headers";
 
 async function cargarBloqueDatos(grado: string, materia: string, bloqueNum: number): Promise<BloqueData | null> {
-    const url = `http://localhost/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`;
+    const url = `https://raw.githubusercontent.com/delbienestarlaboratorio-maker/Chispito/main/src/data/exercises/${grado}/${materia}/bloque-${bloqueNum}.json`;
 
     try {
         const { readFileSync } = await import("fs");

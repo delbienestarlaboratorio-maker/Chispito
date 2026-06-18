@@ -95,7 +95,7 @@ async function cargarCuadernillos(gradoId: string): Promise<CuadernilloData[]> {
                     const filePath = join(process.cwd(), "src", "data", "exercises", gradoId, materia, `bloque-${b}.json`);
                     raw = JSON.parse(readFileSync(filePath, "utf-8"));
                 } catch {
-                    const url = `http://localhost/exercises/${gradoId}/${materia}/bloque-${b}.json`;
+                    const url = `https://raw.githubusercontent.com/delbienestarlaboratorio-maker/Chispito/main/src/data/exercises/${gradoId}/${materia}/bloque-${b}.json`;
                     const res = await fetch(url, { next: { revalidate: 86400 } });
                     if (!res.ok) continue;
                     raw = await res.json();
