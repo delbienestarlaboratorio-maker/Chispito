@@ -36,7 +36,8 @@ type BloqueData = {
 import { headers } from "next/headers";
 
 async function cargarBloque(grado: string, materia: string, bloque: string): Promise<BloqueData | null> {
-    const url = `http://localhost/exercises/${grado}/${materia}/${bloque}.json`;
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://chispito.mx";
+    const url = `${siteUrl}/exercises/${grado}/${materia}/${bloque}.json`;
 
     try {
         const { readFileSync } = await import("fs");
