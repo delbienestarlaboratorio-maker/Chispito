@@ -15,7 +15,8 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-    const gradosParams = GRADOS.map((g) => ({ grado: g.slug }));
+    const { ALL_GRADES_SLUGS } = await import("@/lib/findGradoSafe");
+    const gradosParams = ALL_GRADES_SLUGS.map((slug) => ({ grado: slug }));
     const carrerasParams = CARRERAS_UNIVERSITARIAS.map((c) => ({ grado: c.slug }));
     return [...gradosParams, ...carrerasParams];
 }

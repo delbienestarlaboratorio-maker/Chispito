@@ -13,18 +13,14 @@ interface Props {
     params: Promise<{ grado: string; materia: string }>;
 }
 
-// Pre-render ALL grades (including telesecundaria) so the Edge worker doesn't need to SSR them
-const GRADOS_PRE_RENDER = [
-    "kinder", "preescolar-1", "preescolar-2", "preescolar-3",
-    "primaria-1", "primaria-2", "primaria-3", "primaria-4", "primaria-5", "primaria-6",
-    "secundaria-1", "secundaria-2", "secundaria-3"
-];
+// Pre-render ALL grades (including telesecundaria and bachillerato) so the Edge worker doesn't need to SSR them
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
+    const { ALL_GRADES_SLUGS } = await import("@/lib/findGradoSafe");
     const params: { grado: string; materia: string }[] = [];
     for (const grado of Object.keys(GRADOS_CONTENIDO)) {
-        if (!GRADOS_PRE_RENDER.includes(grado)) continue;
+        if (!ALL_GRADES_SLUGS.includes(grado)) continue;
         for (const materia of Object.keys(GRADOS_CONTENIDO[grado].materias)) {
             params.push({ grado, materia });
         }

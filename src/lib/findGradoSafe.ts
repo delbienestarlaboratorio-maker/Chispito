@@ -50,3 +50,5 @@ const ALL_GRADES_FALLBACK: Record<string, typeof GRADOS[number]> = {
 export function findGradoSafe(slug: string): typeof GRADOS[number] | undefined {
     return GRADOS.find((g) => g.slug === slug) || ALL_GRADES_FALLBACK[slug];
 }
+
+export const ALL_GRADES_SLUGS = Object.keys(ALL_GRADES_FALLBACK);
